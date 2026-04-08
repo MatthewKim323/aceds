@@ -16,7 +16,6 @@ build/
 *.swp
 *.swo
 *~
-.DS_Store
 Thumbs.db
 
 # Vite
@@ -44,7 +43,10 @@ uploads/
 
 # Video assets (large files, not used in production)
 video/
-public/ocean.mp4
+frontend/public/ocean.mp4
+
+# Vite cache
+.vite/
 
 # Cursor
 .cursor/
