@@ -39,10 +39,8 @@ pnpm-debug.log*
 .Trashes
 ehthumbs.db
 
-# PDF uploads (never commit user documents)
-major_sheets/*.pdf
+# User-uploaded PDFs (private documents, never commit)
 uploads/
-*.pdf
 
 # Video assets (large files, not used in production)
 video/
