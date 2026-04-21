@@ -1,0 +1,110 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: backend (lint + types + tests)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.4.20"
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies (runtime + dev)
+        run: |
+          uv pip install --system -e ".[dev]"
+
+      - name: Ruff
+        run: ruff check app tests
+
+      - name: Mypy
+        run: mypy app
+
+      - name: Pytest
+        env:
+          ACE_ENV: test
+          SUPABASE_URL: https://dummy.supabase.co
+          SUPABASE_SERVICE_ROLE_KEY: test-key
+        run: pytest -q
+
+  frontend:
+    name: frontend (typecheck + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install
+        run: npm ci || npm install --no-audit --no-fund
+
+      - name: Typecheck + build
+        env:
+          VITE_SUPABASE_URL: https://dummy.supabase.co
+          VITE_SUPABASE_ANON_KEY: dummy-anon-key
+          VITE_API_BASE: http://localhost:8000
+        run: npm run build
+
+  docker:
+    name: backend (docker build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend image (no push)
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: false
+          load: true
+          tags: ace-backend:ci
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Smoke-test container starts
+        run: |
+          docker run -d --name ace-smoke \
+            -e ACE_ENV=test \
+            -e SUPABASE_URL=https://dummy.supabase.co \
+            -e SUPABASE_SERVICE_ROLE_KEY=test-key \
+            -p 8000:8000 ace-backend:ci
+          # wait up to 20s for /health
+          for i in $(seq 1 20); do
+            if curl -fsS http://localhost:8000/health > /dev/null; then
+              echo "backend is healthy"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "backend failed to become healthy"
+          docker logs ace-smoke
+          exit 1

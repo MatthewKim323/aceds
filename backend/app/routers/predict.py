@@ -12,5 +12,5 @@ async def predict(req: PredictRequest) -> PredictResponse:
     try:
         from ..ml.predictor import predict_sections
     except ImportError as e:  # model not trained yet
-        raise HTTPException(status_code=503, detail=f"predictor unavailable: {e}")
+        raise HTTPException(status_code=503, detail=f"predictor unavailable: {e}") from e
     return predict_sections(req)

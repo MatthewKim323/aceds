@@ -84,15 +84,6 @@ function expandQuarter(code: string): string {
   return season ? `${season} ${yr}` : code
 }
 
-// ── Valid grades ──
-
-const LETTER_GRADES = new Set([
-  'A+', 'A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'C-',
-  'D+', 'D', 'D-', 'F', 'P', 'NP', 'W', 'I',
-])
-
-const AP_GRADE_RE = /^AP\d$/
-
 // ── Detect document type ──
 
 function detectDocumentType(text: string): 'academic_history' | 'transcript' {
@@ -231,7 +222,6 @@ function parseAcademicHistory(text: string): ParsedDocument {
 
   // OK/No requirement lines
   const reqLineRe = /^(OK|No|IP)\s+(.+)/
-  const areaDetailRe = /^([+-])\s+(.+)/
 
   let currentReq = ''
   for (const line of lines) {

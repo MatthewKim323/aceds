@@ -11,7 +11,7 @@ import xgboost as xgb
 
 from ..config import get_settings
 from ..db import get_supabase
-from ..models.schemas import PredictRequest, PredictResponse, Prediction
+from ..models.schemas import Prediction, PredictRequest, PredictResponse
 
 log = logging.getLogger(__name__)
 
@@ -55,8 +55,7 @@ def _build_feature_rows(section_ids: list[str], quarter_code: str) -> pd.DataFra
     if not sections:
         return pd.DataFrame()
 
-    course_norms = sorted({s["course_norm"] for s in sections})
-    instructor_norms = sorted({s["instructor_norm"] for s in sections if s["instructor_norm"]})
+    course_norms = sorted({str(s["course_norm"]) for s in sections})
     history = (
         sb.table("grade_distributions")
         .select("course_norm,instructor_norm,quarter,year,n_letter,avg_gpa")
@@ -69,7 +68,7 @@ def _build_feature_rows(section_ids: list[str], quarter_code: str) -> pd.DataFra
 
     def _agg(df: pd.DataFrame, keys: list[str]) -> pd.DataFrame:
         if df.empty:
-            return pd.DataFrame(columns=keys + ["mean", "std", "n"])
+            return pd.DataFrame(columns=[*keys, "mean", "std", "n"])
         g = df.groupby(keys)
         return g.agg(
             mean=("avg_gpa", "mean"),
@@ -165,7 +164,7 @@ def predict_sections(req: PredictRequest) -> PredictResponse:
     if df.empty:
         return PredictResponse(predictions=[])
 
-    X = df.reindex(columns=feature_cols).copy()
+    X = df.reindex(columns=feature_cols).copy()  # noqa: N806  (ML convention: design matrix)
     for c in categorical_cols:
         if c in X.columns:
             X[c] = X[c].astype("category")

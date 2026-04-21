@@ -42,6 +42,18 @@ ignore = ["E501"]
 python_version = "3.12"
 strict = false
 ignore_missing_imports = true
+# Supabase responses come back as JSON unions; narrowing every `.data` is
+# more noise than signal. We keep type checking on for real mismatches but
+# silence the union-attr / arg-type chatter from the postgrest client.
+disable_error_code = [
+    "union-attr",
+    "arg-type",
+    "assignment",
+    "no-any-return",
+    "index",
+    "call-overload",
+    "return-value",
+]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"

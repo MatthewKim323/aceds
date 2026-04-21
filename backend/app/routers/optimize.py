@@ -20,10 +20,11 @@ router = APIRouter(prefix="/optimize", tags=["ml"])
 @router.post("", response_model=OptimizeResponse)
 async def optimize(req: OptimizeRequest) -> OptimizeResponse:
     try:
-        from ..ml.optimizer import SectionCandidate, optimize as run_ip
+        from ..ml.optimizer import SectionCandidate
+        from ..ml.optimizer import optimize as run_ip
         from ..ml.predictor import predict_sections
     except ImportError as e:
-        raise HTTPException(status_code=503, detail=f"optimizer unavailable: {e}")
+        raise HTTPException(status_code=503, detail=f"optimizer unavailable: {e}") from e
 
     sb = get_supabase()
 

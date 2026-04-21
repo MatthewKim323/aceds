@@ -26,7 +26,6 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import Sequence
 
 import pulp
 
@@ -87,10 +86,7 @@ class SectionCandidate:
             hours_from_noon = abs(self.begin_min - 13 * 60) / 60.0
             conv = max(0.0, 1.0 - hours_from_noon / 6.0)
         # availability — inverse fill_rate (seats available beats full sections)
-        if self.fill_rate is None:
-            avail = 0.5
-        else:
-            avail = max(0.0, 1.0 - float(self.fill_rate))
+        avail = 0.5 if self.fill_rate is None else max(0.0, 1.0 - float(self.fill_rate))
         return {
             "grade": grade,
             "professor": prof,
@@ -113,7 +109,7 @@ def _sections_conflict(a: SectionCandidate, b: SectionCandidate) -> bool:
     """Return True iff two sections overlap in calendar."""
     if not a.days or not b.days:
         return False  # TBA never conflicts
-    if a.begin_min is None or b.begin_min is None:
+    if a.begin_min is None or b.begin_min is None or a.end_min is None or b.end_min is None:
         return False
     shared_days = set(a.days) & set(b.days)
     if not shared_days:

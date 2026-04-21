@@ -87,7 +87,7 @@ export function Dashboard() {
   }
 
   let gpaSumW = 0, gpaUnitsW = 0
-  for (const [code, grade] of Object.entries(profile.course_grades)) {
+  for (const [, grade] of Object.entries(profile.course_grades)) {
     const gp = gradePoints[grade]
     if (gp !== undefined) {
       gpaSumW += gp * 4
@@ -105,10 +105,6 @@ export function Dashboard() {
     const letter = g.replace(/[+-]/, '')
     gradeDist[letter] = (gradeDist[letter] ?? 0) + 1
   }
-
-  const quarters = new Set<string>()
-  // We don't have quarter info stored per-course in profile, so estimate from course count
-  const estQuarters = Math.ceil(profile.completed_courses.length / 4)
 
   function handleSignOut() {
     signOut().then(() => navigate('/'))
@@ -202,7 +198,6 @@ export function Dashboard() {
                 transferUnits={profile.transfer_units}
                 apCredits={profile.ap_credits}
                 gradeDist={gradeDist}
-                courseGrades={profile.course_grades}
                 majorName={majorName}
                 year={yearLabels[profile.year] ?? profile.year}
               />
@@ -279,7 +274,6 @@ function OverviewTab({
   transferUnits,
   apCredits,
   gradeDist,
-  courseGrades,
   majorName,
   year,
 }: {
@@ -293,7 +287,6 @@ function OverviewTab({
   transferUnits: number
   apCredits: { exam: string; ucsb_equivalent: string[]; units: number; score: number | null }[]
   gradeDist: Record<string, number>
-  courseGrades: Record<string, string>
   majorName: string
   year: string
 }) {
@@ -737,7 +730,7 @@ function RequirementsTab({
           </div>
 
           {/* Unit requirements if available */}
-          {requirementStatus.unit_requirements && (
+          {Boolean(requirementStatus.unit_requirements) && (
             <div className="dash-card">
               <div className="dash-card-header">
                 <span className="dash-card-title">Unit Requirements</span>

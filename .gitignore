@@ -65,3 +65,11 @@ data_pipeline/**/__pycache__/
 data_pipeline/**/.ipynb_checkpoints/
 !data_pipeline/raw/.gitkeep
 !data_pipeline/processed/.gitkeep
+
+# Python bytecode / venv
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+backend/.venv/
