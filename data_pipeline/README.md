@@ -6,8 +6,8 @@ Three sources → one DataFrame → one model → one pitch deck. Scripts are **
 01–04  : ingest + merge   (Nexus grades + UCSB catalog + RMP → unified.csv)
 05–08  : majors           (Claude extraction → manual review → Supabase + TS)
 10–14  : modeling         (features → heuristic / linear / XGBoost + cold-start report)
-15     : embeddings       (optional, OPENAI_API_KEY required)
-16     : synthetic demo   (500 fake students for demo mode)
+15     : embeddings       (local, sentence-transformers — no API key)
+16     : synthetic demo   (50 fake students for demo mode)
 20     : pitch assets     (6 SVGs + metrics table + optimizer latency benchmark)
 00     : audit            (spot-checks unified.csv + model artifacts)
 ```
@@ -26,7 +26,6 @@ pip install -r requirements.txt
 ```
 UCSB_API_KEY=...           # required for 02_fetch_ucsb_catalog.py
 ANTHROPIC_API_KEY=...      # required for 05_extract_majors_claude.py
-OPENAI_API_KEY=...         # optional, for 15_embeddings.py
 SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 ```
@@ -54,9 +53,14 @@ python scripts/12_baseline_linear.py            # ElasticNet
 python scripts/13_xgboost.py                    # XGBoost → backend/app/ml/artifacts/
 python scripts/14_cold_start.py                 # per-regime report → processed/cold_start_report.md
 
+# Phase 2b: course embeddings (local, ~5s on CPU after first model download)
+python scripts/15_embeddings.py                 # → processed/course_embeddings.parquet (384d, MiniLM)
+
 # Phase 3: pitch-deck artifacts (~1 min)
 python scripts/20_ablation_plots.py             # → processed/pitch/*.svg + metrics_table.{json,md}
 ```
+
+The embeddings script uses `sentence-transformers/all-MiniLM-L6-v2` by default — runs locally on CPU, no API key. Pass `--model BAAI/bge-small-en-v1.5` for a quality bump at the same dim.
 
 ## Outputs
 

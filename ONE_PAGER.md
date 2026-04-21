@@ -54,7 +54,7 @@ Plus [`MODEL_CARD.md`](MODEL_CARD.md) for the full data-science write-up.
 ## What's next
 
 - Per-student grade prediction (currently aggregate-only). The synthetic-student layer is a placeholder; a real per-student model needs opted-in historical grades. Privacy-first — never leaves the user's session without explicit consent.
-- Full major-requirement semantic search with OpenAI embeddings (`15_embeddings.py`, pending `OPENAI_API_KEY`).
+- Full major-requirement semantic search (course embeddings already shipped locally via `sentence-transformers/all-MiniLM-L6-v2` — `15_embeddings.py`, 1,309 × 384d, no API key). Next: wire into the Explorer's "similar courses" and the optimizer's redundancy penalty.
 - Live Supabase deploy for a hosted judge demo. Every dependency is in place; it's a `fly deploy` + a Netlify push away.
 
 ---
