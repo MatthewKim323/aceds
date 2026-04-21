@@ -50,7 +50,10 @@ frontend/public/ocean.mp4
 
 # Cursor
 .cursor/
+
+# Internal planning / scratch docs (keep local, do not ship)
 ACE_Project_Breakdown_v3-2.md
+ACE_PLAN.md
 
 # Data pipeline outputs (cache, large CSVs, venv)
 data_pipeline/raw/*.csv
