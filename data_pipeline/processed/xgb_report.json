@@ -1,0 +1,38 @@
+{
+  "params": {
+    "objective": "reg:squarederror",
+    "eval_metric": "rmse",
+    "learning_rate": 0.05,
+    "max_depth": 6,
+    "min_child_weight": 5,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "reg_alpha": 0.1,
+    "reg_lambda": 1.0,
+    "tree_method": "hist"
+  },
+  "splits": {
+    "train": {
+      "n": 70390,
+      "rmse": 0.23250322992125108,
+      "r2": 0.7483004312164871,
+      "mae": 0.16891190379403084
+    },
+    "val": {
+      "n": 2965,
+      "rmse": 0.25054879008991576,
+      "r2": 0.6470405287883166,
+      "mae": 0.18034524306818672
+    },
+    "test": {
+      "n": 1132,
+      "rmse": 0.23423421460998725,
+      "r2": 0.6776119177148521,
+      "mae": 0.17373825902442505
+    }
+  },
+  "ablation": {
+    "no_rmp": false,
+    "no_history": false
+  }
+}

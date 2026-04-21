@@ -1,0 +1,952 @@
+[
+  {
+    "id": "9d55e535-c6da-472f-8422-948828fe302e",
+    "name": "Kaito Kim",
+    "major_id": "communication",
+    "catalog_year": 2023,
+    "year_standing": "freshman",
+    "gpa": 3.19,
+    "preference_weights": {
+      "grades": 0.512,
+      "professor": 0.098,
+      "convenience": 0.144,
+      "availability": 0.247
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 17
+  },
+  {
+    "id": "df6a0fb0-3448-49e7-a518-b93eae7abecd",
+    "name": "Emma Santos",
+    "major_id": "economics",
+    "catalog_year": 2026,
+    "year_standing": "sophomore",
+    "gpa": 3.64,
+    "preference_weights": {
+      "grades": 0.201,
+      "professor": 0.117,
+      "convenience": 0.483,
+      "availability": 0.199
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 20
+  },
+  {
+    "id": "9188c408-dc54-4012-a8c8-a0b3e5b9a674",
+    "name": "Ethan Patel",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2025,
+    "year_standing": "freshman",
+    "gpa": 2.98,
+    "preference_weights": {
+      "grades": 0.283,
+      "professor": 0.219,
+      "convenience": 0.293,
+      "availability": 0.206
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "18bfef23-e5d1-41ee-a594-80828b435030",
+    "name": "Priya Dubois",
+    "major_id": "music",
+    "catalog_year": 2025,
+    "year_standing": "senior",
+    "gpa": 3.32,
+    "preference_weights": {
+      "grades": 0.251,
+      "professor": 0.424,
+      "convenience": 0.119,
+      "availability": 0.206
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "38a699e9-de82-44a7-ac62-2db13c1795ef",
+    "name": "Aisha Ali",
+    "major_id": "communication",
+    "catalog_year": 2024,
+    "year_standing": "junior",
+    "gpa": 3.27,
+    "preference_weights": {
+      "grades": 0.268,
+      "professor": 0.322,
+      "convenience": 0.299,
+      "availability": 0.112
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 16
+  },
+  {
+    "id": "66313a59-e72b-45aa-be1b-f448c4fd73df",
+    "name": "Lucia Singh",
+    "major_id": "computer-science",
+    "catalog_year": 2024,
+    "year_standing": "senior",
+    "gpa": 3.86,
+    "preference_weights": {
+      "grades": 0.267,
+      "professor": 0.175,
+      "convenience": 0.359,
+      "availability": 0.198
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 20
+  },
+  {
+    "id": "bc509dbd-251a-43e1-aa6b-fe541bc429ef",
+    "name": "Xiaolin Watanabe",
+    "major_id": "economics",
+    "catalog_year": 2026,
+    "year_standing": "junior",
+    "gpa": 2.03,
+    "preference_weights": {
+      "grades": 0.15,
+      "professor": 0.115,
+      "convenience": 0.164,
+      "availability": 0.57
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 18
+  },
+  {
+    "id": "3698ca77-f03d-4df5-848c-ffd406a7d252",
+    "name": "Emma Tran",
+    "major_id": "economics",
+    "catalog_year": 2023,
+    "year_standing": "senior",
+    "gpa": 2.98,
+    "preference_weights": {
+      "grades": 0.309,
+      "professor": 0.252,
+      "convenience": 0.145,
+      "availability": 0.293
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 16
+  },
+  {
+    "id": "65afc2d1-6d5f-421e-8e82-e743af6da5a3",
+    "name": "Diego Watanabe",
+    "major_id": "art",
+    "catalog_year": 2023,
+    "year_standing": "senior",
+    "gpa": 3.2,
+    "preference_weights": {
+      "grades": 0.345,
+      "professor": 0.141,
+      "convenience": 0.262,
+      "availability": 0.252
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "8a8a17ae-207b-4c9f-963b-d1de28ed14fb",
+    "name": "Yuki Martinez",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2024,
+    "year_standing": "freshman",
+    "gpa": 3.9,
+    "preference_weights": {
+      "grades": 0.067,
+      "professor": 0.413,
+      "convenience": 0.442,
+      "availability": 0.078
+    },
+    "completed_courses": [],
+    "working_hours_week": 10,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "914a7b8e-a76f-42b0-a77c-36842351a776",
+    "name": "Carmen Cohen",
+    "major_id": "communication",
+    "catalog_year": 2024,
+    "year_standing": "senior",
+    "gpa": 3.59,
+    "preference_weights": {
+      "grades": 0.295,
+      "professor": 0.245,
+      "convenience": 0.227,
+      "availability": 0.233
+    },
+    "completed_courses": [],
+    "working_hours_week": 5,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 18
+  },
+  {
+    "id": "d6d7ef96-e26a-4d42-b392-6f06b7a31ba1",
+    "name": "Noah Garcia",
+    "major_id": "political-science",
+    "catalog_year": 2023,
+    "year_standing": "junior",
+    "gpa": 3.83,
+    "preference_weights": {
+      "grades": 0.247,
+      "professor": 0.387,
+      "convenience": 0.186,
+      "availability": 0.18
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 16
+  },
+  {
+    "id": "30595ce1-b822-49c6-bea9-0555aea48e47",
+    "name": "Ife Abebe",
+    "major_id": "political-science",
+    "catalog_year": 2024,
+    "year_standing": "senior",
+    "gpa": 3.62,
+    "preference_weights": {
+      "grades": 0.205,
+      "professor": 0.264,
+      "convenience": 0.315,
+      "availability": 0.217
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 17
+  },
+  {
+    "id": "225166b3-a2a7-4e6a-80b5-ee467edf3983",
+    "name": "Yuki Cohen",
+    "major_id": "computer-science",
+    "catalog_year": 2026,
+    "year_standing": "junior",
+    "gpa": 3.42,
+    "preference_weights": {
+      "grades": 0.174,
+      "professor": 0.255,
+      "convenience": 0.238,
+      "availability": 0.333
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 16
+  },
+  {
+    "id": "a7ff8be2-4d36-4623-8bc2-92bd2b68e5b1",
+    "name": "Aisha Reyes",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2024,
+    "year_standing": "sophomore",
+    "gpa": 2.7,
+    "preference_weights": {
+      "grades": 0.323,
+      "professor": 0.058,
+      "convenience": 0.301,
+      "availability": 0.317
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 16
+  },
+  {
+    "id": "357517b5-2e58-4437-b7b4-df4093517945",
+    "name": "Diego Cohen",
+    "major_id": "political-science",
+    "catalog_year": 2026,
+    "year_standing": "senior",
+    "gpa": 3.43,
+    "preference_weights": {
+      "grades": 0.207,
+      "professor": 0.343,
+      "convenience": 0.356,
+      "availability": 0.094
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 17
+  },
+  {
+    "id": "6ea4b2c8-1d2a-45cb-8393-07e588860bad",
+    "name": "Lucia Abebe",
+    "major_id": "economics",
+    "catalog_year": 2024,
+    "year_standing": "senior",
+    "gpa": 3.95,
+    "preference_weights": {
+      "grades": 0.181,
+      "professor": 0.198,
+      "convenience": 0.099,
+      "availability": 0.522
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "72a4f552-e48a-414d-9861-322ba6616868",
+    "name": "Kwame Santos",
+    "major_id": "economics",
+    "catalog_year": 2023,
+    "year_standing": "senior",
+    "gpa": 3.23,
+    "preference_weights": {
+      "grades": 0.477,
+      "professor": 0.081,
+      "convenience": 0.129,
+      "availability": 0.313
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "850a6a50-efb8-4c12-bc68-6b1d53b7b328",
+    "name": "Hiroshi Hernandez",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 2.83,
+    "preference_weights": {
+      "grades": 0.415,
+      "professor": 0.122,
+      "convenience": 0.327,
+      "availability": 0.136
+    },
+    "completed_courses": [],
+    "working_hours_week": 5,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 18
+  },
+  {
+    "id": "718da86b-515a-4d53-8f9b-9f4b3b5970b8",
+    "name": "Aarav Rivera",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2026,
+    "year_standing": "senior",
+    "gpa": 2.86,
+    "preference_weights": {
+      "grades": 0.325,
+      "professor": 0.298,
+      "convenience": 0.09,
+      "availability": 0.287
+    },
+    "completed_courses": [],
+    "working_hours_week": 10,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 16
+  },
+  {
+    "id": "7fad673f-7b3f-4dc3-bce4-d3856c888d98",
+    "name": "Lucia Martinez",
+    "major_id": "mathematics",
+    "catalog_year": 2023,
+    "year_standing": "sophomore",
+    "gpa": 3.82,
+    "preference_weights": {
+      "grades": 0.289,
+      "professor": 0.246,
+      "convenience": 0.388,
+      "availability": 0.077
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "1d974493-89da-45c6-a74a-a0cb5642dc69",
+    "name": "Ife Ali",
+    "major_id": "computer-science",
+    "catalog_year": 2025,
+    "year_standing": "sophomore",
+    "gpa": 3.37,
+    "preference_weights": {
+      "grades": 0.286,
+      "professor": 0.166,
+      "convenience": 0.477,
+      "availability": 0.071
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 16
+  },
+  {
+    "id": "ae8ea898-1551-4b38-ba16-b2cf2ed9a046",
+    "name": "Aisha Santos",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2026,
+    "year_standing": "sophomore",
+    "gpa": 3.74,
+    "preference_weights": {
+      "grades": 0.445,
+      "professor": 0.36,
+      "convenience": 0.075,
+      "availability": 0.12
+    },
+    "completed_courses": [],
+    "working_hours_week": 25,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "78e63d5a-0fb7-41af-8897-aa1adaf72756",
+    "name": "Liam Tanaka",
+    "major_id": "biology",
+    "catalog_year": 2024,
+    "year_standing": "sophomore",
+    "gpa": 3.58,
+    "preference_weights": {
+      "grades": 0.294,
+      "professor": 0.288,
+      "convenience": 0.17,
+      "availability": 0.248
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "c0395c67-b5ea-4183-89c0-2b99e7f83a91",
+    "name": "Diego Cohen",
+    "major_id": "mathematics",
+    "catalog_year": 2023,
+    "year_standing": "senior",
+    "gpa": 3.59,
+    "preference_weights": {
+      "grades": 0.104,
+      "professor": 0.38,
+      "convenience": 0.327,
+      "availability": 0.19
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "a9006c9c-2a41-4e31-999e-476616dec8ab",
+    "name": "Zoe Garcia",
+    "major_id": "computer-science",
+    "catalog_year": 2024,
+    "year_standing": "junior",
+    "gpa": 3.14,
+    "preference_weights": {
+      "grades": 0.33,
+      "professor": 0.202,
+      "convenience": 0.146,
+      "availability": 0.322
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 18
+  },
+  {
+    "id": "880ab646-b9cd-4935-906d-3a078fd88a7e",
+    "name": "Aisha Tanaka",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2026,
+    "year_standing": "senior",
+    "gpa": 3.35,
+    "preference_weights": {
+      "grades": 0.342,
+      "professor": 0.414,
+      "convenience": 0.189,
+      "availability": 0.056
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 16
+  },
+  {
+    "id": "933a437d-7be1-4b91-9fc7-d56b30069b71",
+    "name": "Carmen Watanabe",
+    "major_id": "computer-science",
+    "catalog_year": 2023,
+    "year_standing": "junior",
+    "gpa": 3.19,
+    "preference_weights": {
+      "grades": 0.209,
+      "professor": 0.291,
+      "convenience": 0.153,
+      "availability": 0.348
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "ae53c919-5186-49d5-8771-1397e23c4ae8",
+    "name": "Sofia Li",
+    "major_id": "economics",
+    "catalog_year": 2025,
+    "year_standing": "senior",
+    "gpa": 2.78,
+    "preference_weights": {
+      "grades": 0.294,
+      "professor": 0.087,
+      "convenience": 0.385,
+      "availability": 0.234
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 20
+  },
+  {
+    "id": "cc92bdfa-55b5-4bbe-abba-72da76e5687d",
+    "name": "Diego Li",
+    "major_id": "computer-science",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 2.95,
+    "preference_weights": {
+      "grades": 0.235,
+      "professor": 0.434,
+      "convenience": 0.188,
+      "availability": 0.144
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 18
+  },
+  {
+    "id": "5f56733e-3d34-4e7f-80c5-40eb1493a8a7",
+    "name": "Kaito Santos",
+    "major_id": "economics",
+    "catalog_year": 2023,
+    "year_standing": "junior",
+    "gpa": 2.28,
+    "preference_weights": {
+      "grades": 0.186,
+      "professor": 0.371,
+      "convenience": 0.349,
+      "availability": 0.094
+    },
+    "completed_courses": [],
+    "working_hours_week": 30,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 17
+  },
+  {
+    "id": "35b7f09c-0976-4310-a07c-6ea12602249c",
+    "name": "Liam Garcia",
+    "major_id": "sociology",
+    "catalog_year": 2026,
+    "year_standing": "sophomore",
+    "gpa": 3.18,
+    "preference_weights": {
+      "grades": 0.228,
+      "professor": 0.278,
+      "convenience": 0.178,
+      "availability": 0.316
+    },
+    "completed_courses": [],
+    "working_hours_week": 10,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 18
+  },
+  {
+    "id": "0a4e5fd7-baf0-4077-bb17-77b24417083a",
+    "name": "Priya Cohen",
+    "major_id": "economics",
+    "catalog_year": 2024,
+    "year_standing": "sophomore",
+    "gpa": 2.81,
+    "preference_weights": {
+      "grades": 0.131,
+      "professor": 0.503,
+      "convenience": 0.294,
+      "availability": 0.071
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 17
+  },
+  {
+    "id": "24d590c5-f4cf-40cb-b225-04ad3390b00b",
+    "name": "Ananya Li",
+    "major_id": "sociology",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 2.18,
+    "preference_weights": {
+      "grades": 0.294,
+      "professor": 0.277,
+      "convenience": 0.199,
+      "availability": 0.229
+    },
+    "completed_courses": [],
+    "working_hours_week": 10,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 17
+  },
+  {
+    "id": "9bf40aae-8c78-4438-8006-0849d434c8cc",
+    "name": "Jordan Okafor",
+    "major_id": "mechanical-engineering",
+    "catalog_year": 2026,
+    "year_standing": "junior",
+    "gpa": 3.23,
+    "preference_weights": {
+      "grades": 0.437,
+      "professor": 0.225,
+      "convenience": 0.107,
+      "availability": 0.232
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "ad0f77d3-1e0b-428a-9f71-7061139a8862",
+    "name": "Xiaolin Jackson",
+    "major_id": "computer-science",
+    "catalog_year": 2024,
+    "year_standing": "junior",
+    "gpa": 3.66,
+    "preference_weights": {
+      "grades": 0.09,
+      "professor": 0.277,
+      "convenience": 0.351,
+      "availability": 0.282
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 20
+  },
+  {
+    "id": "d696e124-0751-48ac-af60-680d0d2e8d92",
+    "name": "Maya Johansson",
+    "major_id": "economics",
+    "catalog_year": 2024,
+    "year_standing": "freshman",
+    "gpa": 2.7,
+    "preference_weights": {
+      "grades": 0.289,
+      "professor": 0.183,
+      "convenience": 0.288,
+      "availability": 0.24
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 18
+  },
+  {
+    "id": "f49d919e-7315-4904-ada4-66910c99a4cc",
+    "name": "Ananya Rivera",
+    "major_id": "political-science",
+    "catalog_year": 2026,
+    "year_standing": "senior",
+    "gpa": 3.99,
+    "preference_weights": {
+      "grades": 0.319,
+      "professor": 0.352,
+      "convenience": 0.085,
+      "availability": 0.244
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 18
+  },
+  {
+    "id": "0c22409b-910b-4f6f-bfe1-b514b7e1a0ea",
+    "name": "Aisha Cohen",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 2.66,
+    "preference_weights": {
+      "grades": 0.373,
+      "professor": 0.228,
+      "convenience": 0.339,
+      "availability": 0.061
+    },
+    "completed_courses": [],
+    "working_hours_week": 30,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 12,
+    "target_units_max": 16
+  },
+  {
+    "id": "2065ccd5-2277-4cfe-8d43-c4f249edcaa1",
+    "name": "Xiaolin Garcia",
+    "major_id": "mechanical-engineering",
+    "catalog_year": 2024,
+    "year_standing": "senior",
+    "gpa": 3.28,
+    "preference_weights": {
+      "grades": 0.239,
+      "professor": 0.089,
+      "convenience": 0.436,
+      "availability": 0.235
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "6870650d-e01d-4432-9acc-6c1378bdaa08",
+    "name": "Emma Martinez",
+    "major_id": "art",
+    "catalog_year": 2026,
+    "year_standing": "freshman",
+    "gpa": 3.36,
+    "preference_weights": {
+      "grades": 0.218,
+      "professor": 0.358,
+      "convenience": 0.077,
+      "availability": 0.347
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 20
+  },
+  {
+    "id": "ba76e83e-a317-4080-a3ff-6c097f9ce07a",
+    "name": "Ananya Cohen",
+    "major_id": "sociology",
+    "catalog_year": 2025,
+    "year_standing": "senior",
+    "gpa": 3.1,
+    "preference_weights": {
+      "grades": 0.109,
+      "professor": 0.483,
+      "convenience": 0.073,
+      "availability": 0.336
+    },
+    "completed_courses": [],
+    "working_hours_week": 10,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 18
+  },
+  {
+    "id": "585da1bc-9a4a-44a0-9c7e-f11c23a5d0ad",
+    "name": "Kaito Watanabe",
+    "major_id": "mechanical-engineering",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 3.19,
+    "preference_weights": {
+      "grades": 0.225,
+      "professor": 0.321,
+      "convenience": 0.275,
+      "availability": 0.178
+    },
+    "completed_courses": [],
+    "working_hours_week": 20,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 17
+  },
+  {
+    "id": "182b49d4-b9fe-4dc0-bc82-6da22e9e3ed1",
+    "name": "Dmitri Hernandez",
+    "major_id": "sociology",
+    "catalog_year": 2026,
+    "year_standing": "freshman",
+    "gpa": 3.55,
+    "preference_weights": {
+      "grades": 0.214,
+      "professor": 0.291,
+      "convenience": 0.208,
+      "availability": 0.288
+    },
+    "completed_courses": [],
+    "working_hours_week": 5,
+    "avoid_friday_afternoon": true,
+    "target_units_min": 13,
+    "target_units_max": 20
+  },
+  {
+    "id": "d586bc74-7812-40e9-a3ac-99f6356caf5e",
+    "name": "Emma Watanabe",
+    "major_id": "mechanical-engineering",
+    "catalog_year": 2024,
+    "year_standing": "sophomore",
+    "gpa": 2.97,
+    "preference_weights": {
+      "grades": 0.076,
+      "professor": 0.334,
+      "convenience": 0.24,
+      "availability": 0.35
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 18
+  },
+  {
+    "id": "c60741c3-c8db-4d30-92e1-f5f22e50fd43",
+    "name": "Mateo Tran",
+    "major_id": "sociology",
+    "catalog_year": 2025,
+    "year_standing": "freshman",
+    "gpa": 3.4,
+    "preference_weights": {
+      "grades": 0.223,
+      "professor": 0.245,
+      "convenience": 0.204,
+      "availability": 0.328
+    },
+    "completed_courses": [],
+    "working_hours_week": 5,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 13,
+    "target_units_max": 17
+  },
+  {
+    "id": "19b2c1cf-724d-42cb-be0c-42719f7ab481",
+    "name": "Ananya Jackson",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2024,
+    "year_standing": "freshman",
+    "gpa": 3.35,
+    "preference_weights": {
+      "grades": 0.133,
+      "professor": 0.382,
+      "convenience": 0.171,
+      "availability": 0.314
+    },
+    "completed_courses": [],
+    "working_hours_week": 15,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "8fffb25e-1d87-4c5f-ace2-46d07e26be9f",
+    "name": "Mateo Rivera",
+    "major_id": "psychological-brain-sciences",
+    "catalog_year": 2024,
+    "year_standing": "sophomore",
+    "gpa": 3.51,
+    "preference_weights": {
+      "grades": 0.129,
+      "professor": 0.371,
+      "convenience": 0.225,
+      "availability": 0.275
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 16
+  },
+  {
+    "id": "c622c90d-919d-4cfd-acb3-276ceabc48fc",
+    "name": "Diego Nguyen",
+    "major_id": "mathematics",
+    "catalog_year": 2025,
+    "year_standing": "junior",
+    "gpa": 2.67,
+    "preference_weights": {
+      "grades": 0.342,
+      "professor": 0.19,
+      "convenience": 0.303,
+      "availability": 0.165
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 12,
+    "target_units_max": 17
+  },
+  {
+    "id": "32996d4a-2f19-4089-bbf2-4219a1990844",
+    "name": "Mateo Patel",
+    "major_id": "computer-science",
+    "catalog_year": 2024,
+    "year_standing": "junior",
+    "gpa": 3.36,
+    "preference_weights": {
+      "grades": 0.082,
+      "professor": 0.323,
+      "convenience": 0.264,
+      "availability": 0.332
+    },
+    "completed_courses": [],
+    "working_hours_week": 0,
+    "avoid_friday_afternoon": false,
+    "target_units_min": 15,
+    "target_units_max": 18
+  }
+]

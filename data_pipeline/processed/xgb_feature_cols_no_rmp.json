@@ -1,0 +1,31 @@
+{
+  "feature_cols": [
+    "year",
+    "unitsFixed",
+    "is_ge",
+    "instr_hist_mean_gpa",
+    "instr_hist_gpa_std",
+    "instr_hist_n_sections",
+    "course_hist_mean_gpa",
+    "course_hist_gpa_std",
+    "course_hist_n_sections",
+    "ic_hist_mean_gpa",
+    "ic_hist_n_sections",
+    "dept_hist_mean_gpa",
+    "dept_hist_gpa_std",
+    "instr_is_cold",
+    "course_is_cold",
+    "ic_is_cold",
+    "years_since_instr_first_taught",
+    "course_level",
+    "rmp_confidence",
+    "quarter",
+    "dept"
+  ],
+  "categorical_cols": [
+    "course_level",
+    "rmp_confidence",
+    "quarter",
+    "dept"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "feature_cols": [
+    "year",
+    "unitsFixed",
+    "is_ge",
+    "instr_is_cold",
+    "course_is_cold",
+    "ic_is_cold",
+    "years_since_instr_first_taught",
+    "rmp_rating",
+    "rmp_difficulty",
+    "rmp_num_ratings",
+    "rmp_would_take_again",
+    "course_level",
+    "rmp_confidence",
+    "quarter",
+    "dept"
+  ],
+  "categorical_cols": [
+    "course_level",
+    "rmp_confidence",
+    "quarter",
+    "dept"
+  ]
+}

@@ -51,3 +51,14 @@ frontend/public/ocean.mp4
 # Cursor
 .cursor/
 ACE_Project_Breakdown_v3-2.md
+
+# Data pipeline outputs (cache, large CSVs, venv)
+data_pipeline/raw/*.csv
+data_pipeline/raw/*.json
+data_pipeline/processed/*.csv
+data_pipeline/processed/*.parquet
+data_pipeline/.venv/
+data_pipeline/**/__pycache__/
+data_pipeline/**/.ipynb_checkpoints/
+!data_pipeline/raw/.gitkeep
+!data_pipeline/processed/.gitkeep
