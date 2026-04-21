@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ace.ucsb.edu/schemas/major.json",
+  "title": "ACE Major/Minor Requirement",
+  "description": "Normalized representation of a UCSB major or minor requirement sheet. Produced by scripts/05_extract_majors_claude.py and reviewed by scripts/06_review_majors.py before shipping to the frontend.",
+  "type": "object",
+  "required": ["id", "name", "kind", "catalog_year", "groups"],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "name":             { "type": "string" },
+    "kind":             { "type": "string", "enum": ["major", "minor"] },
+    "degree":           { "type": "string", "description": "B.A., B.S., null for minors" },
+    "catalog_year":     { "type": "string", "description": "e.g. '2025-2026'" },
+    "department":       { "type": "string" },
+    "college":          { "type": "string" },
+    "pre_major_gpa":    { "type": ["number", "null"] },
+    "total_units_required":      { "type": ["integer", "null"] },
+    "upper_div_units_required":  { "type": ["integer", "null"] },
+    "source_pdf":       { "type": "string", "description": "Filename of the PDF Claude extracted from" },
+    "reviewed":         { "type": "boolean", "default": false },
+    "review_notes":     { "type": "string" },
+    "notes":            { "type": "string", "description": "Free-form notes from the requirement sheet" },
+    "groups": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/group" }
+    }
+  },
+  "$defs": {
+    "course": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id":    { "type": "string", "description": "Canonical code, e.g. 'MATH 3A'" },
+        "title": { "type": "string" },
+        "alt":   { "type": "array", "items": { "type": "string" }, "description": "Equivalent/substitutable course codes" },
+        "units": { "type": ["number", "null"] },
+        "note":  { "type": "string" }
+      }
+    },
+    "group": {
+      "type": "object",
+      "required": ["id", "label", "courses"],
+      "properties": {
+        "id":    { "type": "string", "description": "Stable slug for this group" },
+        "label": { "type": "string", "description": "Human-readable heading from the sheet" },
+        "note":  { "type": "string" },
+        "pick": {
+          "type": ["object", "null"],
+          "description": "If the group is a choice ('pick N from the following'), capture the rule",
+          "properties": {
+            "n_courses": { "type": ["integer", "null"] },
+            "n_units":   { "type": ["number", "null"] },
+            "mode":      { "type": "string", "enum": ["choose_n_courses", "choose_n_units", "all"] }
+          }
+        },
+        "upper_division_required": { "type": "boolean", "default": false },
+        "min_grade": { "type": "string", "description": "e.g. 'C', 'C-' if the sheet specifies" },
+        "courses":   { "type": "array", "items": { "$ref": "#/$defs/course" } },
+        "subgroups": { "type": "array", "items": { "$ref": "#/$defs/group" }, "description": "Some sheets nest groups (e.g. 'Choose one emphasis')" }
+      }
+    }
+  }
+}

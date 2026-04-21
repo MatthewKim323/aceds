@@ -97,3 +97,55 @@ export async function getProfile(userId: string) {
 
   return { profile: data, error: error?.message ?? null }
 }
+
+export interface SyntheticStudent {
+  id: string
+  name: string
+  major_id: string
+  catalog_year: number
+  year_standing: string
+  gpa: number
+  preference_weights: {
+    grades: number
+    professor: number
+    convenience: number
+    availability: number
+  }
+  completed_courses: string[]
+  working_hours_week: number
+  avoid_friday_afternoon: boolean
+  target_units_min: number
+  target_units_max: number
+}
+
+export async function updateProfilePartial(
+  userId: string,
+  patch: Record<string, unknown>,
+) {
+  const { error } = await supabase
+    .from('student_profiles')
+    .update(patch)
+    .eq('user_id', userId)
+  return { error: error?.message ?? null }
+}
+
+export async function applySyntheticStudent(
+  userId: string,
+  s: SyntheticStudent,
+) {
+  const payload: Record<string, unknown> = {
+    major: s.major_id,
+    year: s.year_standing,
+    completed_courses: s.completed_courses,
+    in_progress_courses: [],
+    course_grades: {},
+    cumulative_gpa: s.gpa,
+    target_units: Math.round((s.target_units_min + s.target_units_max) / 2),
+    priority_weights: s.preference_weights,
+    earliest_class: '09:00',
+    preferred_days: 'no_preference',
+    onboarding_complete: true,
+    demo_student_id: s.id,
+  }
+  return updateProfilePartial(userId, payload)
+}

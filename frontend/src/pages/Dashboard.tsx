@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
@@ -143,6 +143,27 @@ export function Dashboard() {
                 {t.label}
               </button>
             ))}
+            <div className="dash-nav-divider" />
+            <Link to="/explorer" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u25C7'}</span>
+              Course Explorer
+            </Link>
+            <Link to="/schedule" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u2630'}</span>
+              Schedule Builder
+            </Link>
+            <Link to="/grad-path" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u25B8'}</span>
+              Graduation Path
+            </Link>
+            <Link to="/status" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u25CE'}</span>
+              System Status
+            </Link>
+            <Link to="/settings" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u2699'}</span>
+              Settings
+            </Link>
           </nav>
         </div>
         <div className="dash-sidebar-bottom">
@@ -307,6 +328,40 @@ function OverviewTab({
         <div className="dash-hero-stat">
           <span className="dash-hero-value">{majorCompleted}/{majorTotal}</span>
           <span className="dash-hero-label">Major courses</span>
+        </div>
+      </div>
+
+      {/* Next steps command center */}
+      <div className="dash-nextsteps">
+        <div className="dash-nextsteps-head">
+          <span className="dash-nextsteps-eyebrow">Next up</span>
+          <h2 className="dash-nextsteps-title">What do you want to plan?</h2>
+        </div>
+        <div className="dash-nextsteps-grid">
+          <Link to="/schedule" className="dash-nextstep-card primary">
+            <span className="dash-nextstep-num">01</span>
+            <span className="dash-nextstep-title">Build Spring 2026</span>
+            <span className="dash-nextstep-sub">ML-scored sections &middot; optimized for your preferences</span>
+            <span className="dash-nextstep-cta">open builder &rarr;</span>
+          </Link>
+          <Link to="/grad-path" className="dash-nextstep-card">
+            <span className="dash-nextstep-num">02</span>
+            <span className="dash-nextstep-title">Graduation path</span>
+            <span className="dash-nextstep-sub">{majorPct}% toward {majorName.split(' ').slice(0, 2).join(' ') || 'major'} complete</span>
+            <span className="dash-nextstep-cta">review progression &rarr;</span>
+          </Link>
+          <Link to="/explorer" className="dash-nextstep-card">
+            <span className="dash-nextstep-num">03</span>
+            <span className="dash-nextstep-title">Browse courses</span>
+            <span className="dash-nextstep-sub">Search by dept, GE, or level &middot; see grade trends</span>
+            <span className="dash-nextstep-cta">explore catalog &rarr;</span>
+          </Link>
+          <Link to="/status" className="dash-nextstep-card muted">
+            <span className="dash-nextstep-num">04</span>
+            <span className="dash-nextstep-title">System status</span>
+            <span className="dash-nextstep-sub">Model health, data freshness, pipeline log</span>
+            <span className="dash-nextstep-cta">view dashboard &rarr;</span>
+          </Link>
         </div>
       </div>
 
