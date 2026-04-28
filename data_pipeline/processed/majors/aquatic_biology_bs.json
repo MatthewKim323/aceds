@@ -1,0 +1,339 @@
+{
+  "id": "aquatic_biology_bs",
+  "name": "Aquatic Biology Major",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Ecology, Evolution, & Marine Biology",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 48,
+  "source_pdf": "Aquatic Biology Major (2025).pdf",
+  "notes": "To be admitted to full major status, students must fulfill the pre-biology course and grade-point average requirements as described in the General Catalog. At minimum, they must complete twelve designated courses from the Preparation for the Major with a 2.0 or higher UC grade-point average. Note: Hyphens indicate that an entire sequence or combination must be completed as shown to fulfill an area requirement. A single course can satisfy only one requirement. Grades earned must meet the grade prerequisites for the full major. Laboratory courses are underlined in areas A-E. The following courses do not count toward upper-division major credit: EEMB 182, 183, 184, and 189; MCDB 183, 184, 194D, 194KF, 194MO, 194MR. In addition, no more than 8 units of the following courses combined will apply: EEMB 185-199; MCDB 185-199. Finally, a minimum 32 units must be completed through courses within the EEMB Department. P/NP grading not allowed for any major course (Prep or UD major), including courses applied to the major from other departments, except up to 8 units of courses that do not allow letter grades. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "prep_chemistry",
+      "label": "Chemistry",
+      "courses": [
+        {
+          "id": "CHEM 1A",
+          "note": "Part of sequence CHEM 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)"
+        },
+        {
+          "id": "CHEM 1B",
+          "note": "Part of sequence CHEM 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)"
+        },
+        {
+          "id": "CHEM 1C",
+          "note": "Part of sequence CHEM 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)"
+        },
+        {
+          "id": "CHEM 2AL",
+          "note": "Part of sequence CHEM 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)"
+        },
+        {
+          "id": "CHEM 2BL",
+          "note": "Part of sequence CHEM 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)"
+        }
+      ]
+    },
+    {
+      "id": "prep_biology",
+      "label": "Biology",
+      "courses": [
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 3"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "EEMB 2LL"
+        }
+      ]
+    },
+    {
+      "id": "prep_organic_chemistry",
+      "label": "Organic Chemistry",
+      "courses": [
+        {
+          "id": "CHEM 6AL"
+        },
+        {
+          "id": "CHEM 109A",
+          "alt": [
+            "CHEM 109AH"
+          ]
+        },
+        {
+          "id": "CHEM 109B",
+          "alt": [
+            "CHEM 109BH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Mathematics",
+      "courses": [
+        {
+          "id": "MATH 3A",
+          "alt": [
+            "MATH 34A"
+          ]
+        },
+        {
+          "id": "MATH 3B",
+          "alt": [
+            "MATH 34B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_statistics",
+      "label": "Statistics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5LS"
+        },
+        {
+          "id": "PSTAT 5A"
+        },
+        {
+          "id": "MATH 4A",
+          "note": "acceptable, but not recommended"
+        }
+      ]
+    },
+    {
+      "id": "prep_physics",
+      "label": "Physics",
+      "courses": [
+        {
+          "id": "PHYS 6A"
+        },
+        {
+          "id": "PHYS 6AL"
+        },
+        {
+          "id": "PHYS 6B"
+        },
+        {
+          "id": "PHYS 6BL"
+        },
+        {
+          "id": "PHYS 6C"
+        },
+        {
+          "id": "PHYS 6CL"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_ecology",
+      "label": "Core Curriculum - Ecology",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 120"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_evolution",
+      "label": "Core Curriculum - Evolution",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 131",
+          "alt": [
+            "EARTH 121"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ud_core_genetics",
+      "label": "Core Curriculum - Genetics",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 129"
+        },
+        {
+          "id": "MCDB 101A"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_biometry",
+      "label": "Core Curriculum - Biometry",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 146"
+        }
+      ]
+    },
+    {
+      "id": "ud_area_concentration",
+      "label": "Area of Concentration",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 142A"
+        },
+        {
+          "id": "EEMB 142B"
+        },
+        {
+          "id": "EEMB 142C"
+        }
+      ]
+    },
+    {
+      "id": "ud_aquatic_biology",
+      "label": "Aquatic Biology",
+      "upper_division_required": true,
+      "note": "Three courses required from the following, including at least two laboratory courses (underlined): EEMB 106, 112, 116, 142AL, 142BL, 142CL, 144, 144L, 147, 148, 150A, 152 (or Env S 152), 153, 158, 159, 163, 165, 170",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "EEMB 106"
+        },
+        {
+          "id": "EEMB 112"
+        },
+        {
+          "id": "EEMB 116"
+        },
+        {
+          "id": "EEMB 142AL"
+        },
+        {
+          "id": "EEMB 142BL"
+        },
+        {
+          "id": "EEMB 142CL"
+        },
+        {
+          "id": "EEMB 144"
+        },
+        {
+          "id": "EEMB 144L"
+        },
+        {
+          "id": "EEMB 147"
+        },
+        {
+          "id": "EEMB 148"
+        },
+        {
+          "id": "EEMB 150A"
+        },
+        {
+          "id": "EEMB 152",
+          "alt": [
+            "ENV S 152"
+          ]
+        },
+        {
+          "id": "EEMB 153",
+          "note": "listed in more than one area, but may be applied to only one area"
+        },
+        {
+          "id": "EEMB 158",
+          "note": "listed in more than one area, but may be applied to only one area"
+        },
+        {
+          "id": "EEMB 159"
+        },
+        {
+          "id": "EEMB 163"
+        },
+        {
+          "id": "EEMB 165"
+        },
+        {
+          "id": "EEMB 170"
+        }
+      ]
+    },
+    {
+      "id": "ud_physical_environment",
+      "label": "Physical Environment",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 153",
+          "note": "listed in more than one area, but may be applied to only one area"
+        },
+        {
+          "id": "EEMB 158",
+          "note": "listed in more than one area, but may be applied to only one area"
+        },
+        {
+          "id": "EARTH 168",
+          "alt": [
+            "ENV S 168"
+          ]
+        },
+        {
+          "id": "GEOG 104"
+        },
+        {
+          "id": "GEOG 112"
+        },
+        {
+          "id": "GEOG 116"
+        },
+        {
+          "id": "GEOG 144"
+        },
+        {
+          "id": "GEOG 162"
+        },
+        {
+          "id": "GEOG 163"
+        },
+        {
+          "id": "GEOG 165"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "Electives",
+      "upper_division_required": true,
+      "note": "Additional UD courses offered in EEMB or MCDB or from Areas C and D above to bring the total UD units in the major to 48. Recommended courses: EEMB 143, 179",
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

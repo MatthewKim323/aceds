@@ -1,0 +1,403 @@
+{
+  "id": "biochemistry_bs",
+  "name": "Biochemistry",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Chemistry and Biochemistry",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 46,
+  "source_pdf": "Biochemistry BS Major (2025).pdf",
+  "notes": "A UC GPA of 2.00 or above in each of the six sequences of courses listed in Area I, is required for admission to the full Biochemistry major. Acceptance into the pre-major does not guarantee admission to full major status. Upon satisfactory completion of the pre-major courses, students must complete a change of major petition, available on the Department of Chemistry and Biochemistry website. P/NP grading not allowed for major courses (prep or UD), including courses applied to the major from other departments. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "pre_major_requirements",
+      "label": "Pre-Major Requirements",
+      "courses": [
+        {
+          "id": "CHEM 3A",
+          "alt": [
+            "CHEM 1A",
+            "CHEM 2A"
+          ]
+        },
+        {
+          "id": "CHEM 3B",
+          "alt": [
+            "CHEM 1B",
+            "CHEM 2B"
+          ]
+        },
+        {
+          "id": "CHEM 3C",
+          "alt": [
+            "CHEM 1C",
+            "CHEM 2C"
+          ]
+        },
+        {
+          "id": "CHEM 2AL",
+          "alt": [
+            "CHEM 1AL"
+          ]
+        },
+        {
+          "id": "CHEM 2BL",
+          "alt": [
+            "CHEM 1BL",
+            "CHEM 2BC"
+          ]
+        },
+        {
+          "id": "CHEM 3L",
+          "alt": [
+            "CHEM 1CL",
+            "CHEM 2CC"
+          ]
+        },
+        {
+          "id": "CHEM 6AL"
+        },
+        {
+          "id": "CHEM 6BL",
+          "alt": [
+            "CHEM 6BH"
+          ]
+        },
+        {
+          "id": "CHEM 130A",
+          "alt": [
+            "CHEM 109A",
+            "CHEM 109AH"
+          ]
+        },
+        {
+          "id": "CHEM 130B",
+          "alt": [
+            "CHEM 109B",
+            "CHEM 109BH"
+          ]
+        },
+        {
+          "id": "CHEM 130C",
+          "alt": [
+            "CHEM 109C",
+            "CHEM 109CH"
+          ]
+        },
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ]
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A"
+        },
+        {
+          "id": "PHYS 7A",
+          "alt": [
+            "PHYS 1"
+          ]
+        },
+        {
+          "id": "PHYS 7B",
+          "alt": [
+            "PHYS 2"
+          ]
+        },
+        {
+          "id": "PHYS 7C",
+          "alt": [
+            "PHYS 3",
+            "PHYS 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "preparation_for_major",
+      "label": "Preparation for the Major",
+      "note": "Math 6A and Phys 7L (or 3L) are required for enrollment in Biophysical Chemistry (CHEM 112A-B-C) which should be taken in the fall quarter of Year 3.",
+      "courses": [
+        {
+          "id": "MATH 6A"
+        },
+        {
+          "id": "PHYS 7L",
+          "alt": [
+            "PHYS 3L"
+          ]
+        },
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "MCDB 1LL"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major_a",
+      "label": "Upper-Division Major: A. Required Core Courses",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "CHEM 112A"
+        },
+        {
+          "id": "CHEM 112B"
+        },
+        {
+          "id": "CHEM 112C"
+        },
+        {
+          "id": "CHEM 142A",
+          "alt": [
+            "CHEM W 142A"
+          ]
+        },
+        {
+          "id": "CHEM 142B"
+        },
+        {
+          "id": "CHEM 142C"
+        },
+        {
+          "id": "CHEM 173A"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major_b",
+      "label": "Upper-Division Major: B. Required Laboratory Courses",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "CHEM 110L"
+        },
+        {
+          "id": "CHEM 112L"
+        },
+        {
+          "id": "CHEM 125L"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major_c",
+      "label": "Upper-Division Major: C. Core Electives",
+      "note": "Six units from the following core electives",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_units",
+        "n_units": 6
+      },
+      "courses": [
+        {
+          "id": "CHEM 141"
+        },
+        {
+          "id": "CHEM 143"
+        },
+        {
+          "id": "CHEM 145"
+        },
+        {
+          "id": "CHEM 146"
+        },
+        {
+          "id": "CHEM 147"
+        },
+        {
+          "id": "CHEM 151"
+        },
+        {
+          "id": "CHEM 154A"
+        },
+        {
+          "id": "CHEM 154B"
+        },
+        {
+          "id": "CHEM 161"
+        },
+        {
+          "id": "CHEM 162A"
+        },
+        {
+          "id": "CHEM 162B"
+        },
+        {
+          "id": "CHEM 171"
+        },
+        {
+          "id": "CHEM 181"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major_d",
+      "label": "Upper-Division Major: D. Additional Electives",
+      "note": "Five additional units from C above, or the following, with no more than one course from Chemistry 110 and 123. Chemistry 126 provided 145 has not been taken.",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_units",
+        "n_units": 5
+      },
+      "courses": [
+        {
+          "id": "CHEM 104"
+        },
+        {
+          "id": "CHEM 110"
+        },
+        {
+          "id": "CHEM 111"
+        },
+        {
+          "id": "CHEM 113AL"
+        },
+        {
+          "id": "CHEM 115A"
+        },
+        {
+          "id": "CHEM 115B"
+        },
+        {
+          "id": "CHEM 115C"
+        },
+        {
+          "id": "CHEM 117A"
+        },
+        {
+          "id": "CHEM 118"
+        },
+        {
+          "id": "CHEM 120"
+        },
+        {
+          "id": "CHEM 123"
+        },
+        {
+          "id": "CHEM 124"
+        },
+        {
+          "id": "CHEM 126"
+        },
+        {
+          "id": "CHEM 127"
+        },
+        {
+          "id": "CHEM 128"
+        },
+        {
+          "id": "CHEM 129"
+        },
+        {
+          "id": "CHEM 132"
+        },
+        {
+          "id": "CHEM 133"
+        },
+        {
+          "id": "CHEM 134"
+        },
+        {
+          "id": "CHEM 141"
+        },
+        {
+          "id": "CHEM 143"
+        },
+        {
+          "id": "CHEM 145"
+        },
+        {
+          "id": "CHEM 146"
+        },
+        {
+          "id": "CHEM 147"
+        },
+        {
+          "id": "CHEM 148"
+        },
+        {
+          "id": "CHEM 150"
+        },
+        {
+          "id": "CHEM 151"
+        },
+        {
+          "id": "CHEM 153"
+        },
+        {
+          "id": "CHEM 154A"
+        },
+        {
+          "id": "CHEM 154B"
+        },
+        {
+          "id": "CHEM 161"
+        },
+        {
+          "id": "CHEM 162A"
+        },
+        {
+          "id": "CHEM 162B"
+        },
+        {
+          "id": "CHEM 163"
+        },
+        {
+          "id": "CHEM 171"
+        },
+        {
+          "id": "CHEM 173B"
+        },
+        {
+          "id": "CHEM 175"
+        },
+        {
+          "id": "CHEM 176"
+        },
+        {
+          "id": "CHEM 181"
+        },
+        {
+          "id": "CHEM 186"
+        },
+        {
+          "id": "MCDB 101B"
+        },
+        {
+          "id": "MCDB 103"
+        },
+        {
+          "id": "MCDB 126B"
+        },
+        {
+          "id": "MCDB 126C"
+        },
+        {
+          "id": "MCDB 134"
+        },
+        {
+          "id": "MCDB 135"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

@@ -1,0 +1,450 @@
+{
+  "id": "physical_geography_bs",
+  "name": "Physical Geography",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Geography",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 44,
+  "source_pdf": "Physical Geography Major (2025).pdf",
+  "notes": "At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. Up to 5 units of Geography 198, 199RA may be taken P/NP for major credit. All other major courses (prep or UD), including those applied to the major from other departments, must be completed on a letter-graded basis. Geography 193, 198, 199, 199RA may be applied to any UD area by petition, depending on the subject matter, up to a maximum of 5 units. A maximum of 8 UD units from related fields may be applied to the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "prep_1",
+      "label": "Geography 3, 4",
+      "courses": [
+        {
+          "id": "GEOG 3"
+        },
+        {
+          "id": "GEOG 4"
+        }
+      ]
+    },
+    {
+      "id": "prep_2",
+      "label": "Geography 5",
+      "courses": [
+        {
+          "id": "GEOG 5"
+        }
+      ]
+    },
+    {
+      "id": "prep_3",
+      "label": "Math 3A-B (or 2A-B) and 4A",
+      "courses": [
+        {
+          "id": "MATH 3A",
+          "alt": [
+            "MATH 2A"
+          ]
+        },
+        {
+          "id": "MATH 3B",
+          "alt": [
+            "MATH 2B"
+          ]
+        },
+        {
+          "id": "MATH 4A"
+        }
+      ]
+    },
+    {
+      "id": "prep_4",
+      "label": "Physics 6A-B-C or 7A-B-C-L (or 1-2-3-3L-4-4L)",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PHYS 6A"
+        },
+        {
+          "id": "PHYS 6B"
+        },
+        {
+          "id": "PHYS 6C"
+        }
+      ],
+      "subgroups": [
+        {
+          "id": "prep_4_alt1",
+          "label": "Physics 7A-B-C-L",
+          "courses": [
+            {
+              "id": "PHYS 7A"
+            },
+            {
+              "id": "PHYS 7B"
+            },
+            {
+              "id": "PHYS 7C"
+            },
+            {
+              "id": "PHYS 7L"
+            }
+          ]
+        },
+        {
+          "id": "prep_4_alt2",
+          "label": "Physics 1-2-3-3L-4-4L",
+          "courses": [
+            {
+              "id": "PHYS 1"
+            },
+            {
+              "id": "PHYS 2"
+            },
+            {
+              "id": "PHYS 3"
+            },
+            {
+              "id": "PHYS 3L"
+            },
+            {
+              "id": "PHYS 4"
+            },
+            {
+              "id": "PHYS 4L"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_5",
+      "label": "PSTAT 5A or 5LS",
+      "courses": [
+        {
+          "id": "PSTAT 5A",
+          "alt": [
+            "PSTAT 5LS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_6",
+      "label": "Chemistry 1A-1B-2AL",
+      "courses": [
+        {
+          "id": "CHEM 1A"
+        },
+        {
+          "id": "CHEM 1B"
+        },
+        {
+          "id": "CHEM 2AL"
+        }
+      ]
+    },
+    {
+      "id": "prep_7",
+      "label": "7.5 elective units from Chemistry, MCDB, EEMB, Earth Science, Astronomy, Math",
+      "note": "7.5 elective units from: Chemistry 1C, 2BL; MCDB 1A, 1AL, 1LL, 1B, 1BL; EEMB 2, 2LL, 3, 3L; Earth Science 2, 3, 4; Astronomy 1, 2; Math 4B, 6A, 6B, 8. Chemistry 1A-B-C is prerequisite to MCDB 1A. Strongly recommended: Computer Science 8; Geography 12 (or W 12); any additional courses from the above elective selection.",
+      "pick": {
+        "mode": "choose_n_units",
+        "n_units": 7.5
+      },
+      "courses": [
+        {
+          "id": "CHEM 1C"
+        },
+        {
+          "id": "CHEM 2BL"
+        },
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1AL"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "MCDB 1BL"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 2LL"
+        },
+        {
+          "id": "EEMB 3"
+        },
+        {
+          "id": "EEMB 3L"
+        },
+        {
+          "id": "EARTH 2"
+        },
+        {
+          "id": "EARTH 3"
+        },
+        {
+          "id": "EARTH 4"
+        },
+        {
+          "id": "ASTRON 1"
+        },
+        {
+          "id": "ASTRON 2"
+        },
+        {
+          "id": "MATH 4B"
+        },
+        {
+          "id": "MATH 6A"
+        },
+        {
+          "id": "MATH 6B"
+        },
+        {
+          "id": "MATH 8"
+        }
+      ]
+    },
+    {
+      "id": "ud_a",
+      "label": "Statistical Analysis",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "GEOG 172"
+        },
+        {
+          "id": "PSTAT 120A",
+          "alt": [
+            "PSTAT W 120A"
+          ]
+        },
+        {
+          "id": "EEMB 146"
+        },
+        {
+          "id": "EARTH 134"
+        }
+      ]
+    },
+    {
+      "id": "ud_b",
+      "label": "Introductory Physical Geography courses",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "GEOG 102"
+        },
+        {
+          "id": "GEOG 104"
+        },
+        {
+          "id": "GEOG 110"
+        },
+        {
+          "id": "GEOG 112"
+        },
+        {
+          "id": "GEOG 114A"
+        },
+        {
+          "id": "GEOG 131"
+        },
+        {
+          "id": "GEOG 134"
+        },
+        {
+          "id": "GEOG 167"
+        }
+      ]
+    },
+    {
+      "id": "ud_c",
+      "label": "Specialized Physical Geography courses",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "GEOG 114B"
+        },
+        {
+          "id": "GEOG 116"
+        },
+        {
+          "id": "GEOG 119"
+        },
+        {
+          "id": "GEOG 130"
+        },
+        {
+          "id": "GEOG 132"
+        },
+        {
+          "id": "GEOG 133"
+        },
+        {
+          "id": "GEOG 136"
+        },
+        {
+          "id": "GEOG 137"
+        },
+        {
+          "id": "GEOG 142"
+        },
+        {
+          "id": "GEOG 144"
+        },
+        {
+          "id": "GEOG 162"
+        },
+        {
+          "id": "GEOG 163"
+        },
+        {
+          "id": "GEOG 165"
+        },
+        {
+          "id": "GEOG 166"
+        },
+        {
+          "id": "GEOG 196"
+        }
+      ]
+    },
+    {
+      "id": "ud_d",
+      "label": "Geographical Techniques",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "GEOG 115A"
+        },
+        {
+          "id": "GEOG 115B"
+        },
+        {
+          "id": "GEOG 115C"
+        },
+        {
+          "id": "GEOG 117"
+        },
+        {
+          "id": "GEOG 126"
+        },
+        {
+          "id": "GEOG 128"
+        },
+        {
+          "id": "GEOG 175"
+        },
+        {
+          "id": "GEOG 176A"
+        },
+        {
+          "id": "GEOG 176B"
+        },
+        {
+          "id": "GEOG 176C"
+        },
+        {
+          "id": "GEOG 178"
+        },
+        {
+          "id": "GEOG 183"
+        },
+        {
+          "id": "GEOG 184"
+        },
+        {
+          "id": "GEOG 186"
+        },
+        {
+          "id": "GEOG 190"
+        },
+        {
+          "id": "GEOG 191"
+        }
+      ]
+    },
+    {
+      "id": "ud_e",
+      "label": "Integrative and Regional Geography",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "GEOG 113"
+        },
+        {
+          "id": "GEOG 140"
+        },
+        {
+          "id": "GEOG 148"
+        },
+        {
+          "id": "GEOG 149"
+        },
+        {
+          "id": "GEOG 150"
+        },
+        {
+          "id": "GEOG 155"
+        },
+        {
+          "id": "GEOG 158"
+        },
+        {
+          "id": "GEOG 159"
+        },
+        {
+          "id": "GEOG 160"
+        },
+        {
+          "id": "GEOG 161"
+        },
+        {
+          "id": "GEOG 169"
+        },
+        {
+          "id": "GEOG 171BT"
+        },
+        {
+          "id": "GEOG 171FP"
+        },
+        {
+          "id": "GEOG 192"
+        },
+        {
+          "id": "GEOG 194"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

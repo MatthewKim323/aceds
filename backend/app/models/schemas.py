@@ -15,7 +15,9 @@ class Prediction(BaseModel):
     course_norm: str
     predicted_gpa: float
     predicted_gpa_std: float
-    regime: str = Field(description="warm | cold_instr | cold_course | cold_both")
+    regime: str = Field(
+        description="warm | cold_instr | cold_course | cold_pair | cold_both (cold-start bucket)"
+    )
 
 
 class PredictResponse(BaseModel):
@@ -63,6 +65,8 @@ class SectionPick(BaseModel):
     begin_time: str | None
     end_time: str | None
     predicted_gpa: float | None
+    predicted_gpa_std: float | None = None
+    regime: str | None = None
     rmp_rating: float | None
     reason: dict[str, float] = Field(default_factory=dict)
 

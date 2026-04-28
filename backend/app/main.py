@@ -11,6 +11,7 @@ from fastapi.responses import ORJSONResponse
 
 from .config import get_settings
 from .routers import (
+    catalog,
     courses,
     ge,
     health,
@@ -67,6 +68,7 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
     app.include_router(health.router)
+    app.include_router(catalog.router)
     app.include_router(courses.router)
     app.include_router(sections.router)
     app.include_router(professors.router)

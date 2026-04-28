@@ -1,0 +1,189 @@
+{
+  "id": "applied_mathematics_bs",
+  "name": "Applied Mathematics",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2023-2024",
+  "department": "Mathematics",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.5,
+  "upper_div_units_required": 52,
+  "source_pdf": "Applied Math Major Req Sheet 23-24.pdf",
+  "reviewed": false,
+  "notes": "To be admitted to full major status, students must complete the following pre-major Mathematics courses with a UC grade-point average of 2.5 or higher. All pre-major courses and Computer Science 8, 16 or Engineering 3 must be completed with a grade of 'C' or better. Preparation Courses are excluded from pre-major GPA, but will apply to the overall major GPA. Entry into the pre-major does not guarantee admission to full major status. While completing required preparation, students are classified as pre-majors. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. The following courses will NOT apply to the major: Math 100A-B, 193, 195A-B; PSTAT 109, 193. With an advisor's approval, 8 of the 52 UD units may be non-mathematics courses taken as part of a coherent mathematics program.",
+  "groups": [
+    {
+      "id": "pre_major",
+      "label": "PRE-MAJOR",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "MATH 2A-B",
+          "alt": [
+            "MATH 3A-B"
+          ],
+          "units": 8
+        },
+        {
+          "id": "MATH 4A-B",
+          "units": 8
+        },
+        {
+          "id": "MATH 6A-B",
+          "units": 8
+        },
+        {
+          "id": "MATH 8",
+          "units": 5,
+          "note": "Either Math 4A, 4B, 6A, or 6B must be completed with a grade of 'B' or better in order to take Math 8."
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "preparation_for_the_major",
+      "label": "PREPARATION FOR THE MAJOR",
+      "upper_division_required": false,
+      "courses": [],
+      "subgroups": [
+        {
+          "id": "preparation_computer_science",
+          "label": "One course from Computer Science 8, 9, 16 or Engineering 3",
+          "pick": {
+            "n_courses": 1,
+            "mode": "choose_n_courses"
+          },
+          "upper_division_required": false,
+          "courses": [
+            {
+              "id": "CMPSC 8"
+            },
+            {
+              "id": "CMPSC 9"
+            },
+            {
+              "id": "CMPSC 16"
+            },
+            {
+              "id": "ENGR 3"
+            }
+          ],
+          "subgroups": []
+        },
+        {
+          "id": "preparation_physics",
+          "label": "One course from Physics 1, 6A, 7A, or 21",
+          "pick": {
+            "n_courses": 1,
+            "mode": "choose_n_courses"
+          },
+          "upper_division_required": false,
+          "courses": [
+            {
+              "id": "PHYS 1"
+            },
+            {
+              "id": "PHYS 6A"
+            },
+            {
+              "id": "PHYS 7A"
+            },
+            {
+              "id": "PHYS 21"
+            }
+          ],
+          "subgroups": []
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major",
+      "label": "UPPER-DIVISION MAJOR",
+      "note": "52 UD units are required, of which a minimum of 40 must be in Mathematics. These units must be distributed as follows:",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MATH 104A-B"
+        },
+        {
+          "id": "MATH 108A-B"
+        },
+        {
+          "id": "MATH 117"
+        }
+      ],
+      "subgroups": [
+        {
+          "id": "upper_division_sequences",
+          "label": "Two 2-quarter sequences from: Math 118A-B, 119A-B, or 124A-B",
+          "pick": {
+            "mode": "all"
+          },
+          "upper_division_required": true,
+          "courses": [
+            {
+              "id": "MATH 118A-B"
+            },
+            {
+              "id": "MATH 119A-B"
+            },
+            {
+              "id": "MATH 124A-B"
+            }
+          ],
+          "subgroups": []
+        },
+        {
+          "id": "upper_division_104c_108c_118c",
+          "label": "Math 104C, 108C, or 118C",
+          "pick": {
+            "n_courses": 1,
+            "mode": "choose_n_courses"
+          },
+          "upper_division_required": true,
+          "courses": [
+            {
+              "id": "MATH 104C"
+            },
+            {
+              "id": "MATH 108C"
+            },
+            {
+              "id": "MATH 118C"
+            }
+          ],
+          "subgroups": []
+        },
+        {
+          "id": "upper_division_132a_137a",
+          "label": "Math 132A or 137A",
+          "pick": {
+            "n_courses": 1,
+            "mode": "choose_n_courses"
+          },
+          "upper_division_required": true,
+          "courses": [
+            {
+              "id": "MATH 132A"
+            },
+            {
+              "id": "MATH 137A"
+            }
+          ],
+          "subgroups": []
+        },
+        {
+          "id": "upper_division_electives",
+          "label": "8 units of upper-division Math or PSTAT electives",
+          "pick": {
+            "n_units": 8,
+            "mode": "choose_n_units"
+          },
+          "upper_division_required": true,
+          "courses": [],
+          "subgroups": []
+        }
+      ]
+    }
+  ]
+}

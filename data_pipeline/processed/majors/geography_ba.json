@@ -1,0 +1,439 @@
+{
+  "id": "geography_ba",
+  "name": "Geography",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Geography",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 40,
+  "source_pdf": "Geography Major (2025).pdf",
+  "groups": [
+    {
+      "id": "prep_geog_3_4",
+      "label": "Geography 3, 4",
+      "courses": [
+        {
+          "id": "GEOG 3"
+        },
+        {
+          "id": "GEOG 4"
+        }
+      ]
+    },
+    {
+      "id": "prep_geog_5",
+      "label": "Geography 5",
+      "courses": [
+        {
+          "id": "GEOG 5"
+        }
+      ]
+    },
+    {
+      "id": "prep_geog_12",
+      "label": "Geography 12 (or W 12)",
+      "courses": [
+        {
+          "id": "GEOG 12",
+          "alt": [
+            "GEOG W12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_area_abc",
+      "label": "At least one course from Area A or B or C",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [],
+      "subgroups": [
+        {
+          "id": "prep_area_a",
+          "label": "Area A",
+          "courses": [
+            {
+              "id": "CHEM 1A"
+            },
+            {
+              "id": "EEMB 2",
+              "alt": [
+                "EEMB 2LL",
+                "EEMB 21"
+              ]
+            },
+            {
+              "id": "ENV S 2"
+            },
+            {
+              "id": "EARTH 2",
+              "alt": [
+                "EARTH 4"
+              ]
+            },
+            {
+              "id": "MCDB 20"
+            },
+            {
+              "id": "PHYS 6A"
+            },
+            {
+              "id": "PHYS 6AL"
+            }
+          ]
+        },
+        {
+          "id": "prep_area_b",
+          "label": "Area B",
+          "courses": [
+            {
+              "id": "ANTH 2",
+              "alt": [
+                "ANTH 5"
+              ]
+            },
+            {
+              "id": "COMM 1"
+            },
+            {
+              "id": "ECON 1",
+              "alt": [
+                "ECON 2"
+              ]
+            },
+            {
+              "id": "ENV S 3"
+            },
+            {
+              "id": "LING 20"
+            },
+            {
+              "id": "POL S 7"
+            },
+            {
+              "id": "PSY 1"
+            },
+            {
+              "id": "SOC 1"
+            }
+          ]
+        },
+        {
+          "id": "prep_area_c",
+          "label": "Area C",
+          "courses": [
+            {
+              "id": "GEOG 6"
+            },
+            {
+              "id": "GEOG 8",
+              "alt": [
+                "GEOG W8"
+              ]
+            },
+            {
+              "id": "GEOG 20"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_statistics",
+      "label": "One statistics course",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5A"
+        },
+        {
+          "id": "PSTAT 5LS"
+        },
+        {
+          "id": "COMM 87"
+        },
+        {
+          "id": "PSY 5"
+        }
+      ]
+    },
+    {
+      "id": "ud_physical_geography",
+      "label": "Physical Geography",
+      "note": "4 units from Physical Geography",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GEOG 102"
+        },
+        {
+          "id": "GEOG 104"
+        },
+        {
+          "id": "GEOG 110"
+        },
+        {
+          "id": "GEOG 112"
+        },
+        {
+          "id": "GEOG 114A"
+        },
+        {
+          "id": "GEOG 114B"
+        },
+        {
+          "id": "GEOG 116"
+        },
+        {
+          "id": "GEOG 119"
+        },
+        {
+          "id": "GEOG 130"
+        },
+        {
+          "id": "GEOG 131"
+        },
+        {
+          "id": "GEOG 132"
+        },
+        {
+          "id": "GEOG 133"
+        },
+        {
+          "id": "GEOG 134"
+        },
+        {
+          "id": "GEOG 136"
+        },
+        {
+          "id": "GEOG 137"
+        },
+        {
+          "id": "GEOG 142"
+        },
+        {
+          "id": "GEOG 144"
+        },
+        {
+          "id": "GEOG 162"
+        },
+        {
+          "id": "GEOG 163"
+        },
+        {
+          "id": "GEOG 165"
+        },
+        {
+          "id": "GEOG 166"
+        },
+        {
+          "id": "GEOG 167"
+        },
+        {
+          "id": "GEOG 196"
+        }
+      ]
+    },
+    {
+      "id": "ud_human_geography",
+      "label": "Human Geography",
+      "note": "4 units from Human Geography",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GEOG 101"
+        },
+        {
+          "id": "GEOG 108"
+        },
+        {
+          "id": "GEOG 109"
+        },
+        {
+          "id": "GEOG 111A"
+        },
+        {
+          "id": "GEOG 111B"
+        },
+        {
+          "id": "GEOG 111C"
+        },
+        {
+          "id": "GEOG 141A"
+        },
+        {
+          "id": "GEOG 141B"
+        },
+        {
+          "id": "GEOG 141C"
+        },
+        {
+          "id": "GEOG 145"
+        },
+        {
+          "id": "GEOG 146"
+        },
+        {
+          "id": "GEOG 152"
+        },
+        {
+          "id": "GEOG 153A"
+        },
+        {
+          "id": "GEOG 153B"
+        },
+        {
+          "id": "GEOG 153C"
+        },
+        {
+          "id": "GEOG 153D"
+        },
+        {
+          "id": "GEOG 182"
+        },
+        {
+          "id": "GEOG 185A"
+        },
+        {
+          "id": "GEOG 185B"
+        },
+        {
+          "id": "GEOG 185C"
+        }
+      ]
+    },
+    {
+      "id": "ud_additional_a1_a2",
+      "label": "4 additional units from either A1 or A2",
+      "note": "4 additional units from either Physical Geography (A1) or Human Geography (A2)",
+      "upper_division_required": true,
+      "courses": []
+    },
+    {
+      "id": "ud_techniques",
+      "label": "Techniques",
+      "note": "8 units from Techniques",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GEOG 115A"
+        },
+        {
+          "id": "GEOG 115B"
+        },
+        {
+          "id": "GEOG 115C"
+        },
+        {
+          "id": "GEOG 117"
+        },
+        {
+          "id": "GEOG 126"
+        },
+        {
+          "id": "GEOG 128"
+        },
+        {
+          "id": "GEOG 172"
+        },
+        {
+          "id": "GEOG 175"
+        },
+        {
+          "id": "GEOG 176A"
+        },
+        {
+          "id": "GEOG 176B"
+        },
+        {
+          "id": "GEOG 176C"
+        },
+        {
+          "id": "GEOG 178"
+        },
+        {
+          "id": "GEOG 183"
+        },
+        {
+          "id": "GEOG 184"
+        },
+        {
+          "id": "GEOG 186"
+        },
+        {
+          "id": "GEOG 190"
+        },
+        {
+          "id": "GEOG 191"
+        }
+      ]
+    },
+    {
+      "id": "ud_integrative_regional",
+      "label": "Integrative and Regional Geography",
+      "note": "8 units from Integrative and Regional Geography",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GEOG 113"
+        },
+        {
+          "id": "GEOG 140"
+        },
+        {
+          "id": "GEOG 148"
+        },
+        {
+          "id": "GEOG 149"
+        },
+        {
+          "id": "GEOG 150"
+        },
+        {
+          "id": "GEOG 155"
+        },
+        {
+          "id": "GEOG 158"
+        },
+        {
+          "id": "GEOG 159"
+        },
+        {
+          "id": "GEOG 160"
+        },
+        {
+          "id": "GEOG 161"
+        },
+        {
+          "id": "GEOG 169"
+        },
+        {
+          "id": "GEOG 171BT"
+        },
+        {
+          "id": "GEOG 171FP"
+        },
+        {
+          "id": "GEOG 192"
+        },
+        {
+          "id": "GEOG 194"
+        }
+      ]
+    },
+    {
+      "id": "ud_additional_units",
+      "label": "12 Additional units from areas A-C to bring total UD units to 40",
+      "note": "12 Additional units from Physical Geography, Human Geography, Techniques, or Integrative and Regional Geography. Geography 193, 198, 199, 199RA can be applied to any UD area by petition, depending on the subject matter, up to a maximum of 5 units. A maximum of 8 UD units from related fields may be applied to the major, if (a) they are selected from the approved list of related courses, or (b) are approved by petition.",
+      "upper_division_required": true,
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

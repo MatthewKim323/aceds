@@ -1,0 +1,328 @@
+{
+  "id": "economics_ba",
+  "name": "Economics",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Economics",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.85,
+  "upper_div_units_required": 40,
+  "source_pdf": "Economics Major (2025).pdf",
+  "notes": "Econ 5 and Econ 10A must be taken at UCSB. A maximum of 4 units of Economics 199 will apply to the UD major. Economics 199RA does not count towards the UD major. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. No grade lower than a C in pre-major courses will be accepted.",
+  "groups": [
+    {
+      "id": "pre_major",
+      "label": "Pre-Major",
+      "note": "Must complete Economics 1, 2, and 10A with a UC grade-point average of 2.85 or above. No grade lower than a C in pre-major courses.",
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "ECON 1",
+          "units": 5
+        },
+        {
+          "id": "ECON 2",
+          "units": 5
+        },
+        {
+          "id": "ECON 10A",
+          "units": 5,
+          "note": "Must be taken at UCSB"
+        }
+      ]
+    },
+    {
+      "id": "preparation_for_major",
+      "label": "Preparation for the Major",
+      "note": "Grades in these courses will not be used in computing the pre-major GPA but will apply to the overall major GPA.",
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "ECON 5",
+          "alt": [
+            "PSTAT 120A"
+          ],
+          "units": 5,
+          "note": "Must be taken at UCSB"
+        },
+        {
+          "id": "MATH 2A"
+        },
+        {
+          "id": "MATH 2B"
+        }
+      ]
+    },
+    {
+      "id": "math_alternative_3",
+      "label": "Math Alternative (3-series)",
+      "note": "Alternative to Math 2A-B",
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "MATH 3A"
+        },
+        {
+          "id": "MATH 3B"
+        }
+      ]
+    },
+    {
+      "id": "math_alternative_34",
+      "label": "Math Alternative (34-series)",
+      "note": "Alternative to Math 2A-B",
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "MATH 34A"
+        },
+        {
+          "id": "MATH 34B"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_core_a",
+      "label": "Upper-Division Core A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ECON 100B",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "upper_division_core_b",
+      "label": "Upper-Division Core B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ECON 101",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "upper_division_core_c",
+      "label": "Upper-Division Core C",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ECON 140A",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "upper_division_electives_area_d",
+      "label": "Upper-Division Electives Area D",
+      "note": "Six UD Economics elective courses from the following",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 6
+      },
+      "courses": [
+        {
+          "id": "ECON 100C"
+        },
+        {
+          "id": "ECON 106"
+        },
+        {
+          "id": "ECON 107A"
+        },
+        {
+          "id": "ECON 107B"
+        },
+        {
+          "id": "ECON 112A"
+        },
+        {
+          "id": "ECON 112B"
+        },
+        {
+          "id": "ECON 113A"
+        },
+        {
+          "id": "ECON 113B"
+        },
+        {
+          "id": "ECON 114A"
+        },
+        {
+          "id": "ECON 114B"
+        },
+        {
+          "id": "ECON 115"
+        },
+        {
+          "id": "ECON 116A"
+        },
+        {
+          "id": "ECON 116B"
+        },
+        {
+          "id": "ECON 116C"
+        },
+        {
+          "id": "ECON 117A"
+        },
+        {
+          "id": "ECON 120"
+        },
+        {
+          "id": "ECON 122"
+        },
+        {
+          "id": "ECON 127"
+        },
+        {
+          "id": "ECON 130"
+        },
+        {
+          "id": "ECON 133"
+        },
+        {
+          "id": "ECON 134A"
+        },
+        {
+          "id": "ECON 134B"
+        },
+        {
+          "id": "ECON 134C"
+        },
+        {
+          "id": "ECON 135"
+        },
+        {
+          "id": "ECON 140B"
+        },
+        {
+          "id": "ECON 140C"
+        },
+        {
+          "id": "ECON 141"
+        },
+        {
+          "id": "ECON 145"
+        },
+        {
+          "id": "ECON 150A"
+        },
+        {
+          "id": "ECON 151"
+        },
+        {
+          "id": "ECON 152"
+        },
+        {
+          "id": "ECON 153"
+        },
+        {
+          "id": "ECON 154"
+        },
+        {
+          "id": "ECON 155"
+        },
+        {
+          "id": "ECON 156"
+        },
+        {
+          "id": "ECON 157"
+        },
+        {
+          "id": "ECON 160"
+        },
+        {
+          "id": "ECON 164"
+        },
+        {
+          "id": "ECON 170"
+        },
+        {
+          "id": "ECON 171"
+        },
+        {
+          "id": "ECON 174"
+        },
+        {
+          "id": "ECON 176"
+        },
+        {
+          "id": "ECON 177"
+        },
+        {
+          "id": "ECON 180"
+        },
+        {
+          "id": "ECON 181"
+        },
+        {
+          "id": "ECON 183"
+        },
+        {
+          "id": "ECON 184"
+        },
+        {
+          "id": "ECON 187"
+        },
+        {
+          "id": "ECON 191AA"
+        },
+        {
+          "id": "ECON 196A"
+        },
+        {
+          "id": "ECON 196B"
+        },
+        {
+          "id": "ECON 199",
+          "note": "Maximum of 4 units will apply to UD major"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_electives_area_e",
+      "label": "Upper-Division Electives Area E",
+      "note": "One additional UD Economics elective from either Area D or the following",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "ECON 118"
+        },
+        {
+          "id": "ECON 136A"
+        },
+        {
+          "id": "ECON 136B"
+        },
+        {
+          "id": "ECON 136C"
+        },
+        {
+          "id": "ECON 137A"
+        },
+        {
+          "id": "ECON 137B"
+        },
+        {
+          "id": "ECON 138A"
+        },
+        {
+          "id": "ECON 138B"
+        },
+        {
+          "id": "ECON 185"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

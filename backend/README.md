@@ -6,12 +6,16 @@ FastAPI service that fronts the UCSB catalog, grade history, XGBoost predictor, 
 
 ```bash
 cd backend
-python3.12 -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate   # 3.11+ (see pyproject requires-python)
 pip install -e ".[dev]"
 
 # .env at repo root must set:
 #   SUPABASE_URL=https://<project>.supabase.co
 #   SUPABASE_SERVICE_ROLE_KEY=<service-role>   # backend-only secret
+# Optional for live explorer (`GET /catalog/*`):
+#   UCSB_API_KEY=<consumer key from developer.ucsb.edu>  # header ucsb-api-key
+#   ACE_CATALOG_QUARTER=20264   # YYYYQ override; default is heuristic “next” quarter
+#   ACE_UCSB_DEPT_CODES=CMPSC,MATH,...   # optional extra subject codes merged into the crawl
 uvicorn app.main:app --reload --port 8000
 ```
 
@@ -30,6 +34,7 @@ curl -X POST http://localhost:8000/predict \
 | Path | Purpose | File |
 |---|---|---|
 | `GET /health` | liveness | `app/routers/health.py` |
+| `GET /catalog/meta`, `GET /catalog/courses` | live UCSB curriculum (quarter-wide + per-subject merge) | `app/routers/catalog.py` |
 | `GET /courses` | paginated catalog search | `app/routers/courses.py` |
 | `GET /sections` | live quarter sections | `app/routers/sections.py` |
 | `GET /professors` | RMP lookup | `app/routers/professors.py` |

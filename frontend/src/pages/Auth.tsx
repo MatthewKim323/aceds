@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { useAuth } from '../lib/auth'
+import { getProfile } from '../lib/profile'
 
 export function Auth() {
   const { user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail } =
@@ -12,9 +13,41 @@ export function Auth() {
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
   const [checkEmail, setCheckEmail] = useState(false)
+  const [postLoginPath, setPostLoginPath] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (loading || !user) {
+      if (!user) setPostLoginPath(null)
+      return
+    }
+    let cancelled = false
+    setPostLoginPath(null)
+    getProfile(user.id).then(({ profile }) => {
+      if (cancelled) return
+      setPostLoginPath(
+        profile?.onboarding_complete ? '/dashboard' : '/onboarding',
+      )
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [user, loading])
 
   if (loading) return null
-  if (user) return <Navigate to="/onboarding" replace />
+  if (user && postLoginPath === null) {
+    return (
+      <div className="auth-page">
+        <div className="auth-card">
+          <p className="auth-desc" style={{ margin: 0 }}>
+            Signing you in…
+          </p>
+        </div>
+      </div>
+    )
+  }
+  if (user && postLoginPath) {
+    return <Navigate to={postLoginPath} replace />
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

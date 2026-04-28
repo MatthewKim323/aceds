@@ -1,0 +1,468 @@
+{
+  "id": "physics_bs",
+  "name": "Physics",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Physics",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 52,
+  "source_pdf": "Physics BS Major (2025).pdf",
+  "notes": "For those students who have not completed AP calculus BC with a score of 5, Physics 8 is strongly recommended before attempting any other physics course. A grade of C- or above is required in order to continue the sequence of upper division courses. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major.",
+  "groups": [
+    {
+      "id": "prep_physics_sequence",
+      "label": "Physics 21-22-23-24-25",
+      "courses": [
+        {
+          "id": "PHYSICS 21",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 22",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 23",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 24",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 25",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "prep_physics_labs",
+      "label": "Physics 20AL-BL-CL or 13AL-BL-CL",
+      "courses": [
+        {
+          "id": "PHYSICS 20AL",
+          "alt": [
+            "PHYSICS 13AL"
+          ],
+          "units": 2
+        },
+        {
+          "id": "PHYSICS 20BL",
+          "alt": [
+            "PHYSICS 13BL"
+          ],
+          "units": 2
+        },
+        {
+          "id": "PHYSICS 20CL",
+          "alt": [
+            "PHYSICS 13CL"
+          ],
+          "units": 2
+        }
+      ]
+    },
+    {
+      "id": "prep_physics_29",
+      "label": "Physics 29",
+      "courses": [
+        {
+          "id": "PHYSICS 29",
+          "units": 2
+        }
+      ]
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Mathematics 2A or 3A, 2B or 3B, 4A-B, 6A-B",
+      "courses": [
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ],
+          "units": 4
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ],
+          "units": 4
+        },
+        {
+          "id": "MATH 4A",
+          "units": 4
+        },
+        {
+          "id": "MATH 4B",
+          "units": 4
+        },
+        {
+          "id": "MATH 6A",
+          "units": 4
+        },
+        {
+          "id": "MATH 6B",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "prep_science_electives",
+      "label": "Two science electives",
+      "note": "Chosen from the following or in consultation with a faculty advisor",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "ASTRO 1"
+        },
+        {
+          "id": "ASTRO 2"
+        },
+        {
+          "id": "CHEM 1A",
+          "alt": [
+            "CHEM 2A"
+          ]
+        },
+        {
+          "id": "CHEM 1B",
+          "alt": [
+            "CHEM 2B"
+          ]
+        },
+        {
+          "id": "EARTH 2"
+        },
+        {
+          "id": "EARTH 9"
+        },
+        {
+          "id": "EARTH 11"
+        },
+        {
+          "id": "EARTH 20"
+        },
+        {
+          "id": "EEMB 22",
+          "alt": [
+            "EEMB W22",
+            "MCDB 20"
+          ]
+        },
+        {
+          "id": "PSTAT 10"
+        }
+      ]
+    },
+    {
+      "id": "ud_physics_100a",
+      "label": "Physics 100A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHYSICS 100A",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_physics_103_104",
+      "label": "Physics 103, 104",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHYSICS 103",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 104",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_physics_110ab",
+      "label": "Physics 110A-B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHYSICS 110A",
+          "units": 4
+        },
+        {
+          "id": "PHYSICS 110B",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_physics_115a",
+      "label": "Physics 115A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHYSICS 115A",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_physics_119a",
+      "label": "Physics 119A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHYSICS 119A",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_concentration",
+      "label": "CONCENTRATION (in consultation with undergraduate and faculty advisors)",
+      "note": "Choose one concentration. 24 units total.",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "subgroups": [
+        {
+          "id": "concentration_astrophysics",
+          "label": "ASTROPHYSICS",
+          "courses": [
+            {
+              "id": "PHYSICS 115B",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 134L",
+              "units": 4
+            }
+          ],
+          "subgroups": [
+            {
+              "id": "astrophysics_lab_choice",
+              "label": "one course from 127AL, 128AL, 129L, 199",
+              "note": "In order for 199 to count for the requirements of the Astrophysics and Education concentrations, it must consist of 4 units in one quarter, and involve the collection/processing of data and/or construction of instrumentation.",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 1
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS 127AL"
+                },
+                {
+                  "id": "PHYSICS 128AL"
+                },
+                {
+                  "id": "PHYSICS 129L"
+                },
+                {
+                  "id": "PHYSICS 199"
+                }
+              ]
+            },
+            {
+              "id": "astrophysics_electives",
+              "label": "three courses from the following",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 3
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS 132"
+                },
+                {
+                  "id": "PHYSICS 133"
+                },
+                {
+                  "id": "PHYSICS 136"
+                },
+                {
+                  "id": "PHYSICS 137"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "concentration_core",
+          "label": "CORE",
+          "courses": [
+            {
+              "id": "PHYSICS 115B",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 119B",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 128AL",
+              "units": 4
+            }
+          ],
+          "subgroups": [
+            {
+              "id": "core_lab_choice",
+              "label": "one course from the following",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 1
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS 127AL"
+                },
+                {
+                  "id": "PHYSICS 129L"
+                },
+                {
+                  "id": "PHYSICS 134L"
+                }
+              ]
+            },
+            {
+              "id": "core_first_elective",
+              "label": "one physics elective or PSTAT 120A",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 1
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS ELECTIVE",
+                  "note": "Any physics elective"
+                },
+                {
+                  "id": "PSTAT 120A"
+                }
+              ]
+            },
+            {
+              "id": "core_second_elective",
+              "label": "one additional physics elective",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 1
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS ELECTIVE",
+                  "note": "Any physics elective"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "concentration_education",
+          "label": "EDUCATION",
+          "courses": [
+            {
+              "id": "PHYSICS 128AL",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 180",
+              "units": 4
+            }
+          ],
+          "subgroups": [
+            {
+              "id": "education_lab_choice",
+              "label": "one course from the following",
+              "note": "In order for 199 to count for the requirements of the Astrophysics and Education concentrations, it must consist of 4 units in one quarter, and involve the collection/processing of data and/or construction of instrumentation.",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 1
+              },
+              "courses": [
+                {
+                  "id": "PHYSICS 134L"
+                },
+                {
+                  "id": "PHYSICS 127AL"
+                },
+                {
+                  "id": "PHYSICS 129L"
+                },
+                {
+                  "id": "PHYSICS 199"
+                }
+              ]
+            },
+            {
+              "id": "education_ed_courses",
+              "label": "three courses from the following",
+              "pick": {
+                "mode": "choose_n_courses",
+                "n_courses": 3
+              },
+              "courses": [
+                {
+                  "id": "ED 128"
+                },
+                {
+                  "id": "ED 129"
+                },
+                {
+                  "id": "ED 130"
+                },
+                {
+                  "id": "ED 131"
+                },
+                {
+                  "id": "ED 133"
+                },
+                {
+                  "id": "ED 150"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "concentration_soft_living_matter",
+          "label": "SOFT AND LIVING MATTER",
+          "courses": [
+            {
+              "id": "PHYSICS 119B",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 127AL",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 128AL",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 138",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 139",
+              "units": 4
+            },
+            {
+              "id": "PHYSICS 141",
+              "units": 4
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

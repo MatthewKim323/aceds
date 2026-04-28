@@ -1,0 +1,476 @@
+{
+  "id": "hydrologic_sciences_and_policy_bs",
+  "name": "Hydrologic Sciences and Policy",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Environmental Studies",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 56,
+  "source_pdf": "ENVIRONMENTAL STUDIES PROGRAM - Hydrologic Sciences and Policy Major (2025).pdf",
+  "notes": "At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors. Up to 3 units of Env S 190 and 4 units of Env S 192 graded P will be accepted. All other courses applied to the major (prep or UD), including those applied to the major from other departments, must be completed for a letter grade.",
+  "groups": [
+    {
+      "id": "prep_foundation",
+      "label": "Preparation for the Major - Foundation",
+      "courses": [
+        {
+          "id": "ENVS 1",
+          "alt": [
+            "ENVS 3",
+            "ENVS 40"
+          ],
+          "units": 10
+        }
+      ]
+    },
+    {
+      "id": "prep_economics",
+      "label": "Preparation for the Major - Economics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "ECON 1",
+          "units": 5
+        },
+        {
+          "id": "ECON 2"
+        },
+        {
+          "id": "ECON 9"
+        },
+        {
+          "id": "ENVS 30"
+        }
+      ]
+    },
+    {
+      "id": "prep_chemistry",
+      "label": "Preparation for the Major - Chemistry",
+      "courses": [
+        {
+          "id": "CHEM 1A",
+          "units": 15
+        },
+        {
+          "id": "CHEM 1B"
+        },
+        {
+          "id": "CHEM 1C"
+        },
+        {
+          "id": "CHEM 2AL"
+        },
+        {
+          "id": "CHEM 2BL"
+        }
+      ]
+    },
+    {
+      "id": "prep_physics",
+      "label": "Preparation for the Major - Physics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PHYS 6A",
+          "units": 12,
+          "note": "Series includes 6A-AL-B-BL-C-CL"
+        },
+        {
+          "id": "PHYS 7A",
+          "units": 13,
+          "note": "Series includes 7A-B-C-L"
+        }
+      ]
+    },
+    {
+      "id": "prep_biology",
+      "label": "Preparation for the Major - Biology",
+      "courses": [
+        {
+          "id": "MCDB 1A",
+          "units": 17
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 2LL"
+        },
+        {
+          "id": "EEMB 3"
+        }
+      ]
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Preparation for the Major - Mathematics",
+      "courses": [
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ],
+          "units": 16,
+          "note": "2A-B or 3A-B required"
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A"
+        },
+        {
+          "id": "MATH 4B"
+        }
+      ]
+    },
+    {
+      "id": "prep_statistics",
+      "label": "Preparation for the Major - Statistics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5A",
+          "units": 5
+        },
+        {
+          "id": "PSTAT 5LS"
+        }
+      ]
+    },
+    {
+      "id": "prep_earth_science",
+      "label": "Preparation for the Major - Earth Science",
+      "courses": [
+        {
+          "id": "EARTH 2",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "prep_geography",
+      "label": "Preparation for the Major - Geography",
+      "courses": [
+        {
+          "id": "GEOG 4",
+          "units": 5
+        }
+      ]
+    },
+    {
+      "id": "ud_core",
+      "label": "Upper-Division Major - Core Requirements",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ENVS 102",
+          "units": 21
+        },
+        {
+          "id": "ENVS 144"
+        },
+        {
+          "id": "ENVS 163A"
+        },
+        {
+          "id": "ENVS 193DS",
+          "alt": [
+            "ENVS 193SW",
+            "ENVS 164"
+          ]
+        },
+        {
+          "id": "GEOG 116"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_1",
+      "label": "Upper-Division Major - Cluster 1: Water Policy, Management, and Society",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ANTH 147",
+          "units": 4
+        },
+        {
+          "id": "ENVS 163B"
+        },
+        {
+          "id": "ENVS 193TW"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_2",
+      "label": "Upper-Division Major - Cluster 2: Water Quality",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ENVS 162",
+          "units": 4
+        },
+        {
+          "id": "ENVS 168"
+        },
+        {
+          "id": "ENVS 169"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_3",
+      "label": "Upper-Division Major - Cluster 3: Introduction to GIS",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EARTH 176",
+          "units": 4
+        },
+        {
+          "id": "ENVS 154"
+        },
+        {
+          "id": "GEOG 176C",
+          "units": 5,
+          "note": "GEOG 176A-B from Area C are prerequisites"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_4",
+      "label": "Upper-Division Major - Cluster 4: Soil and Ecology",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 120",
+          "units": 4
+        },
+        {
+          "id": "EEMB 148"
+        },
+        {
+          "id": "EEMB 168"
+        },
+        {
+          "id": "ENVS 101"
+        },
+        {
+          "id": "ENVS 114A"
+        },
+        {
+          "id": "ENVS 128"
+        },
+        {
+          "id": "ENVS 133"
+        },
+        {
+          "id": "ENVS 171"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_5",
+      "label": "Upper-Division Major - Cluster 5: Climate and Environmental Justice",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ENVS 116",
+          "units": 4
+        },
+        {
+          "id": "ENVS 130A"
+        },
+        {
+          "id": "ENVS 134CJ"
+        },
+        {
+          "id": "ENVS 180"
+        },
+        {
+          "id": "ENVS 181"
+        },
+        {
+          "id": "ENVS 186"
+        },
+        {
+          "id": "ENVS 188"
+        }
+      ]
+    },
+    {
+      "id": "ud_cluster_6",
+      "label": "Upper-Division Major - Cluster 6: Field Studies",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ENVS 114B",
+          "units": 4,
+          "note": "ENVS 114A is a prerequisite"
+        },
+        {
+          "id": "ENVS 119"
+        },
+        {
+          "id": "GEOG 112"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "Upper-Division Major - Electives",
+      "upper_division_required": true,
+      "note": "Any units from the following list of electives and/or one additional course from any cluster in Area B, excluding #3, may be used to bring the total number of UD units completed in the major to 56. No more than 8 units combined and 4 units each from Environmental Studies 192, 199, 199RA may apply.",
+      "courses": [
+        {
+          "id": "EARTH 106",
+          "units": 10
+        },
+        {
+          "id": "EARTH 113"
+        },
+        {
+          "id": "EARTH 114"
+        },
+        {
+          "id": "EARTH 117"
+        },
+        {
+          "id": "EARTH 130"
+        },
+        {
+          "id": "EARTH 131"
+        },
+        {
+          "id": "EARTH 134"
+        },
+        {
+          "id": "EARTH 164B"
+        },
+        {
+          "id": "EARTH 175"
+        },
+        {
+          "id": "ENVS 145"
+        },
+        {
+          "id": "ENVS 165A"
+        },
+        {
+          "id": "ENVS 165B"
+        },
+        {
+          "id": "ENVS 190"
+        },
+        {
+          "id": "ENVS 192"
+        },
+        {
+          "id": "ENVS 195A"
+        },
+        {
+          "id": "ENVS 195B"
+        },
+        {
+          "id": "ENVS 195C"
+        },
+        {
+          "id": "ENVS 197"
+        },
+        {
+          "id": "ENVS 199"
+        },
+        {
+          "id": "ENVS 199RA"
+        },
+        {
+          "id": "GEOG 110"
+        },
+        {
+          "id": "GEOG 115A"
+        },
+        {
+          "id": "GEOG 115B"
+        },
+        {
+          "id": "GEOG 115C"
+        },
+        {
+          "id": "GEOG 119"
+        },
+        {
+          "id": "GEOG 133"
+        },
+        {
+          "id": "GEOG 134"
+        },
+        {
+          "id": "GEOG 137"
+        },
+        {
+          "id": "GEOG 142"
+        },
+        {
+          "id": "GEOG 172"
+        },
+        {
+          "id": "GEOG 175"
+        },
+        {
+          "id": "GEOG 176A"
+        },
+        {
+          "id": "GEOG 176B"
+        },
+        {
+          "id": "GEOG 178"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

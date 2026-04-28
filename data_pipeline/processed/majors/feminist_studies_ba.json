@@ -1,0 +1,458 @@
+{
+  "id": "feminist_studies_ba",
+  "name": "Feminist Studies",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Feminist Studies",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 44,
+  "source_pdf": "Feminist Studies Major (2025) - Feminist Studies Major (2025).pdf",
+  "groups": [
+    {
+      "id": "prep_area_a",
+      "label": "Area A: Introduction to Feminist Studies",
+      "courses": [
+        {
+          "id": "FEMST 20",
+          "units": 5
+        }
+      ]
+    },
+    {
+      "id": "prep_area_b",
+      "label": "Area B: Intersectionalities",
+      "courses": [
+        {
+          "id": "FEMST 60"
+        },
+        {
+          "id": "FEMST 80"
+        }
+      ]
+    },
+    {
+      "id": "prep_area_c",
+      "label": "Area C: Additional Key Concepts",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "FEMST 30"
+        },
+        {
+          "id": "FEMST 40"
+        },
+        {
+          "id": "FEMST 50"
+        }
+      ]
+    },
+    {
+      "id": "ud_tool_kit",
+      "label": "A. Tool Kit Series",
+      "note": "Courses should be taken in order, if possible",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "FEMST 180"
+        },
+        {
+          "id": "FEMST 181"
+        },
+        {
+          "id": "FEMST 182",
+          "alt": [
+            "FEMST 183"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ud_femst_electives",
+      "label": "B. Feminist Studies Electives",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 4
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "FEMST 120"
+        },
+        {
+          "id": "FEMST 121"
+        },
+        {
+          "id": "FEMST 126"
+        },
+        {
+          "id": "FEMST 128"
+        },
+        {
+          "id": "FEMST 130"
+        },
+        {
+          "id": "FEMST 131"
+        },
+        {
+          "id": "FEMST 133"
+        },
+        {
+          "id": "FEMST 139"
+        },
+        {
+          "id": "FEMST 142"
+        },
+        {
+          "id": "FEMST 143"
+        },
+        {
+          "id": "FEMST 144"
+        },
+        {
+          "id": "FEMST 145"
+        },
+        {
+          "id": "FEMST 150"
+        },
+        {
+          "id": "FEMST 151AA-ZZ"
+        },
+        {
+          "id": "FEMST 161"
+        },
+        {
+          "id": "FEMST 162"
+        },
+        {
+          "id": "FEMST 163"
+        },
+        {
+          "id": "FEMST 164"
+        },
+        {
+          "id": "FEMST 165"
+        },
+        {
+          "id": "FEMST 166"
+        },
+        {
+          "id": "FEMST 185AA-ZZ"
+        },
+        {
+          "id": "FEMST 186AA-ZZ"
+        },
+        {
+          "id": "FEMST 194A-B-C"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "C. Upper Division Electives",
+      "note": "Four more courses from Area B above or from the additional list below",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 4
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ANTH 111"
+        },
+        {
+          "id": "ANTH 116A"
+        },
+        {
+          "id": "ANTH 125"
+        },
+        {
+          "id": "ANTH 176"
+        },
+        {
+          "id": "AS AM 107"
+        },
+        {
+          "id": "AS AM 109"
+        },
+        {
+          "id": "AS AM 118"
+        },
+        {
+          "id": "AS AM 122"
+        },
+        {
+          "id": "AS AM 128"
+        },
+        {
+          "id": "AS AM 131"
+        },
+        {
+          "id": "AS AM 135"
+        },
+        {
+          "id": "AS AM 136"
+        },
+        {
+          "id": "AS AM 138"
+        },
+        {
+          "id": "AS AM 139"
+        },
+        {
+          "id": "AS AM 158"
+        },
+        {
+          "id": "AS AM 163"
+        },
+        {
+          "id": "BL ST 106"
+        },
+        {
+          "id": "BL ST 122"
+        },
+        {
+          "id": "BL ST 125"
+        },
+        {
+          "id": "BL ST 127"
+        },
+        {
+          "id": "BL ST 129"
+        },
+        {
+          "id": "BL ST 133"
+        },
+        {
+          "id": "BL ST 136"
+        },
+        {
+          "id": "BL ST 138"
+        },
+        {
+          "id": "BL ST 162"
+        },
+        {
+          "id": "BL ST 174"
+        },
+        {
+          "id": "CH ST 107"
+        },
+        {
+          "id": "CH ST 112"
+        },
+        {
+          "id": "CH ST 114"
+        },
+        {
+          "id": "CH ST 133"
+        },
+        {
+          "id": "CH ST 135"
+        },
+        {
+          "id": "CH ST 148"
+        },
+        {
+          "id": "CH ST 149"
+        },
+        {
+          "id": "CH ST 151"
+        },
+        {
+          "id": "CH ST 154"
+        },
+        {
+          "id": "CH ST 156"
+        },
+        {
+          "id": "CH ST 167"
+        },
+        {
+          "id": "CH ST 184A"
+        },
+        {
+          "id": "CHIN 144"
+        },
+        {
+          "id": "CHIN 152"
+        },
+        {
+          "id": "CHIN 167"
+        },
+        {
+          "id": "CLASS 110"
+        },
+        {
+          "id": "COMM 103"
+        },
+        {
+          "id": "COMM 124"
+        },
+        {
+          "id": "COMM 126"
+        },
+        {
+          "id": "C LIT 162"
+        },
+        {
+          "id": "CNCSP 111"
+        },
+        {
+          "id": "CNCSP 114"
+        },
+        {
+          "id": "EACS 166"
+        },
+        {
+          "id": "ENGL 114AA-ZZ"
+        },
+        {
+          "id": "ENV S 184"
+        },
+        {
+          "id": "FEMST 117C"
+        },
+        {
+          "id": "FEMST 124A"
+        },
+        {
+          "id": "FEMST 147Q"
+        },
+        {
+          "id": "FEMST 163A"
+        },
+        {
+          "id": "FAMST 154PG"
+        },
+        {
+          "id": "FAMST 163"
+        },
+        {
+          "id": "FR 151B"
+        },
+        {
+          "id": "FR 154D"
+        },
+        {
+          "id": "FR 155A"
+        },
+        {
+          "id": "FR 155C"
+        },
+        {
+          "id": "GLOBL 148"
+        },
+        {
+          "id": "HIST 101G"
+        },
+        {
+          "id": "HIST 117C"
+        },
+        {
+          "id": "HIST 124A-B"
+        },
+        {
+          "id": "HIST 146BQ"
+        },
+        {
+          "id": "HIST 146W"
+        },
+        {
+          "id": "HIST 159B-C-R"
+        },
+        {
+          "id": "HIST 168N"
+        },
+        {
+          "id": "HIST 174B-C"
+        },
+        {
+          "id": "HIST 175D"
+        },
+        {
+          "id": "HIST 188S"
+        },
+        {
+          "id": "ITAL 144AA-ZZ"
+        },
+        {
+          "id": "JAPAN 150"
+        },
+        {
+          "id": "JAPAN 162"
+        },
+        {
+          "id": "JAPAN 164"
+        },
+        {
+          "id": "LING 132"
+        },
+        {
+          "id": "LING 138"
+        },
+        {
+          "id": "LING 180"
+        },
+        {
+          "id": "POL S 114"
+        },
+        {
+          "id": "RG ST 111"
+        },
+        {
+          "id": "RG ST 112A"
+        },
+        {
+          "id": "RG ST 156"
+        },
+        {
+          "id": "SOC 118B"
+        },
+        {
+          "id": "SOC 130SG"
+        },
+        {
+          "id": "SOC 130ST"
+        },
+        {
+          "id": "SOC 134"
+        },
+        {
+          "id": "SOC 144"
+        },
+        {
+          "id": "SOC 144S"
+        },
+        {
+          "id": "SOC 153"
+        },
+        {
+          "id": "SOC 155M-T-W"
+        },
+        {
+          "id": "SOC 156A-B"
+        },
+        {
+          "id": "SOC 185G"
+        },
+        {
+          "id": "SOC 185J"
+        },
+        {
+          "id": "SPAN 194"
+        },
+        {
+          "id": "THTR 180F-G"
+        },
+        {
+          "id": "WRIT 109GS"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

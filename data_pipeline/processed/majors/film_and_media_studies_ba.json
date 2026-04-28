@@ -1,0 +1,1791 @@
+{
+  "id": "film_and_media_studies_ba",
+  "name": "Film and Media Studies",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Film & Media Studies",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 40,
+  "source_pdf": "Film & Media Studies Major (2025) - Film-Media-Studies-Major-2025.pdf",
+  "notes": "Students will be admitted to full Film and Media Studies major status only after they complete Film and Media Studies 46, 70, and 96 with no grade below C, and with a UC grade-point average of at least 2.0 in all pre-major courses. Students intending to become a Film and Media Studies major are strongly encouraged to declare Pre-Film and Media Studies major as early as possible in their studies. Admission to the pre-major does not guarantee admission to the Film and Media Studies major, regardless of the number and outcome of upper division Film and Media Studies units taken. P/NP grading not allowed for major courses (prep or UD major), including courses applied to the major from other departments. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "pre_major_core",
+      "label": "Pre-Major Core Courses",
+      "courses": [
+        {
+          "id": "FAMST 46"
+        },
+        {
+          "id": "FAMST 70"
+        },
+        {
+          "id": "FAMST 96"
+        }
+      ],
+      "min_grade": "C"
+    },
+    {
+      "id": "pre_major_literature",
+      "label": "One literature course from",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "AS AM 5"
+        },
+        {
+          "id": "BL ST 38A"
+        },
+        {
+          "id": "CLASS 40"
+        },
+        {
+          "id": "C LIT 30A"
+        },
+        {
+          "id": "C LIT 30B"
+        },
+        {
+          "id": "C LIT 30C"
+        },
+        {
+          "id": "C LIT 35"
+        },
+        {
+          "id": "ENGL 25"
+        },
+        {
+          "id": "ENGL 50"
+        },
+        {
+          "id": "FRENCH 50AX"
+        },
+        {
+          "id": "FRENCH 50BX"
+        },
+        {
+          "id": "FRENCH 50CX"
+        },
+        {
+          "id": "GER 43A"
+        },
+        {
+          "id": "THTR 1"
+        }
+      ]
+    },
+    {
+      "id": "pre_major_history_culture",
+      "label": "One history or culture course from",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "AS AM 1"
+        },
+        {
+          "id": "AS AM 2"
+        },
+        {
+          "id": "AS AM 4"
+        },
+        {
+          "id": "BL ST 1"
+        },
+        {
+          "id": "BL ST 3"
+        },
+        {
+          "id": "BL ST 7"
+        },
+        {
+          "id": "BL ST 50"
+        },
+        {
+          "id": "CH ST 1A"
+        },
+        {
+          "id": "CH ST 1B"
+        },
+        {
+          "id": "CH ST 1C"
+        },
+        {
+          "id": "HIST 2C"
+        },
+        {
+          "id": "HIST 4C"
+        },
+        {
+          "id": "HIST 7"
+        },
+        {
+          "id": "HIST 8A"
+        },
+        {
+          "id": "HIST 8B"
+        },
+        {
+          "id": "HIST 17B"
+        },
+        {
+          "id": "HIST 17C"
+        },
+        {
+          "id": "HIST 46A"
+        },
+        {
+          "id": "HIST 46B"
+        },
+        {
+          "id": "HIST 49B"
+        },
+        {
+          "id": "HIST 49C"
+        },
+        {
+          "id": "HIST 80"
+        },
+        {
+          "id": "HIST 87"
+        },
+        {
+          "id": "PHIL 1"
+        },
+        {
+          "id": "PHIL 3"
+        },
+        {
+          "id": "PHIL 4"
+        },
+        {
+          "id": "PHIL 20C"
+        },
+        {
+          "id": "RG ST 1"
+        },
+        {
+          "id": "RG ST 7"
+        },
+        {
+          "id": "RG ST 80C"
+        }
+      ]
+    },
+    {
+      "id": "pre_major_visual_performing_arts",
+      "label": "One visual or performing arts course from",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "ART 1A"
+        },
+        {
+          "id": "ART 7A"
+        },
+        {
+          "id": "ARTHI 6C"
+        },
+        {
+          "id": "ARTHI 6F"
+        },
+        {
+          "id": "ARTHI 6G"
+        },
+        {
+          "id": "BL ST 14"
+        },
+        {
+          "id": "BL ST 45"
+        },
+        {
+          "id": "DANCE 45"
+        },
+        {
+          "id": "MUS 15"
+        },
+        {
+          "id": "MUS 17"
+        }
+      ]
+    },
+    {
+      "id": "ud_history_series",
+      "label": "Two Film and Media Studies courses from the 101 History series, 101A-B-C-D-E-F",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "FAMST 101A"
+        },
+        {
+          "id": "FAMST 101B"
+        },
+        {
+          "id": "FAMST 101C"
+        },
+        {
+          "id": "FAMST 101D"
+        },
+        {
+          "id": "FAMST 101E"
+        },
+        {
+          "id": "FAMST 101F"
+        }
+      ]
+    },
+    {
+      "id": "ud_theory_series",
+      "label": "Two Film and Media Studies from the 192 Theory series: 192AA-ZZ",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "FAMST 192AA"
+        },
+        {
+          "id": "FAMST 192AB"
+        },
+        {
+          "id": "FAMST 192AC"
+        },
+        {
+          "id": "FAMST 192AD"
+        },
+        {
+          "id": "FAMST 192AE"
+        },
+        {
+          "id": "FAMST 192AF"
+        },
+        {
+          "id": "FAMST 192AG"
+        },
+        {
+          "id": "FAMST 192AH"
+        },
+        {
+          "id": "FAMST 192AI"
+        },
+        {
+          "id": "FAMST 192AJ"
+        },
+        {
+          "id": "FAMST 192AK"
+        },
+        {
+          "id": "FAMST 192AL"
+        },
+        {
+          "id": "FAMST 192AM"
+        },
+        {
+          "id": "FAMST 192AN"
+        },
+        {
+          "id": "FAMST 192AO"
+        },
+        {
+          "id": "FAMST 192AP"
+        },
+        {
+          "id": "FAMST 192AQ"
+        },
+        {
+          "id": "FAMST 192AR"
+        },
+        {
+          "id": "FAMST 192AS"
+        },
+        {
+          "id": "FAMST 192AT"
+        },
+        {
+          "id": "FAMST 192AU"
+        },
+        {
+          "id": "FAMST 192AV"
+        },
+        {
+          "id": "FAMST 192AW"
+        },
+        {
+          "id": "FAMST 192AX"
+        },
+        {
+          "id": "FAMST 192AY"
+        },
+        {
+          "id": "FAMST 192AZ"
+        },
+        {
+          "id": "FAMST 192ZZ"
+        }
+      ]
+    },
+    {
+      "id": "ud_production",
+      "label": "One Film and Media Studies Production course",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "note": "106A is typically required prior to 106B and 109EP typically needs to be taken after 109EM. FAMST 106A-B, 109EM-EP, 115, 116, 118LP and 118GS are application-only.",
+      "courses": [
+        {
+          "id": "FAMST 104"
+        },
+        {
+          "id": "FAMST 106B"
+        },
+        {
+          "id": "FAMST 107"
+        },
+        {
+          "id": "FAMST 108"
+        },
+        {
+          "id": "FAMST 109EM"
+        },
+        {
+          "id": "FAMST 115"
+        },
+        {
+          "id": "FAMST 116"
+        },
+        {
+          "id": "FAMST 118GS"
+        },
+        {
+          "id": "FAMST 118LP"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "16 elective units to be chosen from the following courses, with at least 4 units from area A, and at least 8 units from area B",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_units",
+        "n_units": 16
+      },
+      "subgroups": [
+        {
+          "id": "area_a_seminars",
+          "label": "A) Seminars in Theory and Analysis",
+          "pick": {
+            "mode": "choose_n_units",
+            "n_units": 4
+          },
+          "courses": [
+            {
+              "id": "FAMST 187AA"
+            },
+            {
+              "id": "FAMST 187AB"
+            },
+            {
+              "id": "FAMST 187AC"
+            },
+            {
+              "id": "FAMST 187AD"
+            },
+            {
+              "id": "FAMST 187AE"
+            },
+            {
+              "id": "FAMST 187AF"
+            },
+            {
+              "id": "FAMST 187AG"
+            },
+            {
+              "id": "FAMST 187AH"
+            },
+            {
+              "id": "FAMST 187AI"
+            },
+            {
+              "id": "FAMST 187AJ"
+            },
+            {
+              "id": "FAMST 187AK"
+            },
+            {
+              "id": "FAMST 187AL"
+            },
+            {
+              "id": "FAMST 187AM"
+            },
+            {
+              "id": "FAMST 187AN"
+            },
+            {
+              "id": "FAMST 187AO"
+            },
+            {
+              "id": "FAMST 187AP"
+            },
+            {
+              "id": "FAMST 187AQ"
+            },
+            {
+              "id": "FAMST 187AR"
+            },
+            {
+              "id": "FAMST 187AS"
+            },
+            {
+              "id": "FAMST 187AT"
+            },
+            {
+              "id": "FAMST 187AU"
+            },
+            {
+              "id": "FAMST 187AV"
+            },
+            {
+              "id": "FAMST 187AW"
+            },
+            {
+              "id": "FAMST 187AX"
+            },
+            {
+              "id": "FAMST 187AY"
+            },
+            {
+              "id": "FAMST 187AZ"
+            },
+            {
+              "id": "FAMST 187ZZ"
+            },
+            {
+              "id": "FAMST 189AA"
+            },
+            {
+              "id": "FAMST 189AB"
+            },
+            {
+              "id": "FAMST 189AC"
+            },
+            {
+              "id": "FAMST 189AD"
+            },
+            {
+              "id": "FAMST 189AE"
+            },
+            {
+              "id": "FAMST 189AF"
+            },
+            {
+              "id": "FAMST 189AG"
+            },
+            {
+              "id": "FAMST 189AH"
+            },
+            {
+              "id": "FAMST 189AI"
+            },
+            {
+              "id": "FAMST 189AJ"
+            },
+            {
+              "id": "FAMST 189AK"
+            },
+            {
+              "id": "FAMST 189AL"
+            },
+            {
+              "id": "FAMST 189AM"
+            },
+            {
+              "id": "FAMST 189AN"
+            },
+            {
+              "id": "FAMST 189AO"
+            },
+            {
+              "id": "FAMST 189AP"
+            },
+            {
+              "id": "FAMST 189AQ"
+            },
+            {
+              "id": "FAMST 189AR"
+            },
+            {
+              "id": "FAMST 189AS"
+            },
+            {
+              "id": "FAMST 189AT"
+            },
+            {
+              "id": "FAMST 189AU"
+            },
+            {
+              "id": "FAMST 189AV"
+            },
+            {
+              "id": "FAMST 189AW"
+            },
+            {
+              "id": "FAMST 189AX"
+            },
+            {
+              "id": "FAMST 189AY"
+            },
+            {
+              "id": "FAMST 189AZ"
+            },
+            {
+              "id": "FAMST 189ZZ"
+            },
+            {
+              "id": "FAMST 190AA"
+            },
+            {
+              "id": "FAMST 190AB"
+            },
+            {
+              "id": "FAMST 190AC"
+            },
+            {
+              "id": "FAMST 190AD"
+            },
+            {
+              "id": "FAMST 190AE"
+            },
+            {
+              "id": "FAMST 190AF"
+            },
+            {
+              "id": "FAMST 190AG"
+            },
+            {
+              "id": "FAMST 190AH"
+            },
+            {
+              "id": "FAMST 190AI"
+            },
+            {
+              "id": "FAMST 190AJ"
+            },
+            {
+              "id": "FAMST 190AK"
+            },
+            {
+              "id": "FAMST 190AL"
+            },
+            {
+              "id": "FAMST 190AM"
+            },
+            {
+              "id": "FAMST 190AN"
+            },
+            {
+              "id": "FAMST 190AO"
+            },
+            {
+              "id": "FAMST 190AP"
+            },
+            {
+              "id": "FAMST 190AQ"
+            },
+            {
+              "id": "FAMST 190AR"
+            },
+            {
+              "id": "FAMST 190AS"
+            },
+            {
+              "id": "FAMST 190AT"
+            },
+            {
+              "id": "FAMST 190AU"
+            },
+            {
+              "id": "FAMST 190AV"
+            },
+            {
+              "id": "FAMST 190AW"
+            },
+            {
+              "id": "FAMST 190AX"
+            },
+            {
+              "id": "FAMST 190AY"
+            },
+            {
+              "id": "FAMST 190AZ"
+            },
+            {
+              "id": "FAMST 190ZZ"
+            }
+          ]
+        },
+        {
+          "id": "area_b_department_electives",
+          "label": "B) Elective courses in the department",
+          "note": "Topics include Animation, Documentary, Genre Studies, Director Studies, National and Transnational Media, and Screenwriting",
+          "pick": {
+            "mode": "choose_n_units",
+            "n_units": 8
+          },
+          "courses": [
+            {
+              "id": "FAMST 107"
+            },
+            {
+              "id": "FAMST 113AA"
+            },
+            {
+              "id": "FAMST 113AB"
+            },
+            {
+              "id": "FAMST 113AC"
+            },
+            {
+              "id": "FAMST 113AD"
+            },
+            {
+              "id": "FAMST 113AE"
+            },
+            {
+              "id": "FAMST 113AF"
+            },
+            {
+              "id": "FAMST 113AG"
+            },
+            {
+              "id": "FAMST 113AH"
+            },
+            {
+              "id": "FAMST 113AI"
+            },
+            {
+              "id": "FAMST 113AJ"
+            },
+            {
+              "id": "FAMST 113AK"
+            },
+            {
+              "id": "FAMST 113AL"
+            },
+            {
+              "id": "FAMST 113AM"
+            },
+            {
+              "id": "FAMST 113AN"
+            },
+            {
+              "id": "FAMST 113AO"
+            },
+            {
+              "id": "FAMST 113AP"
+            },
+            {
+              "id": "FAMST 113AQ"
+            },
+            {
+              "id": "FAMST 113AR"
+            },
+            {
+              "id": "FAMST 113AS"
+            },
+            {
+              "id": "FAMST 113AT"
+            },
+            {
+              "id": "FAMST 113AU"
+            },
+            {
+              "id": "FAMST 113AV"
+            },
+            {
+              "id": "FAMST 113AW"
+            },
+            {
+              "id": "FAMST 113AX"
+            },
+            {
+              "id": "FAMST 113AY"
+            },
+            {
+              "id": "FAMST 113AZ"
+            },
+            {
+              "id": "FAMST 113ZZ"
+            },
+            {
+              "id": "FAMST 119"
+            },
+            {
+              "id": "FAMST 119ML"
+            },
+            {
+              "id": "FAMST 120"
+            },
+            {
+              "id": "FAMST 121"
+            },
+            {
+              "id": "FAMST 122AA"
+            },
+            {
+              "id": "FAMST 122AB"
+            },
+            {
+              "id": "FAMST 122AC"
+            },
+            {
+              "id": "FAMST 122AD"
+            },
+            {
+              "id": "FAMST 122AE"
+            },
+            {
+              "id": "FAMST 122AF"
+            },
+            {
+              "id": "FAMST 122AG"
+            },
+            {
+              "id": "FAMST 122AH"
+            },
+            {
+              "id": "FAMST 122AI"
+            },
+            {
+              "id": "FAMST 122AJ"
+            },
+            {
+              "id": "FAMST 122AK"
+            },
+            {
+              "id": "FAMST 122AL"
+            },
+            {
+              "id": "FAMST 122AM"
+            },
+            {
+              "id": "FAMST 122AN"
+            },
+            {
+              "id": "FAMST 122AO"
+            },
+            {
+              "id": "FAMST 122AP"
+            },
+            {
+              "id": "FAMST 122AQ"
+            },
+            {
+              "id": "FAMST 122AR"
+            },
+            {
+              "id": "FAMST 122AS"
+            },
+            {
+              "id": "FAMST 122AT"
+            },
+            {
+              "id": "FAMST 122AU"
+            },
+            {
+              "id": "FAMST 122AV"
+            },
+            {
+              "id": "FAMST 122AW"
+            },
+            {
+              "id": "FAMST 122AX"
+            },
+            {
+              "id": "FAMST 122AY"
+            },
+            {
+              "id": "FAMST 122AZ"
+            },
+            {
+              "id": "FAMST 122ZZ"
+            },
+            {
+              "id": "FAMST 124"
+            },
+            {
+              "id": "FAMST 124V"
+            },
+            {
+              "id": "FAMST 125AA"
+            },
+            {
+              "id": "FAMST 125AB"
+            },
+            {
+              "id": "FAMST 125AC"
+            },
+            {
+              "id": "FAMST 125AD"
+            },
+            {
+              "id": "FAMST 125AE"
+            },
+            {
+              "id": "FAMST 125AF"
+            },
+            {
+              "id": "FAMST 125AG"
+            },
+            {
+              "id": "FAMST 125AH"
+            },
+            {
+              "id": "FAMST 125AI"
+            },
+            {
+              "id": "FAMST 125AJ"
+            },
+            {
+              "id": "FAMST 125AK"
+            },
+            {
+              "id": "FAMST 125AL"
+            },
+            {
+              "id": "FAMST 125AM"
+            },
+            {
+              "id": "FAMST 125AN"
+            },
+            {
+              "id": "FAMST 125AO"
+            },
+            {
+              "id": "FAMST 125AP"
+            },
+            {
+              "id": "FAMST 125AQ"
+            },
+            {
+              "id": "FAMST 125AR"
+            },
+            {
+              "id": "FAMST 125AS"
+            },
+            {
+              "id": "FAMST 125AT"
+            },
+            {
+              "id": "FAMST 125AU"
+            },
+            {
+              "id": "FAMST 125AV"
+            },
+            {
+              "id": "FAMST 125AW"
+            },
+            {
+              "id": "FAMST 125AX"
+            },
+            {
+              "id": "FAMST 125AY"
+            },
+            {
+              "id": "FAMST 125AZ"
+            },
+            {
+              "id": "FAMST 125ZZ"
+            },
+            {
+              "id": "FAMST 126"
+            },
+            {
+              "id": "FAMST 127"
+            },
+            {
+              "id": "FAMST 127M"
+            },
+            {
+              "id": "FAMST 128AA"
+            },
+            {
+              "id": "FAMST 128AB"
+            },
+            {
+              "id": "FAMST 128AC"
+            },
+            {
+              "id": "FAMST 128AD"
+            },
+            {
+              "id": "FAMST 128AE"
+            },
+            {
+              "id": "FAMST 128AF"
+            },
+            {
+              "id": "FAMST 128AG"
+            },
+            {
+              "id": "FAMST 128AH"
+            },
+            {
+              "id": "FAMST 128AI"
+            },
+            {
+              "id": "FAMST 128AJ"
+            },
+            {
+              "id": "FAMST 128AK"
+            },
+            {
+              "id": "FAMST 128AL"
+            },
+            {
+              "id": "FAMST 128AM"
+            },
+            {
+              "id": "FAMST 128AN"
+            },
+            {
+              "id": "FAMST 128AO"
+            },
+            {
+              "id": "FAMST 128AP"
+            },
+            {
+              "id": "FAMST 128AQ"
+            },
+            {
+              "id": "FAMST 128AR"
+            },
+            {
+              "id": "FAMST 128AS"
+            },
+            {
+              "id": "FAMST 128AT"
+            },
+            {
+              "id": "FAMST 128AU"
+            },
+            {
+              "id": "FAMST 128AV"
+            },
+            {
+              "id": "FAMST 128AW"
+            },
+            {
+              "id": "FAMST 128AX"
+            },
+            {
+              "id": "FAMST 128AY"
+            },
+            {
+              "id": "FAMST 128AZ"
+            },
+            {
+              "id": "FAMST 128ZZ"
+            },
+            {
+              "id": "FAMST 129"
+            },
+            {
+              "id": "FAMST 130B"
+            },
+            {
+              "id": "FAMST 132"
+            },
+            {
+              "id": "FAMST 133"
+            },
+            {
+              "id": "FAMST 134"
+            },
+            {
+              "id": "FAMST 136"
+            },
+            {
+              "id": "FAMST 139"
+            },
+            {
+              "id": "FAMST 140"
+            },
+            {
+              "id": "FAMST 142"
+            },
+            {
+              "id": "FAMST 143"
+            },
+            {
+              "id": "FAMST 144"
+            },
+            {
+              "id": "FAMST 147"
+            },
+            {
+              "id": "FAMST 148AA"
+            },
+            {
+              "id": "FAMST 148AB"
+            },
+            {
+              "id": "FAMST 148AC"
+            },
+            {
+              "id": "FAMST 148AD"
+            },
+            {
+              "id": "FAMST 148AE"
+            },
+            {
+              "id": "FAMST 148AF"
+            },
+            {
+              "id": "FAMST 148AG"
+            },
+            {
+              "id": "FAMST 148AH"
+            },
+            {
+              "id": "FAMST 148AI"
+            },
+            {
+              "id": "FAMST 148AJ"
+            },
+            {
+              "id": "FAMST 148AK"
+            },
+            {
+              "id": "FAMST 148AL"
+            },
+            {
+              "id": "FAMST 148AM"
+            },
+            {
+              "id": "FAMST 148AN"
+            },
+            {
+              "id": "FAMST 148AO"
+            },
+            {
+              "id": "FAMST 148AP"
+            },
+            {
+              "id": "FAMST 148AQ"
+            },
+            {
+              "id": "FAMST 148AR"
+            },
+            {
+              "id": "FAMST 148AS"
+            },
+            {
+              "id": "FAMST 148AT"
+            },
+            {
+              "id": "FAMST 148AU"
+            },
+            {
+              "id": "FAMST 148AV"
+            },
+            {
+              "id": "FAMST 148AW"
+            },
+            {
+              "id": "FAMST 148AX"
+            },
+            {
+              "id": "FAMST 148AY"
+            },
+            {
+              "id": "FAMST 148AZ"
+            },
+            {
+              "id": "FAMST 148ZZ"
+            },
+            {
+              "id": "FAMST 150AA"
+            },
+            {
+              "id": "FAMST 150AB"
+            },
+            {
+              "id": "FAMST 150AC"
+            },
+            {
+              "id": "FAMST 150AD"
+            },
+            {
+              "id": "FAMST 150AE"
+            },
+            {
+              "id": "FAMST 150AF"
+            },
+            {
+              "id": "FAMST 150AG"
+            },
+            {
+              "id": "FAMST 150AH"
+            },
+            {
+              "id": "FAMST 150AI"
+            },
+            {
+              "id": "FAMST 150AJ"
+            },
+            {
+              "id": "FAMST 150AK"
+            },
+            {
+              "id": "FAMST 150AL"
+            },
+            {
+              "id": "FAMST 150AM"
+            },
+            {
+              "id": "FAMST 150AN"
+            },
+            {
+              "id": "FAMST 150AO"
+            },
+            {
+              "id": "FAMST 150AP"
+            },
+            {
+              "id": "FAMST 150AQ"
+            },
+            {
+              "id": "FAMST 150AR"
+            },
+            {
+              "id": "FAMST 150AS"
+            },
+            {
+              "id": "FAMST 150AT"
+            },
+            {
+              "id": "FAMST 150AU"
+            },
+            {
+              "id": "FAMST 150AV"
+            },
+            {
+              "id": "FAMST 150AW"
+            },
+            {
+              "id": "FAMST 150AX"
+            },
+            {
+              "id": "FAMST 150AY"
+            },
+            {
+              "id": "FAMST 150AZ"
+            },
+            {
+              "id": "FAMST 150ZZ"
+            },
+            {
+              "id": "FAMST 151AA"
+            },
+            {
+              "id": "FAMST 151AB"
+            },
+            {
+              "id": "FAMST 151AC"
+            },
+            {
+              "id": "FAMST 151AD"
+            },
+            {
+              "id": "FAMST 151AE"
+            },
+            {
+              "id": "FAMST 151AF"
+            },
+            {
+              "id": "FAMST 151AG"
+            },
+            {
+              "id": "FAMST 151AH"
+            },
+            {
+              "id": "FAMST 151AI"
+            },
+            {
+              "id": "FAMST 151AJ"
+            },
+            {
+              "id": "FAMST 151AK"
+            },
+            {
+              "id": "FAMST 151AL"
+            },
+            {
+              "id": "FAMST 151AM"
+            },
+            {
+              "id": "FAMST 151AN"
+            },
+            {
+              "id": "FAMST 151AO"
+            },
+            {
+              "id": "FAMST 151AP"
+            },
+            {
+              "id": "FAMST 151AQ"
+            },
+            {
+              "id": "FAMST 151AR"
+            },
+            {
+              "id": "FAMST 151AS"
+            },
+            {
+              "id": "FAMST 151AT"
+            },
+            {
+              "id": "FAMST 151AU"
+            },
+            {
+              "id": "FAMST 151AV"
+            },
+            {
+              "id": "FAMST 151AW"
+            },
+            {
+              "id": "FAMST 151AX"
+            },
+            {
+              "id": "FAMST 151AY"
+            },
+            {
+              "id": "FAMST 151AZ"
+            },
+            {
+              "id": "FAMST 151ZZ"
+            },
+            {
+              "id": "FAMST 154PG"
+            },
+            {
+              "id": "FAMST 155AA"
+            },
+            {
+              "id": "FAMST 155AB"
+            },
+            {
+              "id": "FAMST 155AC"
+            },
+            {
+              "id": "FAMST 155AD"
+            },
+            {
+              "id": "FAMST 155AE"
+            },
+            {
+              "id": "FAMST 155AF"
+            },
+            {
+              "id": "FAMST 155AG"
+            },
+            {
+              "id": "FAMST 155AH"
+            },
+            {
+              "id": "FAMST 155AI"
+            },
+            {
+              "id": "FAMST 155AJ"
+            },
+            {
+              "id": "FAMST 155AK"
+            },
+            {
+              "id": "FAMST 155AL"
+            },
+            {
+              "id": "FAMST 155AM"
+            },
+            {
+              "id": "FAMST 155AN"
+            },
+            {
+              "id": "FAMST 155AO"
+            },
+            {
+              "id": "FAMST 155AP"
+            },
+            {
+              "id": "FAMST 155AQ"
+            },
+            {
+              "id": "FAMST 155AR"
+            },
+            {
+              "id": "FAMST 155AS"
+            },
+            {
+              "id": "FAMST 155AT"
+            },
+            {
+              "id": "FAMST 155AU"
+            },
+            {
+              "id": "FAMST 155AV"
+            },
+            {
+              "id": "FAMST 155AW"
+            },
+            {
+              "id": "FAMST 155AX"
+            },
+            {
+              "id": "FAMST 155AY"
+            },
+            {
+              "id": "FAMST 155AZ"
+            },
+            {
+              "id": "FAMST 155ZZ"
+            },
+            {
+              "id": "FAMST 163"
+            },
+            {
+              "id": "FAMST 165AA"
+            },
+            {
+              "id": "FAMST 165AB"
+            },
+            {
+              "id": "FAMST 165AC"
+            },
+            {
+              "id": "FAMST 165AD"
+            },
+            {
+              "id": "FAMST 165AE"
+            },
+            {
+              "id": "FAMST 165AF"
+            },
+            {
+              "id": "FAMST 165AG"
+            },
+            {
+              "id": "FAMST 165AH"
+            },
+            {
+              "id": "FAMST 165AI"
+            },
+            {
+              "id": "FAMST 165AJ"
+            },
+            {
+              "id": "FAMST 165AK"
+            },
+            {
+              "id": "FAMST 165AL"
+            },
+            {
+              "id": "FAMST 165AM"
+            },
+            {
+              "id": "FAMST 165AN"
+            },
+            {
+              "id": "FAMST 165AO"
+            },
+            {
+              "id": "FAMST 165AP"
+            },
+            {
+              "id": "FAMST 165AQ"
+            },
+            {
+              "id": "FAMST 165AR"
+            },
+            {
+              "id": "FAMST 165AS"
+            },
+            {
+              "id": "FAMST 165AT"
+            },
+            {
+              "id": "FAMST 165AU"
+            },
+            {
+              "id": "FAMST 165AV"
+            },
+            {
+              "id": "FAMST 165AW"
+            },
+            {
+              "id": "FAMST 165AX"
+            },
+            {
+              "id": "FAMST 165AY"
+            },
+            {
+              "id": "FAMST 165AZ"
+            },
+            {
+              "id": "FAMST 165ZZ"
+            },
+            {
+              "id": "FAMST 166AA"
+            },
+            {
+              "id": "FAMST 166AB"
+            },
+            {
+              "id": "FAMST 166AC"
+            },
+            {
+              "id": "FAMST 166AD"
+            },
+            {
+              "id": "FAMST 166AE"
+            },
+            {
+              "id": "FAMST 166AF"
+            },
+            {
+              "id": "FAMST 166AG"
+            },
+            {
+              "id": "FAMST 166AH"
+            },
+            {
+              "id": "FAMST 166AI"
+            },
+            {
+              "id": "FAMST 166AJ"
+            },
+            {
+              "id": "FAMST 166AK"
+            },
+            {
+              "id": "FAMST 166AL"
+            },
+            {
+              "id": "FAMST 166AM"
+            },
+            {
+              "id": "FAMST 166AN"
+            },
+            {
+              "id": "FAMST 166AO"
+            },
+            {
+              "id": "FAMST 166AP"
+            },
+            {
+              "id": "FAMST 166AQ"
+            },
+            {
+              "id": "FAMST 166AR"
+            },
+            {
+              "id": "FAMST 166AS"
+            },
+            {
+              "id": "FAMST 166AT"
+            },
+            {
+              "id": "FAMST 166AU"
+            },
+            {
+              "id": "FAMST 166AV"
+            },
+            {
+              "id": "FAMST 166AW"
+            },
+            {
+              "id": "FAMST 166AX"
+            },
+            {
+              "id": "FAMST 166AY"
+            },
+            {
+              "id": "FAMST 166AZ"
+            },
+            {
+              "id": "FAMST 166ZZ"
+            },
+            {
+              "id": "FAMST 169"
+            },
+            {
+              "id": "FAMST 175"
+            },
+            {
+              "id": "FAMST 182"
+            },
+            {
+              "id": "FAMST 183"
+            },
+            {
+              "id": "FAMST 184"
+            },
+            {
+              "id": "FAMST 188A"
+            },
+            {
+              "id": "FAMST 188AD"
+            },
+            {
+              "id": "FAMST 188AU"
+            },
+            {
+              "id": "FAMST 188B"
+            },
+            {
+              "id": "FAMST 188C"
+            },
+            {
+              "id": "FAMST 188NM"
+            },
+            {
+              "id": "FAMST 188SS"
+            },
+            {
+              "id": "FAMST 188TV"
+            }
+          ]
+        },
+        {
+          "id": "area_c_other_departments",
+          "label": "C) Elective courses offered from other departments",
+          "courses": [
+            {
+              "id": "ART 126"
+            },
+            {
+              "id": "BL ST 161"
+            },
+            {
+              "id": "BL ST 162"
+            },
+            {
+              "id": "BL ST 170"
+            },
+            {
+              "id": "BL ST 171"
+            },
+            {
+              "id": "BL ST 172"
+            },
+            {
+              "id": "CH ST 143"
+            },
+            {
+              "id": "CH ST 185"
+            },
+            {
+              "id": "ENGL 147AA"
+            },
+            {
+              "id": "ENGL 147AB"
+            },
+            {
+              "id": "ENGL 147AC"
+            },
+            {
+              "id": "ENGL 147AD"
+            },
+            {
+              "id": "ENGL 147AE"
+            },
+            {
+              "id": "ENGL 147AF"
+            },
+            {
+              "id": "ENGL 147AG"
+            },
+            {
+              "id": "ENGL 147AH"
+            },
+            {
+              "id": "ENGL 147AI"
+            },
+            {
+              "id": "ENGL 147AJ"
+            },
+            {
+              "id": "ENGL 147AK"
+            },
+            {
+              "id": "ENGL 147AL"
+            },
+            {
+              "id": "ENGL 147AM"
+            },
+            {
+              "id": "ENGL 147AN"
+            },
+            {
+              "id": "ENGL 147AO"
+            },
+            {
+              "id": "ENGL 147AP"
+            },
+            {
+              "id": "ENGL 147AQ"
+            },
+            {
+              "id": "ENGL 147AR"
+            },
+            {
+              "id": "ENGL 147AS"
+            },
+            {
+              "id": "ENGL 147AT"
+            },
+            {
+              "id": "ENGL 147AU"
+            },
+            {
+              "id": "ENGL 147AV"
+            },
+            {
+              "id": "ENGL 147AW"
+            },
+            {
+              "id": "ENGL 147AX"
+            },
+            {
+              "id": "ENGL 147AY"
+            },
+            {
+              "id": "ENGL 147AZ"
+            },
+            {
+              "id": "ENGL 147ZZ"
+            },
+            {
+              "id": "ENGL 148AA"
+            },
+            {
+              "id": "ENGL 148AB"
+            },
+            {
+              "id": "ENGL 148AC"
+            },
+            {
+              "id": "ENGL 148AD"
+            },
+            {
+              "id": "ENGL 148AE"
+            },
+            {
+              "id": "ENGL 148AF"
+            },
+            {
+              "id": "ENGL 148AG"
+            },
+            {
+              "id": "ENGL 148AH"
+            },
+            {
+              "id": "ENGL 148AI"
+            },
+            {
+              "id": "ENGL 148AJ"
+            },
+            {
+              "id": "ENGL 148AK"
+            },
+            {
+              "id": "ENGL 148AL"
+            },
+            {
+              "id": "ENGL 148AM"
+            },
+            {
+              "id": "ENGL 148AN"
+            },
+            {
+              "id": "ENGL 148AO"
+            },
+            {
+              "id": "ENGL 148AP"
+            },
+            {
+              "id": "ENGL 148AQ"
+            },
+            {
+              "id": "ENGL 148AR"
+            },
+            {
+              "id": "ENGL 148AS"
+            },
+            {
+              "id": "ENGL 148AT"
+            },
+            {
+              "id": "ENGL 148AU"
+            },
+            {
+              "id": "ENGL 148AV"
+            },
+            {
+              "id": "ENGL 148AW"
+            },
+            {
+              "id": "ENGL 148AX"
+            },
+            {
+              "id": "ENGL 148AY"
+            },
+            {
+              "id": "ENGL 148AZ"
+            },
+            {
+              "id": "ENGL 148ZZ"
+            },
+            {
+              "id": "ENGL 149"
+            },
+            {
+              "id": "FEMST 142"
+            },
+            {
+              "id": "FEMST 143"
+            },
+            {
+              "id": "FEMST 144"
+            },
+            {
+              "id": "JAPAN 159"
+            },
+            {
+              "id": "RG ST 113"
+            }
+          ]
+        }
+      ],
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

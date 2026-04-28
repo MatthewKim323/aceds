@@ -121,6 +121,11 @@ def main() -> None:
     df = df[df["n_letter"] > args.n_letter_floor].copy()
     if args.strict_rmp:
         df = df[df["rmp_confidence"].isin(["exact_initial", "only_candidate"])].copy()
+    before_gpa = len(df)
+    df = df[df["avgGPA"].notna() & (df["avgGPA"] > 0)].copy()
+    dropped_zero = before_gpa - len(df)
+    if dropped_zero:
+        print(f"dropped avgGPA<=0 or null: {dropped_zero:,} rows")
     print(f"rows after filter: {len(df):,} (from {before:,})")
 
     # --- sentinel cleanup ----------------------------------------------------

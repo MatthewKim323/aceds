@@ -41,9 +41,8 @@ ehthumbs.db
 # User-uploaded PDFs (private documents, never commit)
 uploads/
 
-# Video assets (large files, not used in production)
+# Source video (optional local copy; served file lives in frontend/public/)
 video/
-frontend/public/ocean.mp4
 
 # Vite cache
 .vite/

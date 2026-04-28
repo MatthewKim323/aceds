@@ -117,6 +117,66 @@ if curl -fsS -o /dev/null -w '' http://localhost:8000/health 2>/dev/null; then
   else
     skip "/sections (may need quarter data loaded)"
   fi
+
+  # POST /predict + /optimize using first few enroll_codes from /sections (needs real DB rows).
+  SJSON="$(curl -fsS "http://localhost:8000/sections?quarter=20262&dept=CMPSC&limit=12" 2>/dev/null || true)"
+  if [[ -n "$SJSON" ]] && echo "$SJSON" | python3 -c 'import json,sys; j=json.load(sys.stdin); sys.exit(0 if isinstance(j,list) and len(j)>=2 else 1)' 2>/dev/null; then
+    PRED_JSON="$(echo "$SJSON" | python3 -c '
+import json,sys
+j=json.load(sys.stdin)
+ids=[r["enroll_code"] for r in j[:5]]
+print(json.dumps({"section_ids": ids, "quarter_code": "20262"}))
+')"
+    if curl -fsS -X POST "http://localhost:8000/predict" \
+        -H "Content-Type: application/json" \
+        -d "$PRED_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d.get("predictions")' 2>/dev/null; then
+      pass "POST /predict returns predictions"
+    else
+      fail "POST /predict broken"
+    fi
+
+    OPT_JSON="$(echo "$SJSON" | python3 -c '
+import json,sys
+j=json.load(sys.stdin)
+# Two distinct course_norm values for a tiny feasible optimize call
+seen={}
+for r in j:
+    cn=r.get("course_norm")
+    ec=r.get("enroll_code")
+    if cn and ec and cn not in seen:
+        seen[cn]=ec
+    if len(seen)>=2:
+        break
+courses=list(seen.keys())
+if len(courses)<2:
+    sys.exit(1)
+body={
+    "quarter_code":"20262",
+    "major_id":"smoke",
+    "required_courses":courses[:2],
+    "optional_courses":[],
+    "excluded_courses":[],
+    "completed_courses":[],
+    "preferences":{
+        "weight_grades":0.35,"weight_professor":0.25,"weight_convenience":0.2,"weight_availability":0.2,
+        "target_units_min":4,"target_units_max":22,
+        "earliest_start":"08:00","latest_end":"22:00",
+        "preferred_days":["M","T","W","R","F"],"avoid_friday_afternoon":false,"diversity_lambda":0.1
+    },
+    "top_k":2
+}
+print(json.dumps(body))
+')"
+    if [[ -n "$OPT_JSON" ]] && curl -fsS -X POST "http://localhost:8000/optimize" \
+        -H "Content-Type: application/json" \
+        -d "$OPT_JSON" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert "candidates" in d' 2>/dev/null; then
+      pass "POST /optimize returns candidates"
+    else
+      fail "POST /optimize broken (check sections + course_norm for 20262)"
+    fi
+  else
+    skip "POST /predict,/optimize (need ≥2 CMPSC sections in DB for quarter 20262)"
+  fi
 else
   skip "backend not running on :8000 — start it with 'cd backend && uvicorn app.main:app --port 8000'"
 fi

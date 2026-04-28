@@ -1,0 +1,202 @@
+{
+  "id": "physics_ba",
+  "name": "Physics",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Physics",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 42,
+  "source_pdf": "Physics BA Major (2025).pdf",
+  "reviewed": false,
+  "notes": "At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. A grade of C- or above is required in order to continue the sequence of upper-division courses. P/NP grading not allowed for any major courses, including courses applied to the major from other departments, with the exception of up to 8 units from the following courses: 142L, 143L, 144L, 145L, 198, 199. For those students who have not completed AP calculus BC with a score of 5, Physics 8 is strongly recommended before attempting any other physics course.",
+  "groups": [
+    {
+      "id": "prep_physics_sequence",
+      "label": "Physics 21-22-23-24-25",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "PHYSICS 21"
+        },
+        {
+          "id": "PHYSICS 22"
+        },
+        {
+          "id": "PHYSICS 23"
+        },
+        {
+          "id": "PHYSICS 24"
+        },
+        {
+          "id": "PHYSICS 25"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_physics_lab",
+      "label": "Physics 20AL-BL-CL or 13AL-BL-CL",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "PHYSICS 20AL",
+          "alt": [
+            "PHYSICS 13AL"
+          ]
+        },
+        {
+          "id": "PHYSICS 20BL",
+          "alt": [
+            "PHYSICS 13BL"
+          ]
+        },
+        {
+          "id": "PHYSICS 20CL",
+          "alt": [
+            "PHYSICS 13CL"
+          ]
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_physics_29",
+      "label": "Physics 29",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "PHYSICS 29",
+          "units": 2
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Mathematics 2A or 3A, 2B or 3B, 4A-B, 6A-B",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ]
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A"
+        },
+        {
+          "id": "MATH 4B"
+        },
+        {
+          "id": "MATH 6A"
+        },
+        {
+          "id": "MATH 6B"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_science_electives",
+      "label": "Two science electives",
+      "note": "chosen from the following or in consultation with a faculty advisor",
+      "pick": {
+        "n_courses": 2,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ASTRO 1"
+        },
+        {
+          "id": "ASTRO 2"
+        },
+        {
+          "id": "CHEM 1A",
+          "alt": [
+            "CHEM 2A"
+          ]
+        },
+        {
+          "id": "CHEM 1B",
+          "alt": [
+            "CHEM 2B"
+          ]
+        },
+        {
+          "id": "EARTH 2"
+        },
+        {
+          "id": "EARTH 9"
+        },
+        {
+          "id": "EARTH 11"
+        },
+        {
+          "id": "EARTH 20"
+        },
+        {
+          "id": "EEMB 22",
+          "alt": [
+            "EEMB W22",
+            "MCDB 20"
+          ]
+        },
+        {
+          "id": "PSTAT 10"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_physics_core",
+      "label": "24 units of UD physics",
+      "upper_division_required": true,
+      "min_grade": "C-",
+      "courses": [],
+      "subgroups": []
+    },
+    {
+      "id": "ud_physics_lab",
+      "label": "8 units of UD physics laboratory",
+      "upper_division_required": true,
+      "min_grade": "C-",
+      "courses": [
+        {
+          "id": "PHYSICS 127AL"
+        },
+        {
+          "id": "PHYSICS 127BL"
+        },
+        {
+          "id": "PHYSICS 128AL"
+        },
+        {
+          "id": "PHYSICS 129L"
+        },
+        {
+          "id": "PHYSICS 134L"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_electives",
+      "label": "10 units of UD Chemistry, EEMB, Engineering, Geography, Earth Science, Mathematics, MCDB, and Physics electives",
+      "note": "chosen in consultation with a faculty advisor",
+      "upper_division_required": true,
+      "min_grade": "C-",
+      "courses": [],
+      "subgroups": []
+    }
+  ]
+}

@@ -240,14 +240,14 @@ def load_majors(sb: Client) -> None:
     majors, minors = [], []
     for p in sorted(MAJORS_DIR.glob("*.json")):
         data = json.loads(p.read_text())
-        if not data.get("reviewed"):
-            continue
+        # Pipeline extractions often omit reviewed; still load so API/GradPath can use DB.
+        reviewed = bool(data.get("reviewed", True))
         row = {
             "name": data["name"],
             "catalog_year": data.get("catalog_year"),
             "department": data.get("department"),
             "structure": data,
-            "reviewed": True,
+            "reviewed": reviewed,
             "source_pdf": data.get("source_pdf"),
         }
         if data.get("kind") == "minor":

@@ -9,7 +9,7 @@ ACE is the registration tool Gauchos deserve. Pick your required courses, tell u
 ## What makes this more than a GPA calculator
 
 - **104,549 course × instructor × quarter rows** from the Daily Nexus, 2009 → 2026 Winter, joined with 6,028 unique RateMyProfessor lookups and the live UCSB catalog for 20262.
-- **XGBoost grade predictor** with 32 features and native NaN handling. Test RMSE **0.234**, calibration slope **1.03** — 14% sharper than a sensible hard-cascade heuristic, and meaningfully better than ElasticNet on the same features. Cold-start regimes (new instructor-course pair, new everything) are explicitly modeled and the returned `predicted_gpa_std` widens to match.
+- **XGBoost grade predictor** with 32 features and native NaN handling. Test RMSE **0.234**, calibration slope **1.03** — 14% sharper than a sensible hard-cascade heuristic, and meaningfully better than ElasticNet on the same features. Cold-start regimes (new instructor-course pair, new everything) are explicitly modeled; **`predicted_gpa_std` in the API is the per-regime test residual RMSE** (see [`MODEL_CARD.md`](MODEL_CARD.md)), not a personal grade interval.
 - **Integer-program scheduler** (PuLP + CBC) that respects unit budgets, time conflicts, user-chosen must-take courses, and a preference vector over grade / professor / time / availability. Solves 3–6 course problems in **p50 = 44 ms, p95 = 83 ms** across 240 benchmarks.
 - **Synthetic-student layer.** 50 distributionally-calibrated fake Gauchos, so judges can click "try demo" instead of uploading a real transcript.
 - **Evidence bundle.** Every number above is reproducible from a single script. Plots and a metrics table live in [`data_pipeline/processed/pitch/`](data_pipeline/processed/pitch/README.md).
@@ -30,6 +30,8 @@ ace/
 ```
 
 Each directory has its own README with setup and a smoke-test curl.
+
+**Venue / judge path:** [`scripts/JUDGE_RUNBOOK.md`](scripts/JUDGE_RUNBOOK.md) (clone → migrate → load → verify → smoke).
 
 ---
 
@@ -69,7 +71,9 @@ All on the 2026 Winter held-out test set, n = 1,132.
 | XGBoost — no RMP features | 0.236 | 0.175 | 0.672 | — |
 | XGBoost — no historical aggregates | 0.293 | 0.221 | 0.496 | — |
 
-**One-line interpretation.** Historical aggregates are the model; RMP adds <1% RMSE on top; cold-start is handled explicitly and the returned prediction std reflects it. The full story, including per-regime breakdown and calibration plot, lives in [`MODEL_CARD.md`](MODEL_CARD.md).
+**One-line interpretation.** Historical aggregates are the model; RMP adds <1% RMSE on top; cold-start is handled explicitly and **API `predicted_gpa_std` tracks regime-level test RMSE** from the cold-start report. The full story, including per-regime breakdown and calibration plot, lives in [`MODEL_CARD.md`](MODEL_CARD.md).
+
+**Majors data.** GradPath and Schedule read requirement graphs from **bundled** [`frontend/src/data/majors.ts`](frontend/src/data/majors.ts) so the demo works offline. Supabase `major_requirements` (loaded by `07_load_to_supabase.py`) is the server-side copy for APIs and pipeline QA; keep them in sync when you add or change a major sheet.
 
 ---
 

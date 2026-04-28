@@ -1,0 +1,496 @@
+{
+  "id": "middle_east_studies_ba",
+  "name": "Middle East Studies Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Religious Studies",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 36,
+  "source_pdf": "Middle East Studies Major (2025).pdf",
+  "groups": [
+    {
+      "id": "prep_required_course",
+      "label": "Required Course",
+      "courses": [
+        {
+          "id": "RELST 45",
+          "units": 5
+        }
+      ]
+    },
+    {
+      "id": "prep_one_course",
+      "label": "One course from the following",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "HIST 46A",
+          "units": 4
+        },
+        {
+          "id": "HIST 46B",
+          "units": 5
+        },
+        {
+          "id": "RELST 2",
+          "units": 4
+        },
+        {
+          "id": "RELST 81",
+          "units": 4
+        },
+        {
+          "id": "RELST 82",
+          "units": 4
+        },
+        {
+          "id": "ARTHI 6K",
+          "units": 5
+        },
+        {
+          "id": "CMLIT 32",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "prep_language_sequence",
+      "label": "One of the following language sequences",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "note": "0-30 units",
+      "courses": [
+        {
+          "id": "RELST 10A",
+          "note": "Arabic sequence RELST 10A-F"
+        },
+        {
+          "id": "RELST 10B"
+        },
+        {
+          "id": "RELST 10C"
+        },
+        {
+          "id": "RELST 10D"
+        },
+        {
+          "id": "RELST 10E"
+        },
+        {
+          "id": "RELST 10F"
+        },
+        {
+          "id": "HEBR 1",
+          "note": "Modern Hebrew sequence HEBR 1-6"
+        },
+        {
+          "id": "HEBR 2"
+        },
+        {
+          "id": "HEBR 3"
+        },
+        {
+          "id": "HEBR 4"
+        },
+        {
+          "id": "HEBR 5"
+        },
+        {
+          "id": "HEBR 6"
+        },
+        {
+          "id": "RELST 57A",
+          "note": "Persian sequence RELST 57A-F"
+        },
+        {
+          "id": "RELST 57B"
+        },
+        {
+          "id": "RELST 57C"
+        },
+        {
+          "id": "RELST 57D"
+        },
+        {
+          "id": "RELST 57E"
+        },
+        {
+          "id": "RELST 57F"
+        },
+        {
+          "id": "RELST 58A",
+          "note": "Intensive Persian sequence RELST 58A-D"
+        },
+        {
+          "id": "RELST 58B"
+        },
+        {
+          "id": "RELST 58C"
+        },
+        {
+          "id": "RELST 58D"
+        },
+        {
+          "id": "RELST 65A",
+          "note": "Turkish sequence RELST 65A-F"
+        },
+        {
+          "id": "RELST 65B"
+        },
+        {
+          "id": "RELST 65C"
+        },
+        {
+          "id": "RELST 65D"
+        },
+        {
+          "id": "RELST 65E"
+        },
+        {
+          "id": "RELST 65F"
+        },
+        {
+          "id": "RELST 17A",
+          "note": "Biblical Hebrew and Modern Hebrew: RELST 17A-C plus HEBR 1-3"
+        },
+        {
+          "id": "RELST 17B"
+        },
+        {
+          "id": "RELST 17C"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major",
+      "label": "Upper-Division Major",
+      "upper_division_required": true,
+      "note": "36 UD units are required from the following. Up to 8 units of 198/199 (Independent Study) may be applied to the major by petition.",
+      "courses": [
+        {
+          "id": "ANTH 118TS"
+        },
+        {
+          "id": "ANTH 138TS"
+        },
+        {
+          "id": "ANTH 176TS"
+        },
+        {
+          "id": "ARTHI 132A"
+        },
+        {
+          "id": "ARTHI 132D"
+        },
+        {
+          "id": "ARTHI 132E"
+        },
+        {
+          "id": "ARTHI 132I"
+        },
+        {
+          "id": "ARTHI 132J"
+        },
+        {
+          "id": "ARTHI 133AA"
+        },
+        {
+          "id": "ARTHI 133ZZ"
+        },
+        {
+          "id": "ARTHI 186Q"
+        },
+        {
+          "id": "FAMST 122ME"
+        },
+        {
+          "id": "FAMST 166MI"
+        },
+        {
+          "id": "FAMST 187IS"
+        },
+        {
+          "id": "GLOBL 112"
+        },
+        {
+          "id": "HEBR 114A"
+        },
+        {
+          "id": "HEBR 114B"
+        },
+        {
+          "id": "HEBR 114C"
+        },
+        {
+          "id": "HIST 111F"
+        },
+        {
+          "id": "HIST 118A"
+        },
+        {
+          "id": "HIST 118B"
+        },
+        {
+          "id": "HIST 119"
+        },
+        {
+          "id": "HIST 145A"
+        },
+        {
+          "id": "HIST 145B"
+        },
+        {
+          "id": "HIST 145C"
+        },
+        {
+          "id": "HIST 145D"
+        },
+        {
+          "id": "HIST 146"
+        },
+        {
+          "id": "HIST 146FR"
+        },
+        {
+          "id": "HIST 146Q"
+        },
+        {
+          "id": "HIST 146R"
+        },
+        {
+          "id": "HIST 146T"
+        },
+        {
+          "id": "HIST 146W"
+        },
+        {
+          "id": "HIST 168M"
+        },
+        {
+          "id": "HIST 171ME"
+        },
+        {
+          "id": "HIST 189M"
+        },
+        {
+          "id": "MUS 122"
+        },
+        {
+          "id": "MUS 160E"
+        },
+        {
+          "id": "MUS 168X"
+        },
+        {
+          "id": "MUS 175F"
+        },
+        {
+          "id": "MUSA 170M",
+          "note": "up to 4 units"
+        },
+        {
+          "id": "MUSA 170N",
+          "note": "up to 4 units"
+        },
+        {
+          "id": "POL S 149"
+        },
+        {
+          "id": "POL S 150A"
+        },
+        {
+          "id": "POL S 150B"
+        },
+        {
+          "id": "RELST 102A"
+        },
+        {
+          "id": "RELST 111"
+        },
+        {
+          "id": "RELST 115A"
+        },
+        {
+          "id": "RELST 116A"
+        },
+        {
+          "id": "RELST 116B"
+        },
+        {
+          "id": "RELST 119A"
+        },
+        {
+          "id": "RELST 119B"
+        },
+        {
+          "id": "RELST 119C"
+        },
+        {
+          "id": "RELST 119D"
+        },
+        {
+          "id": "RELST 119E"
+        },
+        {
+          "id": "RELST 119F"
+        },
+        {
+          "id": "RELST 128A"
+        },
+        {
+          "id": "RELST 128C"
+        },
+        {
+          "id": "RELST 129"
+        },
+        {
+          "id": "RELST 130"
+        },
+        {
+          "id": "RELST 131D"
+        },
+        {
+          "id": "RELST 131F"
+        },
+        {
+          "id": "RELST 131H"
+        },
+        {
+          "id": "RELST 131J"
+        },
+        {
+          "id": "RELST 132A"
+        },
+        {
+          "id": "RELST 132B"
+        },
+        {
+          "id": "RELST 132C"
+        },
+        {
+          "id": "RELST 132D"
+        },
+        {
+          "id": "RELST 133C"
+        },
+        {
+          "id": "RELST 133D"
+        },
+        {
+          "id": "RELST 133E",
+          "note": "Cross-listed courses can be taken through either department"
+        },
+        {
+          "id": "RELST 133F"
+        },
+        {
+          "id": "RELST 137"
+        },
+        {
+          "id": "RELST 140A"
+        },
+        {
+          "id": "RELST 140B"
+        },
+        {
+          "id": "RELST 140C"
+        },
+        {
+          "id": "RELST 140D"
+        },
+        {
+          "id": "RELST 140E"
+        },
+        {
+          "id": "RELST 140F"
+        },
+        {
+          "id": "RELST 142B"
+        },
+        {
+          "id": "RELST 144"
+        },
+        {
+          "id": "RELST 145"
+        },
+        {
+          "id": "RELST 148A"
+        },
+        {
+          "id": "RELST 148B"
+        },
+        {
+          "id": "RELST 148C"
+        },
+        {
+          "id": "RELST 149"
+        },
+        {
+          "id": "RELST 149D"
+        },
+        {
+          "id": "RELST 149H"
+        },
+        {
+          "id": "RELST 149R"
+        },
+        {
+          "id": "RELST 157B"
+        },
+        {
+          "id": "RELST 157C"
+        },
+        {
+          "id": "RELST 157G"
+        },
+        {
+          "id": "RELST 157I"
+        },
+        {
+          "id": "RELST 157J"
+        },
+        {
+          "id": "RELST 157CP"
+        },
+        {
+          "id": "RELST 157PP"
+        },
+        {
+          "id": "RELST 158E"
+        },
+        {
+          "id": "RELST 158F"
+        },
+        {
+          "id": "RELST 181B"
+        },
+        {
+          "id": "RELST 181F"
+        },
+        {
+          "id": "RELST 181G"
+        },
+        {
+          "id": "RELST 185"
+        },
+        {
+          "id": "RELST 186B"
+        },
+        {
+          "id": "RELST 187A",
+          "note": "Cross-listed courses can be taken through either department"
+        },
+        {
+          "id": "SOC 130ME"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

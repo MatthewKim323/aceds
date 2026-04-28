@@ -1,0 +1,318 @@
+{
+  "id": "physiology_bs",
+  "name": "Physiology",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Ecology, Evolution, & Marine Biology",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 48,
+  "source_pdf": "Physiology Major (2025).pdf",
+  "notes": "To be admitted to full major status, students must complete twelve designated courses from the Preparation for the Major with a 2.0 or higher UC grade-point average. A single course can satisfy only one requirement. Grades earned must meet the grade prerequisites for the full major. The following courses do not count toward upper division major credit: EEMB 182, 183, 184 and 189; MCDB 183, 184, 194D, 194KF, 194MO, 194MR. No more than 8 units of the following courses combined will apply: EEMB 185-199; MCDB 185-199. A minimum of 32 units must be completed through courses within the EEMB Department. P/NP grading not allowed for major courses except up to 8 units of courses that do not allow letter grades. At least 2.0 overall UC average in all upper-division major courses and all courses for the major.",
+  "groups": [
+    {
+      "id": "prep_chemistry_general",
+      "label": "Preparation for the Major: General Chemistry",
+      "note": "Complete one of the following sequences",
+      "courses": [
+        {
+          "id": "CHEM 1A",
+          "units": 5
+        },
+        {
+          "id": "CHEM 1B",
+          "units": 5
+        },
+        {
+          "id": "CHEM 1C",
+          "units": 5
+        },
+        {
+          "id": "CHEM 2AL"
+        },
+        {
+          "id": "CHEM 2BL",
+          "alt": [
+            "CHEM 1AL",
+            "CHEM 1BL",
+            "CHEM 1CL",
+            "CHEM 2A",
+            "CHEM 2AC",
+            "CHEM 2B",
+            "CHEM 2BC",
+            "CHEM 2C",
+            "CHEM 2CC"
+          ],
+          "note": "Or complete alternative sequences: 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC"
+        }
+      ]
+    },
+    {
+      "id": "prep_biology",
+      "label": "Preparation for the Major: Biology",
+      "courses": [
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 3"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "EEMB 2LL"
+        }
+      ]
+    },
+    {
+      "id": "prep_chemistry_organic",
+      "label": "Preparation for the Major: Organic Chemistry",
+      "courses": [
+        {
+          "id": "CHEM 6AL"
+        },
+        {
+          "id": "CHEM 109A",
+          "alt": [
+            "CHEM 109AH"
+          ]
+        },
+        {
+          "id": "CHEM 109B",
+          "alt": [
+            "CHEM 109BH"
+          ]
+        },
+        {
+          "id": "CHEM 109C",
+          "alt": [
+            "CHEM 109CH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Preparation for the Major: Mathematics",
+      "courses": [
+        {
+          "id": "MATH 3A",
+          "alt": [
+            "MATH 34A"
+          ]
+        },
+        {
+          "id": "MATH 3B",
+          "alt": [
+            "MATH 34B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_statistics",
+      "label": "Preparation for the Major: Statistics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5LS"
+        },
+        {
+          "id": "PSTAT 5A"
+        },
+        {
+          "id": "MATH 4A",
+          "note": "Acceptable, but not recommended"
+        }
+      ]
+    },
+    {
+      "id": "prep_physics",
+      "label": "Preparation for the Major: Physics",
+      "courses": [
+        {
+          "id": "PHYS 6A"
+        },
+        {
+          "id": "PHYS 6AL"
+        },
+        {
+          "id": "PHYS 6B"
+        },
+        {
+          "id": "PHYS 6BL"
+        },
+        {
+          "id": "PHYS 6C"
+        },
+        {
+          "id": "PHYS 6CL"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_ecology",
+      "label": "Upper-Division Core Curriculum: Ecology",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 120"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_evolution",
+      "label": "Upper-Division Core Curriculum: Evolution",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 131",
+          "alt": [
+            "EARTH 121"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ud_core_genetics",
+      "label": "Upper-Division Core Curriculum: Genetics",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 129"
+        }
+      ]
+    },
+    {
+      "id": "ud_core_biometry",
+      "label": "Upper-Division Core Curriculum: Biometry",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 146"
+        }
+      ]
+    },
+    {
+      "id": "ud_area_concentration",
+      "label": "Upper-Division Area of Concentration",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "EEMB 157A"
+        },
+        {
+          "id": "EEMB 157B"
+        },
+        {
+          "id": "EEMB 157C"
+        }
+      ]
+    },
+    {
+      "id": "ud_cell_biology",
+      "label": "Upper-Division Cellular Biology and Biochemistry: Cell Biology",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MCDB 103"
+        }
+      ]
+    },
+    {
+      "id": "ud_biochemistry",
+      "label": "Upper-Division Cellular Biology and Biochemistry: Biochemistry",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MCDB 108A"
+        },
+        {
+          "id": "MCDB 108B"
+        }
+      ]
+    },
+    {
+      "id": "ud_biodiversity",
+      "label": "Upper-Division Biodiversity and Systematics",
+      "note": "Two courses required from the following, including at least two laboratory courses (underlined)",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "EEMB 103A"
+        },
+        {
+          "id": "EEMB 106"
+        },
+        {
+          "id": "EEMB 111"
+        },
+        {
+          "id": "EEMB 112"
+        },
+        {
+          "id": "EEMB 113"
+        },
+        {
+          "id": "EEMB 113L"
+        },
+        {
+          "id": "EEMB 116"
+        },
+        {
+          "id": "EEMB 119"
+        },
+        {
+          "id": "EEMB 127"
+        },
+        {
+          "id": "EEMB 127L"
+        },
+        {
+          "id": "EEMB 136",
+          "alt": [
+            "EARTH 111"
+          ]
+        },
+        {
+          "id": "EEMB 136L",
+          "alt": [
+            "EARTH 111L"
+          ]
+        },
+        {
+          "id": "EEMB 144"
+        },
+        {
+          "id": "EEMB 144L"
+        },
+        {
+          "id": "EEMB 150A"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "Upper-Division Electives",
+      "note": "Additional UD courses offered in EEMB or MCDB or from Areas B, C or D above to bring the total UD units in the major to 48. Recommended courses: EEMB 163, 165; MCDB 111, 151",
+      "upper_division_required": true,
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

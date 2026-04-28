@@ -1,0 +1,324 @@
+{
+  "id": "music_studies_ba",
+  "name": "Music Studies Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Music",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 38,
+  "source_pdf": "Music Studies Major (2025).pdf",
+  "groups": [
+    {
+      "id": "prep_required",
+      "label": "Preparation for the Major - Required Courses",
+      "courses": [
+        {
+          "id": "MUSIC 2",
+          "units": 2
+        },
+        {
+          "id": "MUSIC 3C",
+          "units": 4
+        },
+        {
+          "id": "MUSIC 4A",
+          "units": 1,
+          "note": "or by placement exam"
+        },
+        {
+          "id": "MUSIC 5A",
+          "units": 4,
+          "note": "or by placement exam"
+        },
+        {
+          "id": "MUSIC 5B",
+          "units": 4,
+          "note": "or by placement exam"
+        },
+        {
+          "id": "MUSIC 12",
+          "units": 4
+        },
+        {
+          "id": "MUSIC 17",
+          "units": 5
+        }
+      ],
+      "note": "A grade of C- or better is required to advance in the Music 4 and Music 5 series."
+    },
+    {
+      "id": "prep_three_courses",
+      "label": "Preparation for the Major - Three Courses from Ensembles",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "MUSIC 8"
+        },
+        {
+          "id": "MUSIC 20"
+        },
+        {
+          "id": "MUSIC 21"
+        },
+        {
+          "id": "MUSIC 22"
+        },
+        {
+          "id": "MUSIC 23"
+        },
+        {
+          "id": "MUSIC 24"
+        },
+        {
+          "id": "MUSIC 25"
+        },
+        {
+          "id": "MUSIC 26"
+        },
+        {
+          "id": "MUSIC 27"
+        },
+        {
+          "id": "MUSIC 28"
+        },
+        {
+          "id": "MUSIC 29"
+        },
+        {
+          "id": "MUSIC 30"
+        },
+        {
+          "id": "MUSIC 31"
+        },
+        {
+          "id": "MUSIC 32"
+        },
+        {
+          "id": "MUSIC 33"
+        },
+        {
+          "id": "MUSIC 88"
+        },
+        {
+          "id": "MUSIC A34"
+        },
+        {
+          "id": "MUSIC A70AA-ZZ",
+          "note": "Some ensembles require audition"
+        }
+      ]
+    },
+    {
+      "id": "prep_elective",
+      "label": "Preparation for the Major - One Elective Course",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MUSIC 4B"
+        },
+        {
+          "id": "MUSIC 5C"
+        },
+        {
+          "id": "MUSIC 6"
+        },
+        {
+          "id": "MUSIC 8"
+        },
+        {
+          "id": "MUSIC 11"
+        },
+        {
+          "id": "MUSIC 15"
+        },
+        {
+          "id": "MUSIC 16"
+        },
+        {
+          "id": "MUSIC 20A"
+        },
+        {
+          "id": "MUSIC 31A"
+        }
+      ],
+      "note": "Other courses may also be considered by petition"
+    },
+    {
+      "id": "ud_history_culture",
+      "label": "A. History and Culture",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MUSIC 112"
+        },
+        {
+          "id": "MUSIC 113"
+        },
+        {
+          "id": "MUSIC 114"
+        },
+        {
+          "id": "MUSIC 115"
+        },
+        {
+          "id": "MUSIC 116"
+        },
+        {
+          "id": "MUSIC 117"
+        },
+        {
+          "id": "MUSIC 118"
+        },
+        {
+          "id": "MUSIC 119"
+        },
+        {
+          "id": "MUSIC 168A-Z",
+          "note": "Some classes have prerequisites"
+        },
+        {
+          "id": "MUSIC 175A-Z",
+          "note": "Some classes have prerequisites"
+        },
+        {
+          "id": "MUSIC 181",
+          "note": "Some classes have prerequisites"
+        },
+        {
+          "id": "MUSIC 182",
+          "note": "Some classes have prerequisites"
+        },
+        {
+          "id": "MUSIC 183",
+          "note": "Some classes have prerequisites"
+        },
+        {
+          "id": "MUSIC 184",
+          "note": "Some classes have prerequisites"
+        }
+      ]
+    },
+    {
+      "id": "ud_materials_techniques",
+      "label": "B. Materials and Techniques",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MUSIC 160A-Z"
+        },
+        {
+          "id": "MUSIC 169",
+          "note": "Some classes have prerequisites"
+        }
+      ]
+    },
+    {
+      "id": "ud_perf_lessons",
+      "label": "C. Performance Lessons",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "MUSIC 108"
+        },
+        {
+          "id": "MUSIC 120"
+        },
+        {
+          "id": "MUSIC 121"
+        },
+        {
+          "id": "MUSIC 122"
+        },
+        {
+          "id": "MUSIC 123"
+        },
+        {
+          "id": "MUSIC 124"
+        },
+        {
+          "id": "MUSIC 125"
+        },
+        {
+          "id": "MUSIC 126"
+        },
+        {
+          "id": "MUSIC 127"
+        },
+        {
+          "id": "MUSIC 128"
+        },
+        {
+          "id": "MUSIC 129"
+        },
+        {
+          "id": "MUSIC 130"
+        },
+        {
+          "id": "MUSIC 131"
+        },
+        {
+          "id": "MUSIC 132"
+        },
+        {
+          "id": "MUSIC 133"
+        },
+        {
+          "id": "MUSIC A134"
+        },
+        {
+          "id": "MUSIC A170AA-ZZ",
+          "note": "Some ensembles require audition"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "D. Electives",
+      "upper_division_required": true,
+      "note": "Any pre-approved UC courses to bring the total UD units for the major to at least 38. Up to 8 units of upper-division electives from Area D may be taken at the College of Creative Studies.",
+      "courses": []
+    },
+    {
+      "id": "ud_senior_project",
+      "label": "E. Senior Project",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MUSIC 192A",
+          "units": 1,
+          "note": "B.A. senior project"
+        },
+        {
+          "id": "MUSIC 192B",
+          "units": 1,
+          "note": "B.A. senior project"
+        },
+        {
+          "id": "MUSIC 192C",
+          "units": 1,
+          "note": "B.A. senior project"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

@@ -1,10 +1,10 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import { useNavigate, Navigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { majors, getMajorById } from '../data/majors'
 import { useAuth } from '../lib/auth'
-import { saveProfile } from '../lib/profile'
-import { parsePDF, computeStats, type ParsedDocument } from '../lib/pdf-parser'
+import { saveProfile, getProfile } from '../lib/profile'
+import { parsePDF, computeStats, toCourseNorm, type ParsedDocument } from '../lib/pdf-parser'
 import type { Major } from '../data/majors'
 
 const YEARS = [
@@ -36,6 +36,7 @@ export function Onboarding() {
   const [step, setStep] = useState(0)
   const [dir, setDir] = useState(1)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const [state, setState] = useState<OnboardingState>({
     majorIds: [],
     year: '',
@@ -47,6 +48,20 @@ export function Onboarding() {
     priorities: [...PRIORITIES],
     parsedDoc: null,
   })
+
+  useEffect(() => {
+    if (authLoading || !user) return
+    let cancelled = false
+    getProfile(user.id).then(({ profile }) => {
+      if (cancelled) return
+      if (profile?.onboarding_complete) {
+        navigate('/dashboard', { replace: true })
+      }
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [authLoading, user, navigate])
 
   const canAdvance = useCallback(() => {
     if (step === 0) return state.majorIds.length > 0
@@ -60,6 +75,7 @@ export function Onboarding() {
     if (step === 3) {
       if (user) {
         setSaving(true)
+        setSaveError(null)
         const { error } = await saveProfile(user.id, {
           majorIds: state.majorIds,
           year: state.year,
@@ -73,6 +89,8 @@ export function Onboarding() {
         setSaving(false)
         if (error) {
           console.error('Failed to save profile:', error)
+          setSaveError(error)
+          return
         }
       }
       localStorage.setItem(
@@ -118,7 +136,9 @@ export function Onboarding() {
   }
 
   function handleParsed(doc: ParsedDocument) {
-    const completedIds = new Set(doc.completed_courses.map((c) => c.course_code))
+    const completedIds = new Set(
+      doc.completed_courses.map((c) => toCourseNorm(c.course_code)),
+    )
     setState((prev) => ({
       ...prev,
       completedCourses: completedIds,
@@ -213,6 +233,13 @@ export function Onboarding() {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {saveError && step === 3 && (
+        <p className="ob-save-error" role="alert">
+          Couldn&apos;t save your profile: {saveError}. Check Supabase connection and
+          RLS policies, then try again.
+        </p>
+      )}
 
       <div className="ob-footer">
         <button className="ob-back" onClick={back} disabled={step === 0}>

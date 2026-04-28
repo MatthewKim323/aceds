@@ -158,6 +158,23 @@ def _regime(row: pd.Series) -> str:
     return "warm"
 
 
+# Test-set residual RMSE by regime (2026 Winter holdout). See cold_start_report.md.
+# Used as predicted_gpa_std so API uncertainty matches eval documentation.
+_REGIME_RESIDUAL_RMSE: dict[str, float] = {
+    "warm": 0.219,
+    "cold_pair": 0.2752,
+    "cold_both": 0.3067,
+    # Not split out in the report; interpolate between warm and cold_pair.
+    "cold_instr": 0.247,
+    "cold_course": 0.247,
+}
+
+
+def regime_residual_rmse(regime: str) -> float:
+    """Public: test-set residual RMSE for regime (see MODEL_CARD, cold_start_report)."""
+    return _REGIME_RESIDUAL_RMSE.get(regime, _REGIME_RESIDUAL_RMSE["warm"])
+
+
 def predict_sections(req: PredictRequest) -> PredictResponse:
     booster, feature_cols, categorical_cols = _load_artifacts()
     df = _build_feature_rows(req.section_ids, req.quarter_code)
@@ -176,17 +193,14 @@ def predict_sections(req: PredictRequest) -> PredictResponse:
 
     out = []
     for i, row in df.iterrows():
-        # predicted std = model residual RMSE on warm regime as a crude proxy;
-        # replaced with proper quantile models later.
-        base_std = 0.23
-        penalty = 0.05 if row["instr_is_cold"] else 0.0
+        regime = _regime(row)
         out.append(
             Prediction(
                 enroll_code=row["enroll_code"],
                 course_norm=row["course_norm"],
                 predicted_gpa=float(preds[i]),
-                predicted_gpa_std=base_std + penalty,
-                regime=_regime(row),
+                predicted_gpa_std=regime_residual_rmse(regime),
+                regime=regime,
             )
         )
     return PredictResponse(predictions=out)

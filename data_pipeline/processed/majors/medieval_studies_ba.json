@@ -1,0 +1,1057 @@
+{
+  "id": "medieval_studies_ba",
+  "name": "Medieval Studies",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Medieval Studies Program",
+  "college": "College of Letters and Science",
+  "total_units_required": 48,
+  "upper_div_units_required": 36,
+  "source_pdf": "Medieval Studies Major (2025).pdf",
+  "notes": "A reading knowledge of Latin and a modern European language will be necessary for those pursuing graduate programs. A single course can only apply to satisfying one of the distribution requirements even if it is listed under multiple areas, so a single course cannot be applied under any two distribution requirements.",
+  "groups": [
+    {
+      "id": "preparation",
+      "label": "Preparation for the Major",
+      "note": "Two courses from the following",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "HIST 2A"
+        },
+        {
+          "id": "HIST 2B"
+        },
+        {
+          "id": "HIST 4A"
+        },
+        {
+          "id": "HIST 4B"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major",
+      "label": "Upper-Division Major",
+      "note": "36 UD units selected from all courses listed below. 48 total units are required towards the major overall, so at least one additional LD or UD course is also required from the following courses. The breadth requirements must also be accounted for.",
+      "upper_division_required": true,
+      "subgroups": [
+        {
+          "id": "discipline_distribution",
+          "label": "Discipline Distribution Breadth Requirement",
+          "note": "Must complete at least Five courses from at least three different areas below",
+          "pick": {
+            "mode": "choose_n_courses",
+            "n_courses": 5
+          },
+          "subgroups": [
+            {
+              "id": "discipline_history",
+              "label": "History",
+              "courses": [
+                {
+                  "id": "CLASS 150"
+                },
+                {
+                  "id": "CLASS 151"
+                },
+                {
+                  "id": "CH ST 109A"
+                },
+                {
+                  "id": "CH ST 109B"
+                },
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 2BH"
+                },
+                {
+                  "id": "HIST 4A"
+                },
+                {
+                  "id": "HIST 4B"
+                },
+                {
+                  "id": "HIST 4BH"
+                },
+                {
+                  "id": "HIST 46A"
+                },
+                {
+                  "id": "HIST 49A"
+                },
+                {
+                  "id": "HIST 112D"
+                },
+                {
+                  "id": "HIST 112E"
+                },
+                {
+                  "id": "HIST 115"
+                },
+                {
+                  "id": "HIST 115A"
+                },
+                {
+                  "id": "HIST 115B"
+                },
+                {
+                  "id": "HIST 115Q"
+                },
+                {
+                  "id": "HIST 115R"
+                },
+                {
+                  "id": "HIST 115X"
+                },
+                {
+                  "id": "HIST 117C"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 118B"
+                },
+                {
+                  "id": "HIST 119"
+                },
+                {
+                  "id": "HIST 121A"
+                },
+                {
+                  "id": "HIST 121B"
+                },
+                {
+                  "id": "HIST 121C"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 138FM"
+                },
+                {
+                  "id": "HIST 138X"
+                },
+                {
+                  "id": "HIST 140G"
+                },
+                {
+                  "id": "HIST 145A"
+                },
+                {
+                  "id": "HIST 145B"
+                },
+                {
+                  "id": "HIST 148A"
+                },
+                {
+                  "id": "HIST 149IA"
+                },
+                {
+                  "id": "HIST 154LA"
+                },
+                {
+                  "id": "HIST 156A"
+                },
+                {
+                  "id": "HIST 184B"
+                },
+                {
+                  "id": "HIST 184E"
+                },
+                {
+                  "id": "HIST 184M"
+                },
+                {
+                  "id": "HIST 187A"
+                },
+                {
+                  "id": "HIST 187S"
+                }
+              ]
+            },
+            {
+              "id": "discipline_art_architecture_music",
+              "label": "Art, Architecture or Music (image, sound, material objects)",
+              "courses": [
+                {
+                  "id": "ARTHI 6A"
+                },
+                {
+                  "id": "ARTHI 6M"
+                },
+                {
+                  "id": "ARTHI 105C"
+                },
+                {
+                  "id": "ARTHI 105O"
+                },
+                {
+                  "id": "ARTHI 105P"
+                },
+                {
+                  "id": "ARTHI 105Q"
+                },
+                {
+                  "id": "ARTHI 107A"
+                },
+                {
+                  "id": "ARTHI 107B"
+                },
+                {
+                  "id": "ARTHI 107C"
+                },
+                {
+                  "id": "ARTHI 107D"
+                },
+                {
+                  "id": "ARTHI 130C"
+                },
+                {
+                  "id": "ARTHI 132A"
+                },
+                {
+                  "id": "ARTHI 132D"
+                },
+                {
+                  "id": "ARTHI 134B"
+                },
+                {
+                  "id": "ARTHI 134C"
+                },
+                {
+                  "id": "ARTHI 134E"
+                },
+                {
+                  "id": "ARTHI 186C"
+                },
+                {
+                  "id": "ARTHI 186D"
+                },
+                {
+                  "id": "ARTHI 186E"
+                }
+              ]
+            },
+            {
+              "id": "discipline_literature_written_culture",
+              "label": "Literature or Written Culture (text, writing)",
+              "courses": [
+                {
+                  "id": "CLASS 175"
+                },
+                {
+                  "id": "C LIT 30A"
+                },
+                {
+                  "id": "C LIT 50A"
+                },
+                {
+                  "id": "C LIT 114"
+                },
+                {
+                  "id": "C LIT 165"
+                },
+                {
+                  "id": "C LIT 180"
+                },
+                {
+                  "id": "C LIT 186FW"
+                },
+                {
+                  "id": "C LIT 186LF"
+                },
+                {
+                  "id": "C LIT 186ML"
+                },
+                {
+                  "id": "CHIN 80"
+                },
+                {
+                  "id": "CHIN 136"
+                },
+                {
+                  "id": "CHIN 140"
+                },
+                {
+                  "id": "ENGL 110A"
+                },
+                {
+                  "id": "ENGL 110B"
+                },
+                {
+                  "id": "ENGL 110C"
+                },
+                {
+                  "id": "ENGL 110T"
+                },
+                {
+                  "id": "ENGL 111"
+                },
+                {
+                  "id": "ENGL 115"
+                },
+                {
+                  "id": "ENGL 119X"
+                },
+                {
+                  "id": "ENGL 152A"
+                },
+                {
+                  "id": "ENGL 152B"
+                },
+                {
+                  "id": "ENGL 152C"
+                },
+                {
+                  "id": "ENGL 153"
+                },
+                {
+                  "id": "ENGL 156"
+                },
+                {
+                  "id": "ENGL 197",
+                  "note": "by petition only, content varies"
+                },
+                {
+                  "id": "FR 50AX"
+                },
+                {
+                  "id": "FR 101A"
+                },
+                {
+                  "id": "FR 148A"
+                },
+                {
+                  "id": "FR 148B"
+                },
+                {
+                  "id": "FR 148C"
+                },
+                {
+                  "id": "FR 151A"
+                },
+                {
+                  "id": "FR 153A"
+                },
+                {
+                  "id": "FR 153B"
+                },
+                {
+                  "id": "FR 154A"
+                },
+                {
+                  "id": "FR 154B"
+                },
+                {
+                  "id": "FR 155A"
+                },
+                {
+                  "id": "FR 156C"
+                },
+                {
+                  "id": "ITAL 114X"
+                },
+                {
+                  "id": "LATIN 103"
+                },
+                {
+                  "id": "RG ST 144"
+                },
+                {
+                  "id": "SPAN 110A"
+                },
+                {
+                  "id": "SPAN 112A"
+                },
+                {
+                  "id": "SPAN 122A"
+                },
+                {
+                  "id": "SPAN 122B"
+                }
+              ]
+            },
+            {
+              "id": "discipline_religion_philosophy_science",
+              "label": "Religion, Philosophy or Science",
+              "courses": [
+                {
+                  "id": "CLASS 106"
+                },
+                {
+                  "id": "CHIN 48"
+                },
+                {
+                  "id": "CHIN 132A"
+                },
+                {
+                  "id": "CHIN 147"
+                },
+                {
+                  "id": "CHIN 184T"
+                },
+                {
+                  "id": "HIST 110D"
+                },
+                {
+                  "id": "HIST 114A"
+                },
+                {
+                  "id": "HIST 125"
+                },
+                {
+                  "id": "PHIL 20B"
+                },
+                {
+                  "id": "RG ST 4"
+                },
+                {
+                  "id": "RG ST 23"
+                },
+                {
+                  "id": "RG ST 26"
+                },
+                {
+                  "id": "RG ST 27"
+                },
+                {
+                  "id": "RG ST 33"
+                },
+                {
+                  "id": "RG ST 47"
+                },
+                {
+                  "id": "RG ST 48"
+                },
+                {
+                  "id": "RG ST 73"
+                },
+                {
+                  "id": "RG ST 80B"
+                },
+                {
+                  "id": "RG ST 116A"
+                },
+                {
+                  "id": "RG ST 116B"
+                },
+                {
+                  "id": "RG ST 119A"
+                },
+                {
+                  "id": "RG ST 119B"
+                },
+                {
+                  "id": "RG ST 119F"
+                },
+                {
+                  "id": "RG ST 127A"
+                },
+                {
+                  "id": "RG ST 127B"
+                },
+                {
+                  "id": "RG ST 131J"
+                },
+                {
+                  "id": "RG ST 132A"
+                },
+                {
+                  "id": "RG ST 132C"
+                },
+                {
+                  "id": "RG ST 132D"
+                },
+                {
+                  "id": "RG ST 134A"
+                },
+                {
+                  "id": "RG ST 134B"
+                },
+                {
+                  "id": "RG ST 140A"
+                },
+                {
+                  "id": "RG ST 149C"
+                },
+                {
+                  "id": "RG ST 149D"
+                },
+                {
+                  "id": "RG ST 149R"
+                },
+                {
+                  "id": "RG ST 163C"
+                },
+                {
+                  "id": "RG ST 167A"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "area_distribution",
+          "label": "Area Distribution Breadth Requirement",
+          "note": "Must complete at least Four courses from at least two different areas/diaspora below (some comparative courses are listed under more than one rubric, but can only count towards one area)",
+          "pick": {
+            "mode": "choose_n_courses",
+            "n_courses": 4
+          },
+          "subgroups": [
+            {
+              "id": "area_africa",
+              "label": "Africa",
+              "courses": [
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 2BH"
+                },
+                {
+                  "id": "HIST 49A"
+                },
+                {
+                  "id": "HIST 148A"
+                },
+                {
+                  "id": "HIST 149IA"
+                }
+              ]
+            },
+            {
+              "id": "area_byzantium",
+              "label": "Byzantium/Eastern Christendom",
+              "courses": [
+                {
+                  "id": "RG ST 116A"
+                },
+                {
+                  "id": "RG ST 116B"
+                },
+                {
+                  "id": "RG ST 127A"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "ARTHI 186D"
+                }
+              ]
+            },
+            {
+              "id": "area_east_asia",
+              "label": "East Asia",
+              "courses": [
+                {
+                  "id": "CHIN 48"
+                },
+                {
+                  "id": "CHIN 80"
+                },
+                {
+                  "id": "CHIN 132A"
+                },
+                {
+                  "id": "CHIN 136"
+                },
+                {
+                  "id": "CHIN 140"
+                },
+                {
+                  "id": "CHIN 147"
+                },
+                {
+                  "id": "CHIN 184T"
+                },
+                {
+                  "id": "C LIT 165"
+                },
+                {
+                  "id": "CH ST 109A"
+                },
+                {
+                  "id": "CH ST 109B"
+                },
+                {
+                  "id": "HIST 184B"
+                },
+                {
+                  "id": "HIST 184E"
+                },
+                {
+                  "id": "HIST 184M"
+                },
+                {
+                  "id": "HIST 187A"
+                },
+                {
+                  "id": "HIST 187S"
+                },
+                {
+                  "id": "ARTHI 134B"
+                },
+                {
+                  "id": "ARTHI 134C"
+                },
+                {
+                  "id": "ARTHI 134E"
+                },
+                {
+                  "id": "RG ST 4"
+                },
+                {
+                  "id": "RG ST 23"
+                },
+                {
+                  "id": "RG ST 47"
+                },
+                {
+                  "id": "RG ST 48"
+                },
+                {
+                  "id": "RG ST 73"
+                },
+                {
+                  "id": "RG ST 163C"
+                },
+                {
+                  "id": "RG ST 167A"
+                }
+              ]
+            },
+            {
+              "id": "area_europe",
+              "label": "Europe",
+              "courses": [
+                {
+                  "id": "CLASS 106"
+                },
+                {
+                  "id": "CLASS 150"
+                },
+                {
+                  "id": "CLASS 151"
+                },
+                {
+                  "id": "CLASS 175"
+                },
+                {
+                  "id": "C LIT 30A"
+                },
+                {
+                  "id": "C LIT 50A"
+                },
+                {
+                  "id": "C LIT 114"
+                },
+                {
+                  "id": "C LIT 180"
+                },
+                {
+                  "id": "C LIT 186FW"
+                },
+                {
+                  "id": "C LIT 186LF"
+                },
+                {
+                  "id": "C LIT 186ML"
+                },
+                {
+                  "id": "ENGL 110A"
+                },
+                {
+                  "id": "ENGL 110B"
+                },
+                {
+                  "id": "ENGL 110C"
+                },
+                {
+                  "id": "ENGL 110T"
+                },
+                {
+                  "id": "ENGL 111"
+                },
+                {
+                  "id": "ENGL 115"
+                },
+                {
+                  "id": "ENGL 119X"
+                },
+                {
+                  "id": "ENGL 152A"
+                },
+                {
+                  "id": "ENGL 152B"
+                },
+                {
+                  "id": "ENGL 152C"
+                },
+                {
+                  "id": "ENGL 153"
+                },
+                {
+                  "id": "ENGL 156"
+                },
+                {
+                  "id": "FR 50AX"
+                },
+                {
+                  "id": "FR 101A"
+                },
+                {
+                  "id": "FR 148A"
+                },
+                {
+                  "id": "FR 148B"
+                },
+                {
+                  "id": "FR 148C"
+                },
+                {
+                  "id": "FR 151A"
+                },
+                {
+                  "id": "FR 153A"
+                },
+                {
+                  "id": "FR 153B"
+                },
+                {
+                  "id": "FR 154A"
+                },
+                {
+                  "id": "FR 154B"
+                },
+                {
+                  "id": "FR 156C"
+                },
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 2BH"
+                },
+                {
+                  "id": "HIST 4B"
+                },
+                {
+                  "id": "HIST 4BH"
+                },
+                {
+                  "id": "HIST 110D"
+                },
+                {
+                  "id": "HIST 112D"
+                },
+                {
+                  "id": "HIST 112E"
+                },
+                {
+                  "id": "HIST 114A"
+                },
+                {
+                  "id": "HIST 115"
+                },
+                {
+                  "id": "HIST 115A"
+                },
+                {
+                  "id": "HIST 115B"
+                },
+                {
+                  "id": "HIST 115Q"
+                },
+                {
+                  "id": "HIST 115R"
+                },
+                {
+                  "id": "HIST 115X"
+                },
+                {
+                  "id": "HIST 117C"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 118B"
+                },
+                {
+                  "id": "HIST 119"
+                },
+                {
+                  "id": "HIST 121A"
+                },
+                {
+                  "id": "HIST 121B"
+                },
+                {
+                  "id": "HIST 121C"
+                },
+                {
+                  "id": "HIST 125"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 138FM"
+                },
+                {
+                  "id": "HIST 138X"
+                },
+                {
+                  "id": "HIST 140G"
+                },
+                {
+                  "id": "ARTHI 6A"
+                },
+                {
+                  "id": "ARTHI 6M"
+                },
+                {
+                  "id": "ARTHI 105P"
+                },
+                {
+                  "id": "ARTHI 105Q"
+                },
+                {
+                  "id": "ARTHI 107A"
+                },
+                {
+                  "id": "ARTHI 107B"
+                },
+                {
+                  "id": "ARTHI 107C"
+                },
+                {
+                  "id": "ARTHI 107D"
+                },
+                {
+                  "id": "ARTHI 186D"
+                },
+                {
+                  "id": "ARTHI 186E"
+                },
+                {
+                  "id": "ITAL 114X"
+                },
+                {
+                  "id": "LATIN 103"
+                },
+                {
+                  "id": "RG ST 33"
+                },
+                {
+                  "id": "RG ST 80B"
+                },
+                {
+                  "id": "RG ST 116A"
+                },
+                {
+                  "id": "RG ST 116B"
+                },
+                {
+                  "id": "RG ST 127A"
+                },
+                {
+                  "id": "RG ST 127B"
+                },
+                {
+                  "id": "RG ST 132A"
+                },
+                {
+                  "id": "RG ST 134B"
+                },
+                {
+                  "id": "RG ST 144"
+                },
+                {
+                  "id": "SPAN 110A"
+                },
+                {
+                  "id": "SPAN 112A"
+                },
+                {
+                  "id": "SPAN 122A"
+                },
+                {
+                  "id": "SPAN 122B"
+                }
+              ]
+            },
+            {
+              "id": "area_islamicate_world",
+              "label": "Islamicate World",
+              "courses": [
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 46A"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 118B"
+                },
+                {
+                  "id": "HIST 125"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 145A"
+                },
+                {
+                  "id": "HIST 145B"
+                },
+                {
+                  "id": "HIST 149IA"
+                },
+                {
+                  "id": "ARTHI 105Q"
+                },
+                {
+                  "id": "PHIL 20B"
+                },
+                {
+                  "id": "RG ST 119A"
+                },
+                {
+                  "id": "RG ST 119B"
+                },
+                {
+                  "id": "RG ST 140A"
+                },
+                {
+                  "id": "RG ST 144"
+                },
+                {
+                  "id": "RG ST 149C"
+                },
+                {
+                  "id": "RG ST 149D"
+                },
+                {
+                  "id": "RG ST 149H"
+                },
+                {
+                  "id": "RG ST 149R"
+                }
+              ]
+            },
+            {
+              "id": "area_jewish_studies",
+              "label": "Jewish Studies",
+              "courses": [
+                {
+                  "id": "ARTHI 105Q"
+                },
+                {
+                  "id": "RG ST 26"
+                },
+                {
+                  "id": "RG ST 27"
+                },
+                {
+                  "id": "RG ST 131J"
+                },
+                {
+                  "id": "RG ST 132A"
+                },
+                {
+                  "id": "RG ST 132C"
+                },
+                {
+                  "id": "RG ST 132D"
+                }
+              ]
+            },
+            {
+              "id": "area_mediterranean",
+              "label": "Mediterranean",
+              "courses": [
+                {
+                  "id": "C LIT 186LF"
+                },
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 2BH"
+                },
+                {
+                  "id": "HIST 4A"
+                },
+                {
+                  "id": "HIST 15"
+                },
+                {
+                  "id": "HIST 115A"
+                },
+                {
+                  "id": "HIST 115B"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 118B"
+                },
+                {
+                  "id": "HIST 121A"
+                },
+                {
+                  "id": "ARTHI 105C"
+                },
+                {
+                  "id": "ARTHI 105O"
+                },
+                {
+                  "id": "ARTHI 132A"
+                },
+                {
+                  "id": "ARTHI 132D"
+                },
+                {
+                  "id": "ARTHI 186D"
+                },
+                {
+                  "id": "RG ST 134A"
+                }
+              ]
+            },
+            {
+              "id": "area_latin_america",
+              "label": "Latin America",
+              "courses": [
+                {
+                  "id": "HIST 154LA"
+                },
+                {
+                  "id": "HIST 156A"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

@@ -1,0 +1,1154 @@
+{
+  "id": "global_studies_ba",
+  "name": "Global Studies",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Global Studies",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.7,
+  "upper_div_units_required": 36,
+  "source_pdf": "GLOBAL & INTERNATIONAL STUDIES PROGRAM - Global Studies Major (2025).pdf",
+  "notes": "In order to qualify for admission into the Global Studies Major, students must complete Global Studies 1 and 2 with a UC GPA of 2.7 or above. In addition, students must complete three History courses as outlined below with a UC GPA of 2.0 or above. Excluding Global Studies courses no more than 12 of the 36 upper-division units may be from the same department. At least 2.0 overall average in all upper-division major courses and all courses (Prep and UD) for the major. Not allowed for any major course (Prep or UD major), including courses applied to the major from other departments. P/NP grading option.",
+  "groups": [
+    {
+      "id": "pre_major_1",
+      "label": "PRE-MAJOR: Global Studies 1, 2",
+      "courses": [
+        {
+          "id": "GLOBAL 1"
+        },
+        {
+          "id": "GLOBAL 2"
+        }
+      ]
+    },
+    {
+      "id": "pre_major_2",
+      "label": "PRE-MAJOR: Completion of three History courses from the following, with at least two courses from the same geographic sequence/cluster",
+      "note": "At least two courses from the same geographic sequence/cluster: 2A (or 4A), 2B, 2C (World); 2A (or 4A), 4B, 4C (Europe); 49A-B-C (Africa); 8A-B, 17A-B-C, 56 (Americas); 46A, 46B, 46MI, 80, 87, 88 (Asia & Middle East)",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "HIST 2A",
+          "alt": [
+            "HIST 4A"
+          ]
+        },
+        {
+          "id": "HIST 2B"
+        },
+        {
+          "id": "HIST 2C"
+        },
+        {
+          "id": "HIST 4B"
+        },
+        {
+          "id": "HIST 4C"
+        },
+        {
+          "id": "HIST 49A"
+        },
+        {
+          "id": "HIST 49B"
+        },
+        {
+          "id": "HIST 49C"
+        },
+        {
+          "id": "HIST 8A"
+        },
+        {
+          "id": "HIST 8B"
+        },
+        {
+          "id": "HIST 17A"
+        },
+        {
+          "id": "HIST 17B"
+        },
+        {
+          "id": "HIST 17C"
+        },
+        {
+          "id": "HIST 56"
+        },
+        {
+          "id": "HIST 46A"
+        },
+        {
+          "id": "HIST 46B"
+        },
+        {
+          "id": "HIST 46MI"
+        },
+        {
+          "id": "HIST 80"
+        },
+        {
+          "id": "HIST 87"
+        },
+        {
+          "id": "HIST 88"
+        }
+      ]
+    },
+    {
+      "id": "preparation_1",
+      "label": "PREPARATION FOR THE MAJOR: One course from the following",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "ANTH 2"
+        },
+        {
+          "id": "ECON 1"
+        },
+        {
+          "id": "ECON 2"
+        },
+        {
+          "id": "ENV S 1"
+        },
+        {
+          "id": "ENV S 3"
+        },
+        {
+          "id": "FAMST 20"
+        },
+        {
+          "id": "FAMST 30"
+        },
+        {
+          "id": "GEOG 5"
+        },
+        {
+          "id": "POL S 6"
+        },
+        {
+          "id": "POL S 7"
+        },
+        {
+          "id": "RG ST 1"
+        },
+        {
+          "id": "SOC 1"
+        }
+      ]
+    },
+    {
+      "id": "preparation_2",
+      "label": "PREPARATION FOR THE MAJOR: Completion of quarter six (or equivalent) of a modern foreign language",
+      "courses": []
+    },
+    {
+      "id": "preparation_3",
+      "label": "PREPARATION FOR THE MAJOR: Completion of one additional year of a modern foreign language",
+      "note": "a) SAME as Area II: Advanced and/or upper division courses in that language (12 units) b) DIFFERENT language: Beginning year of a language (0-15 units)",
+      "courses": []
+    },
+    {
+      "id": "upper_division_1",
+      "label": "UPPER-DIVISION MAJOR: Global Studies 110, 120, 130, 140",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GLOBAL 110"
+        },
+        {
+          "id": "GLOBAL 120"
+        },
+        {
+          "id": "GLOBAL 130"
+        },
+        {
+          "id": "GLOBAL 140"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_2",
+      "label": "UPPER-DIVISION MAJOR: Two or three courses selected from the following electives in Global Topics (at least TWO from Area A)",
+      "note": "At least TWO from Area A",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "upper_division_required": true,
+      "subgroups": [
+        {
+          "id": "upper_division_2a",
+          "label": "Area A: Any additional Global Studies courses from 100-189 and up to 8 units from 197AA-ZZ",
+          "courses": [
+            {
+              "id": "GLOBAL 100-189",
+              "note": "Any additional Global Studies courses from 100-189 and up to 8 units from 197AA-ZZ"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_2b",
+          "label": "Area B: Other Global Topics electives",
+          "courses": [
+            {
+              "id": "ANTH 110"
+            },
+            {
+              "id": "ANTH 111"
+            },
+            {
+              "id": "ANTH 114"
+            },
+            {
+              "id": "ANTH 116B"
+            },
+            {
+              "id": "ANTH 122"
+            },
+            {
+              "id": "ANTH 125"
+            },
+            {
+              "id": "ANTH 139"
+            },
+            {
+              "id": "ANTH 146"
+            },
+            {
+              "id": "ANTH 148A"
+            },
+            {
+              "id": "ANTH 172"
+            },
+            {
+              "id": "ANTH 185"
+            },
+            {
+              "id": "ARTHI 119B"
+            },
+            {
+              "id": "ARTHI 119D"
+            },
+            {
+              "id": "ARTHI 136I"
+            },
+            {
+              "id": "ARTHI 136J"
+            },
+            {
+              "id": "AS AM 107"
+            },
+            {
+              "id": "AS AM 110"
+            },
+            {
+              "id": "AS AM 130"
+            },
+            {
+              "id": "BL ST 126"
+            },
+            {
+              "id": "BL ST 152"
+            },
+            {
+              "id": "BL ST 161"
+            },
+            {
+              "id": "BL ST 175"
+            },
+            {
+              "id": "CH ST 149"
+            },
+            {
+              "id": "CH ST 178A"
+            },
+            {
+              "id": "CH ST 177"
+            },
+            {
+              "id": "C LIT 171"
+            },
+            {
+              "id": "ECON 114A"
+            },
+            {
+              "id": "ECON 114B"
+            },
+            {
+              "id": "ECON 180"
+            },
+            {
+              "id": "ECON 181"
+            },
+            {
+              "id": "ENGL 122LE"
+            },
+            {
+              "id": "ENV S 112"
+            },
+            {
+              "id": "ENV S 116"
+            },
+            {
+              "id": "ENV S 130A"
+            },
+            {
+              "id": "ENV S 130B"
+            },
+            {
+              "id": "ENV S 130C"
+            },
+            {
+              "id": "ENV S 131"
+            },
+            {
+              "id": "ENV S 132"
+            },
+            {
+              "id": "ENV S 134EC"
+            },
+            {
+              "id": "ENV S 149"
+            },
+            {
+              "id": "ENV S 184"
+            },
+            {
+              "id": "ENV S 185"
+            },
+            {
+              "id": "ENV S 188"
+            },
+            {
+              "id": "FAMST 150"
+            },
+            {
+              "id": "F M ST 122AC"
+            },
+            {
+              "id": "FR 154G"
+            },
+            {
+              "id": "GEOG 108"
+            },
+            {
+              "id": "GEOG 141A"
+            },
+            {
+              "id": "HIST 193F"
+            },
+            {
+              "id": "LING 130"
+            },
+            {
+              "id": "POL S 109"
+            },
+            {
+              "id": "POL S 121"
+            },
+            {
+              "id": "POL S 124"
+            },
+            {
+              "id": "POL S 146"
+            },
+            {
+              "id": "POL S 147"
+            },
+            {
+              "id": "POL S 172"
+            },
+            {
+              "id": "POL S 173"
+            },
+            {
+              "id": "POL S 175"
+            },
+            {
+              "id": "PORT 125A"
+            },
+            {
+              "id": "RG ST 102A"
+            },
+            {
+              "id": "RG ST 106"
+            },
+            {
+              "id": "RG ST 113"
+            },
+            {
+              "id": "RG ST 131D"
+            },
+            {
+              "id": "RG ST 193B"
+            },
+            {
+              "id": "SOC 122GI"
+            },
+            {
+              "id": "SOC 130GR"
+            },
+            {
+              "id": "SOC 130SG"
+            },
+            {
+              "id": "SOC 134CJ"
+            },
+            {
+              "id": "SOC 153"
+            },
+            {
+              "id": "SOC 185DG"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upper_division_3",
+      "label": "UPPER-DIVISION MAJOR: Two or Three courses selected from one of the following geographic regions",
+      "note": "Choose one geographic region",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "upper_division_required": true,
+      "subgroups": [
+        {
+          "id": "upper_division_3_africa",
+          "label": "Africa",
+          "courses": [
+            {
+              "id": "ARTHI 127A"
+            },
+            {
+              "id": "ARTHI 127B"
+            },
+            {
+              "id": "ANTH 156"
+            },
+            {
+              "id": "BL ST 100"
+            },
+            {
+              "id": "BL ST 104"
+            },
+            {
+              "id": "BL ST 130A"
+            },
+            {
+              "id": "BL ST 130B"
+            },
+            {
+              "id": "BL ST 162"
+            },
+            {
+              "id": "BL ST 165"
+            },
+            {
+              "id": "BL ST 171"
+            },
+            {
+              "id": "C LIT 171"
+            },
+            {
+              "id": "ENGL 190AL"
+            },
+            {
+              "id": "FR 154G"
+            },
+            {
+              "id": "GLOBAL 149"
+            },
+            {
+              "id": "HIST 147D"
+            },
+            {
+              "id": "HIST 147G"
+            },
+            {
+              "id": "HIST 148AU"
+            },
+            {
+              "id": "HIST 148B"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_middle_east",
+          "label": "The Middle East",
+          "courses": [
+            {
+              "id": "ARTHI 132G"
+            },
+            {
+              "id": "ARTHI 132J"
+            },
+            {
+              "id": "GLOBAL 158"
+            },
+            {
+              "id": "GLOBAL 183"
+            },
+            {
+              "id": "HIST 146"
+            },
+            {
+              "id": "HIST 146T"
+            },
+            {
+              "id": "HIST 146W"
+            },
+            {
+              "id": "HIST 171ME"
+            },
+            {
+              "id": "POL S 150A"
+            },
+            {
+              "id": "RG ST 111"
+            },
+            {
+              "id": "RG ST 119A"
+            },
+            {
+              "id": "RG ST 119B"
+            },
+            {
+              "id": "RG ST 119C"
+            },
+            {
+              "id": "RG ST 119D"
+            },
+            {
+              "id": "RG ST 131H"
+            },
+            {
+              "id": "RG ST 140A"
+            },
+            {
+              "id": "RG ST 140B"
+            },
+            {
+              "id": "RG ST 140F"
+            },
+            {
+              "id": "RG ST 181B"
+            },
+            {
+              "id": "RG ST 181C"
+            },
+            {
+              "id": "RG ST 181D"
+            },
+            {
+              "id": "RG ST 181F"
+            },
+            {
+              "id": "RG ST 185"
+            },
+            {
+              "id": "SOC 130ME"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_south_asia",
+          "label": "South Asia, Southeast Asia and the Pacific",
+          "courses": [
+            {
+              "id": "ANTH 136"
+            },
+            {
+              "id": "ANTH 142"
+            },
+            {
+              "id": "ARTHI 136V"
+            },
+            {
+              "id": "EACS 140"
+            },
+            {
+              "id": "ENGL 122AP"
+            },
+            {
+              "id": "ENGL 133TL"
+            },
+            {
+              "id": "ENGL 165LP"
+            },
+            {
+              "id": "F M ST 124"
+            },
+            {
+              "id": "HIST 189M"
+            },
+            {
+              "id": "RG ST 140D"
+            },
+            {
+              "id": "RG ST 158C"
+            },
+            {
+              "id": "RG ST 162A"
+            },
+            {
+              "id": "RG ST 162C"
+            },
+            {
+              "id": "RG ST 162E"
+            },
+            {
+              "id": "RG ST 169"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_east_asia",
+          "label": "East Asia",
+          "courses": [
+            {
+              "id": "ARTHI 134D"
+            },
+            {
+              "id": "CH 170"
+            },
+            {
+              "id": "CH 172"
+            },
+            {
+              "id": "CH 176"
+            },
+            {
+              "id": "CH 183B"
+            },
+            {
+              "id": "CH 185B"
+            },
+            {
+              "id": "EACS 103A"
+            },
+            {
+              "id": "EACS 103B"
+            },
+            {
+              "id": "EACS 103C"
+            },
+            {
+              "id": "EACS 141"
+            },
+            {
+              "id": "EACS 166"
+            },
+            {
+              "id": "F M ST 120"
+            },
+            {
+              "id": "HIST 182B"
+            },
+            {
+              "id": "HIST 185B"
+            },
+            {
+              "id": "HIST 187B"
+            },
+            {
+              "id": "HIST 187C"
+            },
+            {
+              "id": "JPN 112"
+            },
+            {
+              "id": "JPN 150"
+            },
+            {
+              "id": "JPN 159"
+            },
+            {
+              "id": "JPN 162"
+            },
+            {
+              "id": "JPN 164"
+            },
+            {
+              "id": "JPN 165"
+            },
+            {
+              "id": "KOR 113"
+            },
+            {
+              "id": "KOR 120"
+            },
+            {
+              "id": "KOR 139"
+            },
+            {
+              "id": "KOR 142"
+            },
+            {
+              "id": "KOR 175"
+            },
+            {
+              "id": "POL S 136"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_north_america",
+          "label": "North America",
+          "courses": [
+            {
+              "id": "ARTHI 121C"
+            },
+            {
+              "id": "ARTHI 121D"
+            },
+            {
+              "id": "AS AM 100AA"
+            },
+            {
+              "id": "AS AM 118"
+            },
+            {
+              "id": "AS AM 122"
+            },
+            {
+              "id": "AS AM 127"
+            },
+            {
+              "id": "AS AM 128"
+            },
+            {
+              "id": "AS AM 132"
+            },
+            {
+              "id": "AS AM 137"
+            },
+            {
+              "id": "AS AM 164"
+            },
+            {
+              "id": "AS AM 156"
+            },
+            {
+              "id": "BL ST 127"
+            },
+            {
+              "id": "BL ST 142"
+            },
+            {
+              "id": "BL ST 169CR"
+            },
+            {
+              "id": "BL ST 172"
+            },
+            {
+              "id": "BL ST 174"
+            },
+            {
+              "id": "CH ST 138"
+            },
+            {
+              "id": "CH ST 152"
+            },
+            {
+              "id": "CH ST 168B"
+            },
+            {
+              "id": "CH ST 171"
+            },
+            {
+              "id": "CH ST 180"
+            },
+            {
+              "id": "CH ST 183"
+            },
+            {
+              "id": "CH ST 189"
+            },
+            {
+              "id": "ENGL 104A"
+            },
+            {
+              "id": "ENGL 133GC"
+            },
+            {
+              "id": "ENGL 191"
+            },
+            {
+              "id": "ENV S 122NE"
+            },
+            {
+              "id": "GEOG 150"
+            },
+            {
+              "id": "HIST 159C"
+            },
+            {
+              "id": "HIST 164IB"
+            },
+            {
+              "id": "HIST 166A"
+            },
+            {
+              "id": "HIST 166B"
+            },
+            {
+              "id": "HIST 166C"
+            },
+            {
+              "id": "HIST 166D"
+            },
+            {
+              "id": "HIST 167CB"
+            },
+            {
+              "id": "HIST 168B"
+            },
+            {
+              "id": "HIST 170A"
+            },
+            {
+              "id": "HIST 170B"
+            },
+            {
+              "id": "HIST 171C"
+            },
+            {
+              "id": "HIST 171D"
+            },
+            {
+              "id": "HIST 174C"
+            },
+            {
+              "id": "HIST 175A"
+            },
+            {
+              "id": "HIST 175B"
+            },
+            {
+              "id": "HIST 179B"
+            },
+            {
+              "id": "MUS 114"
+            },
+            {
+              "id": "POL S 127"
+            },
+            {
+              "id": "POL S 134"
+            },
+            {
+              "id": "RG ST 140E"
+            },
+            {
+              "id": "RG ST 147"
+            },
+            {
+              "id": "RG ST 152"
+            },
+            {
+              "id": "SOC 155A"
+            },
+            {
+              "id": "SPAN 139"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_latin_america",
+          "label": "Latin America",
+          "courses": [
+            {
+              "id": "ANTH 113"
+            },
+            {
+              "id": "ANTH 117"
+            },
+            {
+              "id": "ANTH 134"
+            },
+            {
+              "id": "ANTH 135"
+            },
+            {
+              "id": "ANTH 141"
+            },
+            {
+              "id": "CH ST 141"
+            },
+            {
+              "id": "CH ST 177"
+            },
+            {
+              "id": "F M ST 126"
+            },
+            {
+              "id": "F M ST 127"
+            },
+            {
+              "id": "F M ST 127M"
+            },
+            {
+              "id": "GEOG 155"
+            },
+            {
+              "id": "GLOBAL 147"
+            },
+            {
+              "id": "GLOBAL 148"
+            },
+            {
+              "id": "HIST 151B"
+            },
+            {
+              "id": "HIST 151C"
+            },
+            {
+              "id": "HIST 151FQ"
+            },
+            {
+              "id": "HIST 153L"
+            },
+            {
+              "id": "HIST 154LB"
+            },
+            {
+              "id": "HIST 156B"
+            },
+            {
+              "id": "HIST 158"
+            },
+            {
+              "id": "LAIS 100"
+            },
+            {
+              "id": "LAIS 101"
+            },
+            {
+              "id": "LAIS 102"
+            },
+            {
+              "id": "POL S 134"
+            },
+            {
+              "id": "POL S 148"
+            },
+            {
+              "id": "PORT 115AA"
+            },
+            {
+              "id": "PORT 125B"
+            },
+            {
+              "id": "PORT 128AA"
+            },
+            {
+              "id": "PORT 130"
+            },
+            {
+              "id": "SOC 130LA"
+            },
+            {
+              "id": "SPAN 165"
+            },
+            {
+              "id": "SPAN 171"
+            },
+            {
+              "id": "SPAN 178"
+            }
+          ]
+        },
+        {
+          "id": "upper_division_3_europe",
+          "label": "Europe & Eurasia",
+          "courses": [
+            {
+              "id": "C LIT 113"
+            },
+            {
+              "id": "C LIT 122A"
+            },
+            {
+              "id": "C LIT 161"
+            },
+            {
+              "id": "ENGL 104B"
+            },
+            {
+              "id": "ENGL 150"
+            },
+            {
+              "id": "ENGL 184"
+            },
+            {
+              "id": "F M ST 122IT"
+            },
+            {
+              "id": "FR 153E"
+            },
+            {
+              "id": "FR 153F"
+            },
+            {
+              "id": "FR 154D"
+            },
+            {
+              "id": "FR 154E"
+            },
+            {
+              "id": "FR 155C"
+            },
+            {
+              "id": "FR 155D"
+            },
+            {
+              "id": "FR 156B"
+            },
+            {
+              "id": "GEOG 159"
+            },
+            {
+              "id": "GER 111"
+            },
+            {
+              "id": "GER 151C"
+            },
+            {
+              "id": "GER 179A"
+            },
+            {
+              "id": "GER 179C"
+            },
+            {
+              "id": "HIST 123A"
+            },
+            {
+              "id": "HIST 123B"
+            },
+            {
+              "id": "HIST 123C"
+            },
+            {
+              "id": "HIST 124B"
+            },
+            {
+              "id": "HIST 133B"
+            },
+            {
+              "id": "HIST 133C"
+            },
+            {
+              "id": "HIST 133D"
+            },
+            {
+              "id": "HIST 133Q"
+            },
+            {
+              "id": "HIST 135B"
+            },
+            {
+              "id": "HIST 135C"
+            },
+            {
+              "id": "HIST 141B"
+            },
+            {
+              "id": "ITAL 120X"
+            },
+            {
+              "id": "ITAL 130X"
+            },
+            {
+              "id": "ITAL 139CX"
+            },
+            {
+              "id": "ITAL 139DX"
+            },
+            {
+              "id": "ITAL 139FX"
+            },
+            {
+              "id": "ITAL 139GX"
+            },
+            {
+              "id": "ITAL 139ZX"
+            },
+            {
+              "id": "ITAL 144AX"
+            },
+            {
+              "id": "ITAL 161X"
+            },
+            {
+              "id": "ITAL 179X"
+            },
+            {
+              "id": "ITAL 180X"
+            },
+            {
+              "id": "POL S 128"
+            },
+            {
+              "id": "POL S 143"
+            },
+            {
+              "id": "PORT 125A"
+            },
+            {
+              "id": "PORT 129"
+            },
+            {
+              "id": "SLAV 123C"
+            },
+            {
+              "id": "SLAV 123D"
+            },
+            {
+              "id": "SLAV 130A"
+            },
+            {
+              "id": "SLAV 130B"
+            },
+            {
+              "id": "SLAV 130C"
+            },
+            {
+              "id": "SLAV 130D"
+            },
+            {
+              "id": "SLAV 151C"
+            },
+            {
+              "id": "SLAV 152B"
+            },
+            {
+              "id": "SLAV 152C"
+            },
+            {
+              "id": "SLAV 164C"
+            },
+            {
+              "id": "SLAV 182"
+            },
+            {
+              "id": "SPAN 126"
+            },
+            {
+              "id": "SPAN 153E"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

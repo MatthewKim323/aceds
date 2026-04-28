@@ -1,0 +1,262 @@
+{
+  "id": "financial_mathematics_and_statistics_bs",
+  "name": "Financial Mathematics and Statistics",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Mathematics and Statistics and Applied Probability",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.5,
+  "upper_div_units_required": 52,
+  "source_pdf": " Financial Mathematics & Statistics Major (2025) (1).pdf",
+  "reviewed": false,
+  "notes": "To be admitted into the full major students must complete all pre-major courses with a 2.5 or higher UC grade point average. All pre-major and preparation for the major courses must be completed with a grade of 'C' or better. Preparation courses are excluded from the pre-major GPA, but will apply to the overall major GPA. Entry into the pre-major does not guarantee admission to full major status. While completing required preparation, students are classified as pre-majors. Either Math 4A, 4B, 6A, or 6B must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8. Math 8 is a prerequisite for all upper division Math courses except Math 117, 104A, 104B, and 104C. If you plan to take additional upper division Math courses, you must take Math 8. Math 100A-B, 101A-B, 102A-B, 193; PSTAT 109, 182T (or W 182T), 188, 190, 193 will not apply to the major. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major.",
+  "groups": [
+    {
+      "id": "pre_major",
+      "label": "PRE-MAJOR",
+      "note": "All pre-major courses must be completed with a grade of 'C' or better and a 2.5 or higher UC grade point average.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "ECON 1"
+        },
+        {
+          "id": "ECON 2"
+        },
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ]
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A",
+          "note": "Must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8"
+        },
+        {
+          "id": "MATH 4B",
+          "note": "Must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8"
+        },
+        {
+          "id": "MATH 6A",
+          "note": "Must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8"
+        },
+        {
+          "id": "MATH 6B",
+          "note": "Must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8"
+        },
+        {
+          "id": "MATH 8",
+          "alt": [
+            "PSTAT 8"
+          ],
+          "note": "Math 8 is a prerequisite for all upper division Math courses except Math 117, 104A, 104B, and 104C. If you plan to take additional upper division Math courses, you must take Math 8."
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "preparation",
+      "label": "PREPARATION FOR THE MAJOR",
+      "note": "All preparation courses must be completed with a grade of 'C' or better. Preparation courses are excluded from the pre-major GPA, but will apply to the overall major GPA.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [],
+      "subgroups": [
+        {
+          "id": "preparation_cs",
+          "label": "Computer Science Requirement",
+          "pick": {
+            "n_courses": 1,
+            "mode": "choose_n_courses"
+          },
+          "upper_division_required": false,
+          "min_grade": "C",
+          "courses": [
+            {
+              "id": "CMPSC 8",
+              "alt": [
+                "CMPSC W 8"
+              ]
+            },
+            {
+              "id": "CMPSC 9"
+            },
+            {
+              "id": "CMPSC 16"
+            },
+            {
+              "id": "ENGR 3"
+            }
+          ],
+          "subgroups": []
+        },
+        {
+          "id": "preparation_econ_pstat",
+          "label": "Economics and PSTAT Requirements",
+          "upper_division_required": false,
+          "min_grade": "C",
+          "courses": [
+            {
+              "id": "ECON 10A",
+              "units": 5
+            },
+            {
+              "id": "PSTAT 10",
+              "units": 5
+            }
+          ],
+          "subgroups": []
+        }
+      ]
+    },
+    {
+      "id": "upper_division_required",
+      "label": "UPPER-DIVISION MAJOR - Required Courses",
+      "note": "52 UD units are required",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MATH 104A"
+        },
+        {
+          "id": "MATH 104B"
+        },
+        {
+          "id": "MATH 104C"
+        },
+        {
+          "id": "MATH 117"
+        },
+        {
+          "id": "PSTAT 120A",
+          "alt": [
+            "PSTAT W 120A"
+          ]
+        },
+        {
+          "id": "PSTAT 120B"
+        },
+        {
+          "id": "PSTAT 126"
+        },
+        {
+          "id": "PSTAT 160A",
+          "alt": [
+            "PSTAT W 160A"
+          ]
+        },
+        {
+          "id": "PSTAT 160B"
+        },
+        {
+          "id": "PSTAT 170",
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_electives",
+      "label": "UPPER-DIVISION MAJOR - Electives",
+      "note": "12 units from the following courses",
+      "pick": {
+        "n_units": 12,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ECON 100B"
+        },
+        {
+          "id": "ECON 101"
+        },
+        {
+          "id": "ECON 130"
+        },
+        {
+          "id": "ECON 134A"
+        },
+        {
+          "id": "ECON 134B"
+        },
+        {
+          "id": "ECON 140B"
+        },
+        {
+          "id": "ECON 141"
+        },
+        {
+          "id": "ECON 171"
+        },
+        {
+          "id": "ECON 181"
+        },
+        {
+          "id": "MATH 108A"
+        },
+        {
+          "id": "MATH 108B"
+        },
+        {
+          "id": "MATH 124A"
+        },
+        {
+          "id": "MATH 124B"
+        },
+        {
+          "id": "MATH 132A"
+        },
+        {
+          "id": "MATH 199"
+        },
+        {
+          "id": "PSTAT 120C"
+        },
+        {
+          "id": "PSTAT 130"
+        },
+        {
+          "id": "PSTAT 131"
+        },
+        {
+          "id": "PSTAT 132"
+        },
+        {
+          "id": "PSTAT 134"
+        },
+        {
+          "id": "PSTAT 135"
+        },
+        {
+          "id": "PSTAT 171"
+        },
+        {
+          "id": "PSTAT 173"
+        },
+        {
+          "id": "PSTAT 174",
+          "alt": [
+            "PSTAT W 174"
+          ]
+        },
+        {
+          "id": "PSTAT 176"
+        },
+        {
+          "id": "PSTAT 199"
+        }
+      ],
+      "subgroups": []
+    }
+  ]
+}

@@ -39,8 +39,8 @@ OUT_DIR = PIPELINE / "processed" / "majors"
 CACHE_DIR = PIPELINE / "processed" / "majors_cache"
 SCHEMA_PATH = PIPELINE / "schemas" / "major.schema.json"
 
-MODEL = "claude-3-5-sonnet-20241022"
-MAX_TOKENS = 4096
+MODEL = os.environ.get("ACE_CLAUDE_MODEL", "claude-sonnet-4-5")
+MAX_TOKENS = 16384
 
 
 SYSTEM_PROMPT = """You are a meticulous data extraction assistant for UCSB's course planning tool (ACE). Your job is to convert an official UCSB major or minor requirement PDF into a strict JSON document matching the provided schema.
@@ -54,7 +54,8 @@ CRITICAL RULES:
 4. Use "alt" for explicit substitutions (e.g. "MATH 3A or MATH 2A" -> {id: "MATH 3A", alt: ["MATH 2A"]}).
 5. Put free-form qualifications in "note" fields, never invent requirements.
 6. `kind` is "major" or "minor". `degree` applies to majors only (B.A. or B.S.).
-7. If a field is not stated on the sheet, set it to null. Do NOT guess GPA thresholds, unit totals, or catalog years.
+7. If a field is not stated on the sheet, OMIT it entirely. Do not emit null placeholders for optional fields (title, alt, units, note, etc.) — just leave the key out. Only emit required fields and fields you actually have a value for. This keeps output compact.
+8. Do NOT guess GPA thresholds, unit totals, or catalog years.
 """
 
 
@@ -94,6 +95,17 @@ def _hash_pdf(p: Path) -> str:
 
 def _cache_path(p: Path, kind: str) -> Path:
     return CACHE_DIR / kind / f"{p.stem}__{_hash_pdf(p)}.json"
+
+
+def _prune_null_optionals(obj):
+    """Schema declares optional strings as just 'string' (not 'string | null').
+    Claude happily returns explicit nulls for those; drop them so validation passes
+    and the frontend doesn't have to defend against null fields everywhere."""
+    if isinstance(obj, dict):
+        return {k: _prune_null_optionals(v) for k, v in obj.items() if v is not None}
+    if isinstance(obj, list):
+        return [_prune_null_optionals(v) for v in obj]
+    return obj
 
 
 def _extract_json(text: str) -> dict:
@@ -187,6 +199,7 @@ def extract_one(
             raise RuntimeError(f"failed to extract {pdf.name} after 3 attempts")
 
     data = _extract_json(raw["response_text"])
+    data = _prune_null_optionals(data)
     # enforce provenance + defaults
     data.setdefault("kind", kind)
     data["source_pdf"] = pdf.name

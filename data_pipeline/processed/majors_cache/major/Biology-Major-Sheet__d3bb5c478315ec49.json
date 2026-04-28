@@ -1,0 +1,8 @@
+{
+  "response_text": "```json\n{\n  \"id\": \"ccs_biology_major\",\n  \"name\": \"Biology\",\n  \"kind\": \"major\",\n  \"degree\": null,\n  \"catalog_year\": null,\n  \"department\": \"College of Creative Studies\",\n  \"college\": \"College of Creative Studies\",\n  \"pre_major_gpa\": null,\n  \"total_units_required\": null,\n  \"upper_div_units_required\": null,\n  \"source_pdf\": \"Biology-Major-Sheet.pdf\",\n  \"reviewed\": false,\n  \"review_notes\": null,\n  \"notes\": \"CCS biology students are not bound by the requirements listed in the UCSB General Catalog for Biological Sciences majors in the College of Letters and Science; instead, programs of study are negotiated between CCS student and advisor. Students should establish a close association with their faculty advisor to design a program appropriate to their specific interests. All CCS students must complete the CCS General Education requirements. The requirements for the CCS biology major can be fulfilled by completing a wide spectrum of biology courses, depending upon each student's area of emphasis.\",\n  \"groups\": []\n}\n```",
+  "model": "claude-sonnet-4-5",
+  "usage": {
+    "input_tokens": 5341,
+    "output_tokens": 269
+  }
+}

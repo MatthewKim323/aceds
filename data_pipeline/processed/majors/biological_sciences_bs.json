@@ -1,0 +1,583 @@
+{
+  "id": "biological_sciences_bs",
+  "name": "Biological Sciences",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Ecology, Evolution, & Marine Biology; Molecular, Cellular, & Developmental Biology",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 48,
+  "source_pdf": "Biological Sciences BS Major (2025).pdf",
+  "notes": "Hyphens indicate an entire sequence or combination must be completed as shown to fulfill an area requirement. A single course can satisfy only one requirement. Courses with an asterisk (*) are listed in more than one area, but they may be applied to only one area.",
+  "groups": [
+    {
+      "id": "prep_chemistry_sequence",
+      "label": "Chemistry Sequence",
+      "courses": [
+        {
+          "id": "CHEM 1A",
+          "note": "Part of required sequence CHEM 1A-B-C and 2AL-BL"
+        },
+        {
+          "id": "CHEM 1B"
+        },
+        {
+          "id": "CHEM 1C"
+        },
+        {
+          "id": "CHEM 2AL"
+        },
+        {
+          "id": "CHEM 2BL"
+        }
+      ],
+      "note": "or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC",
+      "units": 15
+    },
+    {
+      "id": "prep_biology_core",
+      "label": "Biology Core",
+      "courses": [
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 3"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "EEMB 2LL"
+        }
+      ],
+      "units": 17
+    },
+    {
+      "id": "prep_advanced_chemistry",
+      "label": "Advanced Chemistry",
+      "courses": [
+        {
+          "id": "CHEM 6AL"
+        },
+        {
+          "id": "CHEM 109A"
+        },
+        {
+          "id": "CHEM 109B",
+          "alt": [
+            "CHEM 109AH",
+            "CHEM 109BH"
+          ],
+          "note": "or 109AH-BH sequence"
+        }
+      ],
+      "units": 11
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Mathematics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MATH 3A",
+          "note": "MATH 3A-B sequence"
+        },
+        {
+          "id": "MATH 3B"
+        },
+        {
+          "id": "MATH 34A",
+          "note": "MATH 34A-B sequence (alternative)"
+        },
+        {
+          "id": "MATH 34B"
+        }
+      ],
+      "units": 8
+    },
+    {
+      "id": "prep_statistics",
+      "label": "Statistics",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5LS"
+        },
+        {
+          "id": "PSTAT 5A"
+        },
+        {
+          "id": "MATH 4A"
+        }
+      ]
+    },
+    {
+      "id": "prep_physics",
+      "label": "Physics",
+      "courses": [
+        {
+          "id": "PHYS 6A"
+        },
+        {
+          "id": "PHYS 6AL"
+        },
+        {
+          "id": "PHYS 6B"
+        },
+        {
+          "id": "PHYS 6BL"
+        },
+        {
+          "id": "PHYS 6C"
+        },
+        {
+          "id": "PHYS 6CL"
+        }
+      ],
+      "units": 12
+    },
+    {
+      "id": "ud_genetics",
+      "label": "A. Genetics",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "subgroups": [
+        {
+          "id": "ud_genetics_option_1",
+          "label": "MCDB 101A-B sequence",
+          "courses": [
+            {
+              "id": "MCDB 101A"
+            },
+            {
+              "id": "MCDB 101B"
+            }
+          ]
+        },
+        {
+          "id": "ud_genetics_option_2",
+          "label": "EEMB 129-130 sequence",
+          "courses": [
+            {
+              "id": "EEMB 129"
+            },
+            {
+              "id": "EEMB 130"
+            }
+          ]
+        },
+        {
+          "id": "ud_genetics_option_3",
+          "label": "EEMB 101 & EEMB 129 combination",
+          "courses": [
+            {
+              "id": "EEMB 101"
+            },
+            {
+              "id": "EEMB 129"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ud_physiology",
+      "label": "B.1. Physiology",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MCDB 111"
+        },
+        {
+          "id": "MCDB 126"
+        },
+        {
+          "id": "MCDB 132"
+        },
+        {
+          "id": "MCDB 151"
+        },
+        {
+          "id": "EEMB 157A"
+        },
+        {
+          "id": "EEMB 157B"
+        },
+        {
+          "id": "EEMB 157C"
+        },
+        {
+          "id": "EEMB 165"
+        }
+      ]
+    },
+    {
+      "id": "ud_developmental_cell_biology",
+      "label": "B.2. Developmental and Cell Biology",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MCDB 103"
+        },
+        {
+          "id": "MCDB 112"
+        },
+        {
+          "id": "MCDB 118"
+        },
+        {
+          "id": "MCDB 133"
+        },
+        {
+          "id": "MCDB 135"
+        },
+        {
+          "id": "MCDB 146"
+        },
+        {
+          "id": "MCDB 151"
+        },
+        {
+          "id": "MCDB 152"
+        },
+        {
+          "id": "MCDB 153"
+        }
+      ]
+    },
+    {
+      "id": "ud_biochemistry_molecular_biology",
+      "label": "B.3. Biochemistry and Molecular Biology",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MCDB 108A",
+          "alt": [
+            "MCDB W108A"
+          ]
+        },
+        {
+          "id": "MCDB 110"
+        },
+        {
+          "id": "MCDB 126B"
+        },
+        {
+          "id": "MCDB 133"
+        },
+        {
+          "id": "MCDB 134"
+        }
+      ]
+    },
+    {
+      "id": "ud_ecology",
+      "label": "B.4. Ecology",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 119"
+        },
+        {
+          "id": "EEMB 120"
+        },
+        {
+          "id": "EEMB 128",
+          "alt": [
+            "ENV S 128"
+          ]
+        },
+        {
+          "id": "EEMB 140"
+        },
+        {
+          "id": "EEMB 142A"
+        },
+        {
+          "id": "EEMB 147"
+        },
+        {
+          "id": "EEMB 148"
+        },
+        {
+          "id": "EEMB 153"
+        },
+        {
+          "id": "EEMB 155CC"
+        },
+        {
+          "id": "EEMB 158"
+        },
+        {
+          "id": "EEMB 159"
+        },
+        {
+          "id": "EEMB 168"
+        },
+        {
+          "id": "EEMB 171",
+          "alt": [
+            "ENV S 171"
+          ]
+        },
+        {
+          "id": "EEMB 179"
+        }
+      ]
+    },
+    {
+      "id": "ud_evolution",
+      "label": "B.5. Evolution",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 101"
+        },
+        {
+          "id": "EEMB 102"
+        },
+        {
+          "id": "EEMB 109",
+          "alt": [
+            "EARTH 148"
+          ]
+        },
+        {
+          "id": "EEMB 113"
+        },
+        {
+          "id": "EEMB 113L"
+        },
+        {
+          "id": "EEMB 127"
+        },
+        {
+          "id": "EEMB 130"
+        },
+        {
+          "id": "EEMB 131",
+          "alt": [
+            "EARTH 121"
+          ]
+        },
+        {
+          "id": "EEMB 136"
+        },
+        {
+          "id": "EEMB 136L",
+          "alt": [
+            "EARTH 111",
+            "EARTH 111L"
+          ]
+        },
+        {
+          "id": "EEMB 137",
+          "alt": [
+            "EARTH 141"
+          ]
+        },
+        {
+          "id": "EEMB 138"
+        },
+        {
+          "id": "EEMB 180"
+        }
+      ]
+    },
+    {
+      "id": "ud_biodiversity_systematics",
+      "label": "B.6. Biodiversity and Systematics",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 103A"
+        },
+        {
+          "id": "EEMB 106"
+        },
+        {
+          "id": "EEMB 111"
+        },
+        {
+          "id": "EEMB 112"
+        },
+        {
+          "id": "EEMB 113"
+        },
+        {
+          "id": "EEMB 113L"
+        },
+        {
+          "id": "EEMB 116"
+        },
+        {
+          "id": "EEMB 118"
+        },
+        {
+          "id": "EEMB 127"
+        },
+        {
+          "id": "EEMB 133",
+          "alt": [
+            "ENV S 133"
+          ]
+        },
+        {
+          "id": "EEMB 144"
+        },
+        {
+          "id": "EEMB 144L"
+        },
+        {
+          "id": "EEMB 145"
+        },
+        {
+          "id": "EEMB 150A"
+        },
+        {
+          "id": "EEMB 163"
+        },
+        {
+          "id": "MCDB 131"
+        },
+        {
+          "id": "MCDB 139"
+        }
+      ]
+    },
+    {
+      "id": "ud_laboratory",
+      "label": "B.7. Laboratory",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "EEMB 157C",
+          "note": "Underlined course from Physiology"
+        },
+        {
+          "id": "EEMB 113",
+          "note": "Underlined course from Evolution/Biodiversity"
+        },
+        {
+          "id": "EEMB 113L"
+        },
+        {
+          "id": "EEMB 103A",
+          "note": "Underlined course from Biodiversity"
+        },
+        {
+          "id": "EEMB 144",
+          "note": "Underlined course from Biodiversity"
+        },
+        {
+          "id": "EEMB 144L"
+        },
+        {
+          "id": "EEMB 150A",
+          "note": "Underlined course from Biodiversity"
+        },
+        {
+          "id": "MCDB 101L"
+        },
+        {
+          "id": "MCDB 103L"
+        },
+        {
+          "id": "MCDB 109L"
+        },
+        {
+          "id": "MCDB 112L"
+        },
+        {
+          "id": "MCDB 126AL"
+        },
+        {
+          "id": "MCDB 126BL"
+        },
+        {
+          "id": "MCDB 131L"
+        },
+        {
+          "id": "MCDB 132L"
+        },
+        {
+          "id": "MCDB 133L"
+        },
+        {
+          "id": "MCDB 140L"
+        },
+        {
+          "id": "EEMB 127L"
+        },
+        {
+          "id": "EEMB 140L"
+        },
+        {
+          "id": "EEMB 142AL"
+        },
+        {
+          "id": "EEMB 142BL"
+        },
+        {
+          "id": "EEMB 142CL"
+        },
+        {
+          "id": "EEMB 170"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "C. Electives",
+      "upper_division_required": true,
+      "note": "Additional upper-division courses in EEMB and MCDB to bring the total to 48 units. The following courses do not count toward upper-division major credit: EEMB 182, 183, 184, 189; MCDB 183, 184, 194D, 194KF, 194MO, 194MP, 194MR. In addition, no more than 8 units of the following courses combined will apply to the major: EEMB 185-199; MCDB 185-199.",
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

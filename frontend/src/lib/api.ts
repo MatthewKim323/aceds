@@ -62,6 +62,8 @@ export type SectionPick = {
   begin_time: string | null
   end_time: string | null
   predicted_gpa: number | null
+  predicted_gpa_std?: number | null
+  regime?: string | null
   rmp_rating: number | null
   reason: Record<string, number>
 }
@@ -123,6 +125,22 @@ async function req<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 type Page<T> = { items: T[]; total: number; limit: number; offset: number }
 
+export type CatalogCoursesPage = Page<Course> & {
+  quarter: string
+  label: string
+  source: string
+}
+
+export type CatalogMeta = {
+  quarter: string
+  label: string
+  ucsb_api_configured: boolean
+  department_fetch_count: number
+  /** Subject codes merged into the live catalog (plus UCSB quarter-wide search). */
+  department_codes: string[]
+  source: string
+}
+
 export type ProfessorHistoryRow = {
   course_norm: string
   quarter: string
@@ -180,6 +198,20 @@ export const api = {
     limit?: number
     offset?: number
   } = {}) => req<Page<Course>>(`/courses${toQuery(params)}`),
+
+  /** Live UCSB curriculum (requires UCSB_API_KEY on the backend). */
+  catalogMeta: (params: { quarter?: string } = {}) =>
+    req<CatalogMeta>(`/catalog/meta${toQuery(params)}`),
+
+  listCatalogCourses: (params: {
+    quarter?: string
+    dept?: string
+    ge?: string
+    level?: string
+    search?: string
+    limit?: number
+    offset?: number
+  } = {}) => req<CatalogCoursesPage>(`/catalog/courses${toQuery(params)}`),
 
   getCourse: (courseNorm: string) =>
     req<Course>(`/courses/${encodeURIComponent(courseNorm)}`),

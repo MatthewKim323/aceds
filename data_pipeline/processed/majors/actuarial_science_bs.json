@@ -1,0 +1,317 @@
+{
+  "id": "actuarial_science_bs",
+  "name": "Actuarial Science",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Statistics and Applied Probability",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.5,
+  "upper_div_units_required": 48,
+  "source_pdf": "Actuarial Science Major (2025).pdf",
+  "reviewed": false,
+  "notes": "To be admitted to the full major, students must complete all pre-major courses with a 2.5 or higher UC grade-point average. All pre-major courses must be completed with a grade of 'C' or better. Students are permitted to repeat a maximum of two pre-major courses. Only one repeat is allowed in each course. Preparation courses are excluded from the pre-major GPA, but will apply to the overall major GPA. Students must complete Computer Science 8 and either 9 or 16 with a grade of 'C' or better. Only one repeat is allowed in each Computer Science preparation for the major and pre-major requirement. Entry into the pre-major does not guarantee admission to full major status. P/NP grading not allowed for any major course (prep or UD major), including courses applied to the major from other departments. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors. Math 100A-B, 101A-B, 102A-B, 193; PSTAT 109, 182T (or W 182T), 188, 190, 193 will NOT apply to the major.",
+  "groups": [
+    {
+      "id": "pre_major",
+      "label": "PRE-MAJOR",
+      "note": "Either Math 4A, 4B, 6A, or 6B must be completed with a grade of 'B' or better in order to take Math 8 or PSTAT 8. Math 8 is a prerequisite for all upper division Math courses except Math 117, 104A, 104B, and 104C. If you plan to take additional upper division Math courses, you must take Math 8.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ]
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A",
+          "alt": []
+        },
+        {
+          "id": "MATH 4B",
+          "alt": []
+        },
+        {
+          "id": "MATH 6A",
+          "alt": []
+        },
+        {
+          "id": "MATH 6B",
+          "alt": []
+        },
+        {
+          "id": "MATH 8",
+          "alt": [
+            "PSTAT 8"
+          ],
+          "units": 5
+        },
+        {
+          "id": "PSTAT 10",
+          "alt": [],
+          "units": 5
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "preparation_for_the_major",
+      "label": "PREPARATION FOR THE MAJOR",
+      "note": "CMPSC 9 is recommended over CMPSC 16. Also, students cannot get credit for CMPSC 8 at UCSB if transferring in credit for CMPSC 9 or 16, so please see the Department advisors in such instances. Other recommended courses: Econ 1, 2, 3A, 10A (fulfills VEE), and Phil 3 or 4.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "CMPSC 8",
+          "alt": [
+            "CMPSC W 8"
+          ],
+          "units": 4
+        },
+        {
+          "id": "CMPSC 9",
+          "alt": [
+            "CMPSC 16"
+          ],
+          "units": 4
+        },
+        {
+          "id": "WRIT 107A",
+          "alt": [
+            "WRIT 107B"
+          ],
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_a",
+      "label": "A. PSTAT 120A (or W 120A), 120B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 120A",
+          "alt": [
+            "PSTAT W 120A"
+          ]
+        },
+        {
+          "id": "PSTAT 120B",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_b",
+      "label": "B. PSTAT 126, 160A (or W 160A), 174 (or W 174)",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 126",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 160A",
+          "alt": [
+            "PSTAT W 160A"
+          ]
+        },
+        {
+          "id": "PSTAT 174",
+          "alt": [
+            "PSTAT W 174"
+          ]
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_c",
+      "label": "C. PSTAT 170, 171, 172A, and 160B or 172B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 170",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 171",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 172A",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 160B",
+          "alt": [
+            "PSTAT 172B"
+          ]
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_d",
+      "label": "D. 8 units from: PSTAT 105, 120C, 127, 130, 131, 160B or 172B (not used in Area C), 173, 175, 176, 183",
+      "pick": {
+        "n_units": 8,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 105",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 120C",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 127",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 130",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 131",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 160B",
+          "alt": [
+            "PSTAT 172B"
+          ],
+          "note": "not used in Area C"
+        },
+        {
+          "id": "PSTAT 173",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 175",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 176",
+          "alt": []
+        },
+        {
+          "id": "PSTAT 183",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_e",
+      "label": "E. 4 units from: other PSTAT courses not used above; Math 104A-B-C, 108A-B, 117, 118A-B-C, 124A-B, 132A-B; Econ 100B, 101, 134A-B, 141, 155, 170, 171",
+      "note": "Recommended electives: Econ 134A (VEE), 130 (SAS). For SOA track: PSTAT 172B, 173, 175, 131; For CAS track: PSTAT 127, 131, 160B, 173, 183",
+      "pick": {
+        "n_units": 4,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MATH 104A",
+          "alt": []
+        },
+        {
+          "id": "MATH 104B",
+          "alt": []
+        },
+        {
+          "id": "MATH 104C",
+          "alt": []
+        },
+        {
+          "id": "MATH 108A",
+          "alt": []
+        },
+        {
+          "id": "MATH 108B",
+          "alt": []
+        },
+        {
+          "id": "MATH 117",
+          "alt": []
+        },
+        {
+          "id": "MATH 118A",
+          "alt": []
+        },
+        {
+          "id": "MATH 118B",
+          "alt": []
+        },
+        {
+          "id": "MATH 118C",
+          "alt": []
+        },
+        {
+          "id": "MATH 124A",
+          "alt": []
+        },
+        {
+          "id": "MATH 124B",
+          "alt": []
+        },
+        {
+          "id": "MATH 132A",
+          "alt": []
+        },
+        {
+          "id": "MATH 132B",
+          "alt": []
+        },
+        {
+          "id": "ECON 100B",
+          "alt": []
+        },
+        {
+          "id": "ECON 101",
+          "alt": []
+        },
+        {
+          "id": "ECON 134A",
+          "alt": []
+        },
+        {
+          "id": "ECON 134B",
+          "alt": []
+        },
+        {
+          "id": "ECON 141",
+          "alt": []
+        },
+        {
+          "id": "ECON 155",
+          "alt": []
+        },
+        {
+          "id": "ECON 170",
+          "alt": []
+        },
+        {
+          "id": "ECON 171",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    }
+  ]
+}

@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import { AnimatePresence, motion } from 'motion/react'
 import { AuthProvider } from './lib/auth'
 import { Landing } from './pages/Landing'
 import { Auth } from './pages/Auth'
@@ -10,11 +11,20 @@ import { GradPath } from './pages/GradPath'
 import { Status } from './pages/Status'
 import { Settings } from './pages/Settings'
 
-function App() {
+function AppRoutes() {
+  const location = useLocation()
+
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <Routes>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={location.pathname}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+        style={{ minHeight: '100dvh' }}
+      >
+        <Routes location={location}>
           <Route path="/" element={<Landing />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/onboarding" element={<Onboarding />} />
@@ -25,9 +35,17 @@ function App() {
           <Route path="/status" element={<Status />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
       </AuthProvider>
     </BrowserRouter>
   )
 }
-
-export default App

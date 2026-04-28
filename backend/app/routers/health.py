@@ -60,11 +60,21 @@ async def status() -> dict:
         res = (
             sb.table("data_refresh_log")
             .select("*")
-            .order("ran_at", desc=True)
+            .order("run_at", desc=True)
             .limit(10)
             .execute()
         )
-        refresh_log = res.data or []
+        raw = res.data or []
+        # Normalize DB columns (run_at, rows_ingested, message) for the Status UI.
+        for row in raw:
+            refresh_log.append(
+                {
+                    "source": row.get("source", ""),
+                    "rows": row.get("rows_ingested") or 0,
+                    "notes": row.get("message"),
+                    "ran_at": row.get("run_at") or row.get("ran_at"),
+                }
+            )
     except Exception:
         refresh_log = []
 

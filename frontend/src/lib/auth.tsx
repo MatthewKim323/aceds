@@ -53,7 +53,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   async function signInWithGoogle() {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/onboarding` },
+      // Land on /auth so we can route to dashboard vs onboarding from profile.
+      options: { redirectTo: `${window.location.origin}/auth` },
     })
   }
 
@@ -66,7 +67,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/onboarding` },
+      options: { emailRedirectTo: `${window.location.origin}/auth` },
     })
     return { error: error?.message ?? null }
   }

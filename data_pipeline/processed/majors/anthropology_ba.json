@@ -1,0 +1,59 @@
+{
+  "id": "anthropology_ba",
+  "name": "Anthropology Major, B.A.",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Anthropology",
+  "college": "College of Letters and Sciences",
+  "upper_div_units_required": 40,
+  "source_pdf": "Anthropology Major (2025).pdf",
+  "reviewed": false,
+  "notes": "At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. Up to 4 units of ANTH 178, 183, 190 may be taken P/NP for major credit. All other courses must be completed on a letter-grade basis. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "preparation_for_the_major",
+      "label": "Preparation for the Major",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ANTH 2",
+          "units": 5
+        },
+        {
+          "id": "ANTH 3",
+          "alt": [
+            "ANTH 3SS"
+          ],
+          "units": 5
+        },
+        {
+          "id": "ANTH 5",
+          "units": 5
+        },
+        {
+          "id": "ANTH 9",
+          "alt": [
+            "ANTH 129",
+            "ANTH 182",
+            "EACS 152",
+            "PSTAT 5A",
+            "PSTAT 5LS"
+          ],
+          "note": "One Methods course. ANTH 129, ANTH 182, and EACS 152 apply to the 40 upper-division units required"
+        }
+      ]
+    },
+    {
+      "id": "upper_division_major",
+      "label": "Upper-Division Major",
+      "note": "All upper-division ANTH classes are eligible, including Senior Thesis Sequence (ANTH 195A, 195B, 195C). Courses from the recommended related fields list or other related fields may be applied to this area by petition, but a minimum of 28 units must be satisfied by Anthropology courses. Recommended Related Fields Courses (applied by petition only): ASAM 132, 165; CHST 119; CLASS 114, 165, 170, 171; EACS 130, 150; EEMB 113/113L, 130, 131, 143/143L, 146, 156; HIST 111A, 154LA, 156A, 184A, 184B; LING 130, 131; MCDB 101A, 101B, 111, 112, 132, 133, 134, 135, 138, 139, 140L; SOC 152A; JAPAN 150, 165. Note on EEMB and MCDB courses: EEMB and MCDB majors get priority on these courses over ANTH majors. ANTH majors must also have fulfilled all pre-requisites set by the EEMB and MCDB departments in order to enroll in these courses.",
+      "pick": {
+        "n_courses": 10,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": true,
+      "courses": []
+    }
+  ]
+}

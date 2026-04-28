@@ -1,0 +1,285 @@
+{
+  "id": "asian_american_studies_ba",
+  "name": "Asian American Studies",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2022-2023",
+  "department": "Asian American Studies",
+  "college": "College of Letters and Science",
+  "total_units_required": 52,
+  "upper_div_units_required": 40,
+  "source_pdf": "Asian American Studies Major-2022.pdf",
+  "groups": [
+    {
+      "id": "prep_for_major",
+      "label": "Preparation for the Major",
+      "courses": [
+        {
+          "id": "AS AM 1",
+          "units": 4
+        },
+        {
+          "id": "AS AM 4",
+          "alt": [
+            "AS AM 5",
+            "AS AM 71",
+            "RG ST 71",
+            "AS AM 79"
+          ],
+          "units": 4
+        },
+        {
+          "id": "AS AM 2",
+          "alt": [
+            "AS AM 7",
+            "AS AM 8",
+            "AS AM 9"
+          ],
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "upper_div_social_science_history",
+      "label": "A. Social Science and History",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "AS AM 100AA"
+        },
+        {
+          "id": "AS AM 100BB"
+        },
+        {
+          "id": "AS AM 100CC"
+        },
+        {
+          "id": "AS AM 100DD"
+        },
+        {
+          "id": "AS AM 100HH"
+        },
+        {
+          "id": "AS AM 107"
+        },
+        {
+          "id": "AS AM 109"
+        },
+        {
+          "id": "AS AM 110"
+        },
+        {
+          "id": "AS AM 111"
+        },
+        {
+          "id": "AS AM 113"
+        },
+        {
+          "id": "AS AM 114"
+        },
+        {
+          "id": "AS AM 115"
+        },
+        {
+          "id": "AS AM 116"
+        },
+        {
+          "id": "AS AM 118"
+        },
+        {
+          "id": "AS AM 119"
+        },
+        {
+          "id": "AS AM 130"
+        },
+        {
+          "id": "AS AM 132"
+        },
+        {
+          "id": "AS AM 134"
+        },
+        {
+          "id": "AS AM 135"
+        },
+        {
+          "id": "AS AM 137"
+        },
+        {
+          "id": "AS AM 138"
+        },
+        {
+          "id": "AS AM 139"
+        },
+        {
+          "id": "AS AM 150"
+        },
+        {
+          "id": "AS AM 154"
+        },
+        {
+          "id": "AS AM 155"
+        },
+        {
+          "id": "AS AM 156"
+        },
+        {
+          "id": "AS AM 157"
+        },
+        {
+          "id": "AS AM 160",
+          "alt": [
+            "POL S 160"
+          ]
+        },
+        {
+          "id": "AS AM 161"
+        },
+        {
+          "id": "AS AM 162"
+        },
+        {
+          "id": "AS AM 163"
+        },
+        {
+          "id": "AS AM 164"
+        },
+        {
+          "id": "AS AM 165"
+        },
+        {
+          "id": "AS AM 171AA-ZZ",
+          "note": "max of 8 units"
+        },
+        {
+          "id": "AS AM 175",
+          "alt": [
+            "AS AM 195H"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upper_div_humanities_arts",
+      "label": "B. Humanities and Arts",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "courses": [
+        {
+          "id": "AS AM 100EE"
+        },
+        {
+          "id": "AS AM 100FF"
+        },
+        {
+          "id": "AS AM 108"
+        },
+        {
+          "id": "AS AM 120"
+        },
+        {
+          "id": "AS AM 121"
+        },
+        {
+          "id": "AS AM 122"
+        },
+        {
+          "id": "AS AM 124"
+        },
+        {
+          "id": "AS AM 125"
+        },
+        {
+          "id": "AS AM 126"
+        },
+        {
+          "id": "AS AM 127"
+        },
+        {
+          "id": "AS AM 128"
+        },
+        {
+          "id": "AS AM 129"
+        },
+        {
+          "id": "AS AM 131"
+        },
+        {
+          "id": "AS AM 133"
+        },
+        {
+          "id": "AS AM 136"
+        },
+        {
+          "id": "AS AM 141"
+        },
+        {
+          "id": "AS AM 142"
+        },
+        {
+          "id": "AS AM 144"
+        },
+        {
+          "id": "AS AM 147"
+        },
+        {
+          "id": "AS AM 148"
+        },
+        {
+          "id": "AS AM 149"
+        },
+        {
+          "id": "AS AM 158"
+        },
+        {
+          "id": "AS AM 170AA-ZZ",
+          "note": "max of 8 units"
+        },
+        {
+          "id": "AS AM 175",
+          "alt": [
+            "AS AM 195H"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "upper_div_comparative",
+      "label": "C. One upper-division course in Black Studies, Chicana/o Studies, Feminist Studies, or Writing Program courses 109HU or 109SS",
+      "upper_division_required": true,
+      "note": "students may petition to have upper division courses on race or ethnicity in related departments, including but not limited to Comparative Literature, English, Global Studies, History, Sociology, and Theater & Dance to fulfill this requirement.",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "WRIT 109HU",
+          "units": 4
+        },
+        {
+          "id": "WRIT 109SS",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "upper_div_additional",
+      "label": "D. Additional Asian American Studies units from areas A or B, or Writing Program courses 109HU or 109SS",
+      "upper_division_required": true,
+      "note": "Students are encouraged to enhance academic writing skills via Writing Program courses 109HU or 109SS and Asian American Studies 108. Asian American Studies 197 or 199 may be repeated, but only a combined total of 8 units may be applied to this area and the major by petition. Up to two upper-division courses (8 units) from outside departments may be substituted in this area, by petition, when course content is relevant, for a maximum of 12 units from outside departments toward the major.",
+      "pick": {
+        "mode": "choose_n_units",
+        "n_units": 20
+      },
+      "courses": []
+    }
+  ],
+  "reviewed": false
+}

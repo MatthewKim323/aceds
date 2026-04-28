@@ -1,0 +1,209 @@
+{
+  "id": "philosophy_ethics_and_public_policy_ba",
+  "name": "Philosophy Major, B.A. \u2013 Concentration II: Ethics and Public Policy",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Philosophy",
+  "college": "College of Letters and Science",
+  "total_units_required": 48,
+  "upper_div_units_required": 36,
+  "source_pdf": "Philosophy Major, Concentration II, Ethics & Public Policy (2025).pdf",
+  "reviewed": false,
+  "notes": "The Philosophy major consists of a total of at least 48 units in Philosophy, at least 36 of which must be upper-division. Students must follow the requirements of one of the two concentrations: Core Philosophy and Ethics and Public Policy. P/NP grading not allowed for any course applied to the major. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. By petition, up to 8 units may be taken from courses in a cognate department. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "preparation_for_the_major",
+      "label": "Preparation for the Major",
+      "note": "Recommended: Philosophy 4 or 7",
+      "pick": {
+        "n_units": 15,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": false,
+      "courses": [],
+      "subgroups": []
+    },
+    {
+      "id": "group_a",
+      "label": "A. Philosophy 183",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHIL 183",
+          "alt": [],
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "group_b",
+      "label": "B. Philosophy 100A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHIL 100A",
+          "alt": [],
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "group_c",
+      "label": "C. One course from Philosophy 100B-C-D-E-F, 116",
+      "pick": {
+        "n_courses": 1,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHIL 100B",
+          "alt": []
+        },
+        {
+          "id": "PHIL 100C",
+          "alt": []
+        },
+        {
+          "id": "PHIL 100D",
+          "alt": []
+        },
+        {
+          "id": "PHIL 100E",
+          "alt": []
+        },
+        {
+          "id": "PHIL 100F",
+          "alt": []
+        },
+        {
+          "id": "PHIL 116",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "group_d",
+      "label": "D. At least four courses from: Philosophy 108, 121, 122, 126, 128, 129, 130, 131, 133, 134, 136, 137, 138, 139, 141, 143, 144, 145, 147, 149, 150A, 166B, 188, 189",
+      "pick": {
+        "n_courses": 4,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PHIL 108",
+          "alt": []
+        },
+        {
+          "id": "PHIL 121",
+          "alt": []
+        },
+        {
+          "id": "PHIL 122",
+          "alt": []
+        },
+        {
+          "id": "PHIL 126",
+          "alt": []
+        },
+        {
+          "id": "PHIL 128",
+          "alt": []
+        },
+        {
+          "id": "PHIL 129",
+          "alt": []
+        },
+        {
+          "id": "PHIL 130",
+          "alt": []
+        },
+        {
+          "id": "PHIL 131",
+          "alt": []
+        },
+        {
+          "id": "PHIL 133",
+          "alt": []
+        },
+        {
+          "id": "PHIL 134",
+          "alt": []
+        },
+        {
+          "id": "PHIL 136",
+          "alt": []
+        },
+        {
+          "id": "PHIL 137",
+          "alt": []
+        },
+        {
+          "id": "PHIL 138",
+          "alt": []
+        },
+        {
+          "id": "PHIL 139",
+          "alt": []
+        },
+        {
+          "id": "PHIL 141",
+          "alt": []
+        },
+        {
+          "id": "PHIL 143",
+          "alt": []
+        },
+        {
+          "id": "PHIL 144",
+          "alt": []
+        },
+        {
+          "id": "PHIL 145",
+          "alt": []
+        },
+        {
+          "id": "PHIL 147",
+          "alt": []
+        },
+        {
+          "id": "PHIL 149",
+          "alt": []
+        },
+        {
+          "id": "PHIL 150A",
+          "alt": []
+        },
+        {
+          "id": "PHIL 166B",
+          "alt": []
+        },
+        {
+          "id": "PHIL 188",
+          "alt": []
+        },
+        {
+          "id": "PHIL 189",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "group_e",
+      "label": "E. Additional UD Philosophy electives to bring total units in major to 48 (which must include at least 36 UD units)",
+      "note": "By petition, up to 8 units may be taken from courses in a cognate department.",
+      "pick": {
+        "mode": "all"
+      },
+      "upper_division_required": true,
+      "courses": [],
+      "subgroups": []
+    }
+  ]
+}

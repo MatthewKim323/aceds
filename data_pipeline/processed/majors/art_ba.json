@@ -1,0 +1,137 @@
+{
+  "id": "art_ba",
+  "name": "Art Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Art",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 36,
+  "source_pdf": "Art Major (2025).pdf",
+  "reviewed": false,
+  "notes": "Up to 8 units of upper-division CCS art courses may be applied to upper-division Art courses requirement. Up to 8 units of upper-division Art CS courses and Art 192AA-ZZ combined may be taken P/NP. All other major units must be taken for letter grades. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With approval of each department chairperson, up to 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "preparation_for_major",
+      "label": "Preparation for the Major",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ART 1A",
+          "alt": []
+        },
+        {
+          "id": "ART 1C",
+          "alt": []
+        },
+        {
+          "id": "ART 7A",
+          "alt": []
+        },
+        {
+          "id": "ART 7B",
+          "alt": []
+        },
+        {
+          "id": "ART 7C",
+          "alt": []
+        },
+        {
+          "id": "ART 7D",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "preparation_electives",
+      "label": "Preparation Electives",
+      "note": "3 different courses from Art 10, 12, 14, 18, 19, 22, 32",
+      "pick": {
+        "n_courses": 3,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ART 10",
+          "alt": []
+        },
+        {
+          "id": "ART 12",
+          "alt": []
+        },
+        {
+          "id": "ART 14",
+          "alt": []
+        },
+        {
+          "id": "ART 18",
+          "alt": []
+        },
+        {
+          "id": "ART 19",
+          "alt": []
+        },
+        {
+          "id": "ART 22",
+          "alt": []
+        },
+        {
+          "id": "ART 32",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_art_courses",
+      "label": "Upper-Division Art Courses",
+      "note": "28 units selected from UD Art courses. Up to 8 units of upper-division CCS art courses may be applied in this area. Students who intend to apply to graduate school in fine arts should complete a minimum of 16 units in one area of emphasis.",
+      "pick": {
+        "n_units": 28,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_art_history",
+      "label": "Upper-Division Art History",
+      "note": "4 units of UD Art History",
+      "pick": {
+        "n_units": 4,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [],
+      "subgroups": []
+    },
+    {
+      "id": "capstone_course",
+      "label": "Capstone Course",
+      "note": "One course from Art 125, 126, or 130",
+      "pick": {
+        "n_courses": 1,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ART 125",
+          "alt": []
+        },
+        {
+          "id": "ART 126",
+          "alt": []
+        },
+        {
+          "id": "ART 130",
+          "alt": []
+        }
+      ],
+      "subgroups": []
+    }
+  ]
+}

@@ -47,7 +47,7 @@ python scripts/07_load_to_supabase.py           # upload to majors/major_groups 
 python scripts/08_majors_json_to_ts.py          # emit frontend/src/lib/majors.ts
 
 # Phase 2: modeling (~5 min)
-python scripts/10_build_features.py             # temporal features → processed/features.parquet
+python scripts/10_build_features.py             # temporal features → processed/features.parquet (drops rows with avgGPA null or ≤0; use --strict-rmp for RMP confidence filter)
 python scripts/11_baseline_heuristic.py         # IC → instr → course → dept cascade
 python scripts/12_baseline_linear.py            # ElasticNet
 python scripts/13_xgboost.py                    # XGBoost → backend/app/ml/artifacts/

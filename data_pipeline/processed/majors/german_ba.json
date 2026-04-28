@@ -1,0 +1,142 @@
+{
+  "id": "german_ba",
+  "name": "German Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "Germanic and Slavic Studies",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 40,
+  "source_pdf": "GERMANIC, SLAVIC & SEMITIC STUDIES - German Major (2025).pdf",
+  "reviewed": false,
+  "notes": "A year of study abroad at a German-speaking institution of higher learning is highly recommended. Students, especially those who intend to pursue German at the graduate level, are encouraged to supplement their major by selecting, in consultation with their major advisor, 20 units of courses from another literary, historical or philosophical discipline, such as Political Science or History. P/NP grading not allowed for major courses. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "preparation_for_major",
+      "label": "Preparation for the Major",
+      "note": "Recommended: German 8C (to be taken concurrently with German 3)",
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "GER 1",
+          "note": "German 1, 2, 3, 4, 5, 6 or placement beyond level 6 in departmental placement examination"
+        },
+        {
+          "id": "GER 2"
+        },
+        {
+          "id": "GER 3"
+        },
+        {
+          "id": "GER 4"
+        },
+        {
+          "id": "GER 5"
+        },
+        {
+          "id": "GER 6"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_101abc",
+      "label": "German 101A-B-C",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 101A"
+        },
+        {
+          "id": "GER 101B"
+        },
+        {
+          "id": "GER 101C"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_106",
+      "label": "German 106",
+      "note": "Students are highly recommended to complete German 106 prior to taking additional higher numbered courses.",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 106",
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_107a",
+      "label": "German 107A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 107A",
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_108",
+      "label": "German 108",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 108",
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_one_from_113_117_177a",
+      "label": "One course from: German 113 or 117 or 177A",
+      "pick": {
+        "n_courses": 1,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 113"
+        },
+        {
+          "id": "GER 117"
+        },
+        {
+          "id": "GER 177A"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_190",
+      "label": "German 190",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "GER 190",
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "ud_german_electives",
+      "label": "UD German electives",
+      "note": "Recommended: German 105C. Courses dealing with Germany in areas such as History, Art History, Political Science, and Comparative Literature may be applied by petition to the UD electives after a consultation with an academic advisor.",
+      "pick": {
+        "n_units": 8,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [],
+      "subgroups": []
+    }
+  ]
+}

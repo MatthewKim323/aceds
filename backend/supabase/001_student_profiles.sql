@@ -1,9 +1,10 @@
 -- Run this in the Supabase SQL Editor (Dashboard > SQL Editor > New query)
+-- Idempotent: safe to re-run.
 
 CREATE TABLE IF NOT EXISTS student_profiles (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id             UUID REFERENCES auth.users(id) ON DELETE CASCADE UNIQUE NOT NULL,
-    major               TEXT NOT NULL, -- comma-separated major IDs for double majors
+    major               TEXT NOT NULL,
     year                TEXT NOT NULL,
     completed_courses   TEXT[] DEFAULT '{}',
     in_progress_courses TEXT[] DEFAULT '{}',
@@ -21,17 +22,20 @@ CREATE TABLE IF NOT EXISTS student_profiles (
     updated_at          TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Row Level Security: users can only read/write their own profile
 ALTER TABLE student_profiles ENABLE ROW LEVEL SECURITY;
 
+-- Re-runnable: drop the existing policy (if any) before recreating.
+DROP POLICY IF EXISTS "Users can view own profile" ON student_profiles;
 CREATE POLICY "Users can view own profile"
     ON student_profiles FOR SELECT
     USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own profile" ON student_profiles;
 CREATE POLICY "Users can insert own profile"
     ON student_profiles FOR INSERT
     WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update own profile" ON student_profiles;
 CREATE POLICY "Users can update own profile"
     ON student_profiles FOR UPDATE
     USING (auth.uid() = user_id)
@@ -46,6 +50,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS student_profiles_updated_at ON student_profiles;
 CREATE TRIGGER student_profiles_updated_at
     BEFORE UPDATE ON student_profiles
     FOR EACH ROW

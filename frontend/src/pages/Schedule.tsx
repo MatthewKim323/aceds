@@ -10,6 +10,7 @@ import {
   type ScheduleCandidate,
   type SectionPick,
 } from '../lib/api'
+import { toCourseNorm } from '../lib/pdf-parser'
 
 const DEFAULT_PREFS: OptimizePreferences = {
   weight_grades: 0.3,
@@ -51,7 +52,9 @@ export function Schedule() {
       }
       const firstMajor = p.major?.split(',').filter(Boolean)[0] || null
       setMajorId(firstMajor)
-      setCompletedSet(new Set(p.completed_courses || []))
+      setCompletedSet(
+        new Set((p.completed_courses || []).map((c) => toCourseNorm(String(c)))),
+      )
     })
   }, [user])
 
@@ -65,9 +68,11 @@ export function Schedule() {
     const optional: string[] = []
     for (const group of major.groups) {
       const groupCourses = group.courses.map((c) => c.id)
-      const anyComplete = group.courses.some(
-        (c) => completedSet.has(c.id) || (c.alt && completedSet.has(c.alt)),
-      )
+      const anyComplete = group.courses.some((c) => {
+        const idN = toCourseNorm(c.id)
+        const altN = c.alt ? toCourseNorm(c.alt) : null
+        return completedSet.has(idN) || (altN != null && completedSet.has(altN))
+      })
       if (anyComplete) continue
       if (group.courses.length === 1) {
         required.push(groupCourses[0])
@@ -123,6 +128,12 @@ export function Schedule() {
             {' · optimizing across '}<span className="sb-accent">
               {requiredCourses.length} required + {optionalCourses.length} electives
             </span>
+          </p>
+          <p className="sb-disclaimer" role="note">
+            Predicted GPA is a <strong>section mean</strong> from historical data, not your personal
+            expected grade. σ and regime come from the model card (test RMSE by cold-start bucket). Major
+            pools here are a <strong>simplified demo</strong> (e.g. “pick N of M” groups become electives;
+            at most four auto-required courses) — not a degree audit.
           </p>
         </div>
         <button
@@ -352,20 +363,28 @@ function CandidateCard({ rank, cand }: { rank: number; cand: ScheduleCandidate }
 }
 
 function SectionRow({ s }: { s: SectionPick }) {
+  const regime = s.regime ?? '—'
+  const sigma =
+    s.predicted_gpa_std != null && s.predicted_gpa_std !== undefined
+      ? s.predicted_gpa_std.toFixed(3)
+      : '—'
+  const tip = `Regime: ${regime}. σ is test residual RMSE for that bucket (see MODEL_CARD), not a personal CI.`
   return (
     <li className="sb-sec">
       <div className="sb-sec-main">
         <span className="sb-sec-code">{s.course_norm}</span>
         <span className="sb-sec-prof">{s.instructor_norm ?? 'TBA'}</span>
       </div>
-      <div className="sb-sec-meta">
+      <div className="sb-sec-meta" title={tip}>
         <span>{s.days ?? 'TBA'}</span>
         <span>
           {s.begin_time ?? '—'}–{s.end_time ?? '—'}
         </span>
         {s.predicted_gpa !== null && (
-          <span className="sb-sec-gpa">GPA {s.predicted_gpa?.toFixed(2)}</span>
+          <span className="sb-sec-gpa">μ {s.predicted_gpa?.toFixed(2)}</span>
         )}
+        <span className="sb-sec-regime">{regime}</span>
+        <span className="sb-sec-sigma">σ {sigma}</span>
         {s.rmp_rating !== null && s.rmp_rating !== undefined && (
           <span className="sb-sec-rmp">RMP {s.rmp_rating.toFixed(1)}</span>
         )}

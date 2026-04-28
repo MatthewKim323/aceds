@@ -59,6 +59,8 @@ class SectionCandidate:
     rmp_rating: float | None
     fill_rate: float | None  # historical 0..1, higher = scarcer
     capacity: int | None
+    predicted_gpa_std: float | None = None
+    regime: str | None = None
 
     # derived / convenience
     def is_required_day(self, allowed: set[str]) -> bool:
@@ -276,6 +278,8 @@ def optimize(
                     begin_time=_min_to_time(s.begin_min),
                     end_time=_min_to_time(s.end_min),
                     predicted_gpa=s.predicted_gpa,
+                    predicted_gpa_std=s.predicted_gpa_std,
+                    regime=s.regime,
                     rmp_rating=s.rmp_rating,
                     reason=breakdowns[i],
                 )

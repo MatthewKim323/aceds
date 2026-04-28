@@ -1,0 +1,248 @@
+{
+  "id": "history_of_policy_law_and_governance_ba",
+  "name": "History of Policy, Law, and Governance",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "History",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 40,
+  "source_pdf": "HISTORY DEPARTMENT - History of Public Policy, Law, & Governace Major.pdf",
+  "notes": "At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. P/NP grading not allowed for major courses. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "prep_history_intro",
+      "label": "History 5 or 7 or 74",
+      "courses": [
+        {
+          "id": "HIST 5",
+          "alt": [
+            "HIST 7",
+            "HIST 74"
+          ],
+          "units": 5
+        }
+      ]
+    },
+    {
+      "id": "prep_history_9",
+      "label": "History 9",
+      "courses": [
+        {
+          "id": "HIST 9",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "prep_lower_division_history",
+      "label": "Any three lower-division History courses",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 3
+      },
+      "courses": [
+        {
+          "id": "HIST LD",
+          "note": "Any three lower-division History courses (15 units total)"
+        }
+      ]
+    },
+    {
+      "id": "prep_cognate",
+      "label": "Two courses from the following cognate disciplines, with courses in different disciplines",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 2
+      },
+      "note": "Courses must be in different disciplines",
+      "courses": [
+        {
+          "id": "ANTH 2"
+        },
+        {
+          "id": "AS AM 1"
+        },
+        {
+          "id": "AS AM 2"
+        },
+        {
+          "id": "AS AM 7"
+        },
+        {
+          "id": "AS AM 9"
+        },
+        {
+          "id": "BL ST 5"
+        },
+        {
+          "id": "BL ST 6"
+        },
+        {
+          "id": "CLASS 20A"
+        },
+        {
+          "id": "CLASS 20B"
+        },
+        {
+          "id": "CLASS 60"
+        },
+        {
+          "id": "EACS 4A"
+        },
+        {
+          "id": "EACS 4B"
+        },
+        {
+          "id": "ECON 1"
+        },
+        {
+          "id": "ECON 2"
+        },
+        {
+          "id": "ECON 9"
+        },
+        {
+          "id": "ENV S 1"
+        },
+        {
+          "id": "ENV S 3"
+        },
+        {
+          "id": "FEMST 20"
+        },
+        {
+          "id": "FEMST 30"
+        },
+        {
+          "id": "FEMST 50"
+        },
+        {
+          "id": "FEMST 60"
+        },
+        {
+          "id": "FEMST 80"
+        },
+        {
+          "id": "GER 35"
+        },
+        {
+          "id": "GLOBL 1"
+        },
+        {
+          "id": "GLOBL 2"
+        },
+        {
+          "id": "ITAL 20X"
+        },
+        {
+          "id": "LAIS 10"
+        },
+        {
+          "id": "ME ST 45"
+        },
+        {
+          "id": "PHIL 3"
+        },
+        {
+          "id": "PHIL 4"
+        },
+        {
+          "id": "PHIL 7"
+        },
+        {
+          "id": "POL S 1"
+        },
+        {
+          "id": "POL S 6"
+        },
+        {
+          "id": "POL S 7"
+        },
+        {
+          "id": "POL S 12"
+        },
+        {
+          "id": "RG ST 10"
+        },
+        {
+          "id": "RG ST 81"
+        },
+        {
+          "id": "SOC 1"
+        }
+      ]
+    },
+    {
+      "id": "ud_research_seminar",
+      "label": "One History Undergraduate Research Seminar",
+      "upper_division_required": true,
+      "note": "R course; 4 units of 194AH-BH may be substituted",
+      "courses": [
+        {
+          "id": "HIST R",
+          "alt": [
+            "HIST 194AH",
+            "HIST 194BH"
+          ],
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_geographical_regional",
+      "label": "36 UD History units from specified courses, distributed as follows",
+      "upper_division_required": true,
+      "note": "Courses from: 101MQ, 101QA, 104G-SS, 105A-CW-II-T, 106D, 111B-C-F, 112A-C-E, 121A-C-D-F, 122, 123C, 124A-C, 127A-F, 132, 135B-C, 136M-W-CA, 141A-B, 142AL-E-S, 144B-L-W, 146T, 147D-G, 148AU-LP-B, 149BF, 150CL, 151B-C, 154LA-LB, 156A, 158A, 159C, 160C, 161B, 162B, 163A-B, 165S, 166LB, 168A-B-N-CR, 169B, 170A-B, 171C-D-ME, 172A-B, 174B-C, 175D, 178A-B, 179B, 185A-B-CQ, 187B, 193AW-F-P",
+      "courses": [],
+      "subgroups": [
+        {
+          "id": "ud_one_geographical_region",
+          "label": "16 UD units in the history of one geographical region",
+          "pick": {
+            "mode": "choose_n_courses",
+            "n_courses": 3
+          },
+          "upper_division_required": true,
+          "note": "Complete three UD courses from the list of courses above that are also listed on the History BA major sheet under a single A-F area selected from the Area 2 Breadth Requirement course listings",
+          "courses": [
+            {
+              "id": "HIST UD",
+              "note": "Three UD courses focusing on one geographical region (16 units total)"
+            }
+          ]
+        },
+        {
+          "id": "ud_other_geographical_regions",
+          "label": "20 UD units in the history of other geographical regions",
+          "pick": {
+            "mode": "choose_n_courses",
+            "n_courses": 4
+          },
+          "upper_division_required": true,
+          "note": "Complete four UD courses from the list of courses above that are also listed on the History BA major sheet from any other A-F areas, other than area selected for B1 requirement above, from the Area 2 Breadth Requirement course listings",
+          "courses": [
+            {
+              "id": "HIST UD",
+              "note": "Four UD courses from other geographical regions (20 units total)"
+            }
+          ]
+        },
+        {
+          "id": "ud_pre_1800",
+          "label": "8 units of courses in categories 1 and 2 above must focus on periods pre-1800 CE",
+          "upper_division_required": true,
+          "note": "See relevant course list on History BA major sheet for all courses that focus on periods before 1800 CE",
+          "courses": [
+            {
+              "id": "HIST UD",
+              "units": 8,
+              "note": "Must focus on periods before 1800 CE"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

@@ -1,0 +1,352 @@
+{
+  "id": "molecular_and_cellular_biology_bs",
+  "name": "Molecular & Cellular Biology",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Molecular, Cellular, & Developmental Biology",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 48,
+  "source_pdf": "Molecular & Cellular Biology Major (2025).pdf",
+  "notes": "A minimum of 44 upper division units must be completed through courses within the MCDB Department. Hyphens indicate an entire sequence or combination must be completed as shown to fulfill an area requirement. A single course can satisfy only one requirement. The following courses do not count toward upper-division major credit: MCDB 110, 183, 184, 194D, 194KF, 194MP, 194MR. In addition, no more than 8 units of the following courses combined will apply to the major: MCDB 185-199. Students cannot double major with the Bio B.A. or B.S. nor have more than one emphasis within MCDB.",
+  "groups": [
+    {
+      "id": "prep_chemistry_sequence",
+      "label": "Chemistry 1A-B-C and 2AL-BL (or 1A-AL-B-BL-C-CL or 2A-AC-B-BC-C-CC)",
+      "courses": [
+        {
+          "id": "CHEM 1A",
+          "note": "Part of required sequence"
+        },
+        {
+          "id": "CHEM 1B",
+          "note": "Part of required sequence"
+        },
+        {
+          "id": "CHEM 1C",
+          "note": "Part of required sequence"
+        },
+        {
+          "id": "CHEM 2AL",
+          "note": "Part of required sequence"
+        },
+        {
+          "id": "CHEM 2BL",
+          "note": "Part of required sequence"
+        }
+      ],
+      "note": "Alternative sequences: CHEM 1A-AL-B-BL-C-CL or CHEM 2A-AC-B-BC-C-CC"
+    },
+    {
+      "id": "prep_biology",
+      "label": "MCDB 1A-B, EEMB 2-3, and MCDB 1LL and EEMB 2LL",
+      "courses": [
+        {
+          "id": "MCDB 1A"
+        },
+        {
+          "id": "MCDB 1B"
+        },
+        {
+          "id": "EEMB 2"
+        },
+        {
+          "id": "EEMB 3"
+        },
+        {
+          "id": "MCDB 1LL"
+        },
+        {
+          "id": "EEMB 2LL"
+        }
+      ]
+    },
+    {
+      "id": "prep_organic_chemistry",
+      "label": "Chemistry 6AL and 109A-B-C or 109AH-BH-CH",
+      "courses": [
+        {
+          "id": "CHEM 6AL"
+        },
+        {
+          "id": "CHEM 109A",
+          "alt": [
+            "CHEM 109AH"
+          ]
+        },
+        {
+          "id": "CHEM 109B",
+          "alt": [
+            "CHEM 109BH"
+          ]
+        },
+        {
+          "id": "CHEM 109C",
+          "alt": [
+            "CHEM 109CH"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_mathematics",
+      "label": "Mathematics 3A-B or 34A-B",
+      "courses": [
+        {
+          "id": "MATH 3A",
+          "alt": [
+            "MATH 34A"
+          ]
+        },
+        {
+          "id": "MATH 3B",
+          "alt": [
+            "MATH 34B"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "prep_statistics",
+      "label": "One of the following: PSTAT 5A or PSTAT 5LS or Math 4A",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "PSTAT 5A"
+        },
+        {
+          "id": "PSTAT 5LS"
+        },
+        {
+          "id": "MATH 4A"
+        }
+      ]
+    },
+    {
+      "id": "prep_physics",
+      "label": "Physics 6A-AL-B-BL-C-CL",
+      "courses": [
+        {
+          "id": "PHYS 6A"
+        },
+        {
+          "id": "PHYS 6AL"
+        },
+        {
+          "id": "PHYS 6B"
+        },
+        {
+          "id": "PHYS 6BL"
+        },
+        {
+          "id": "PHYS 6C"
+        },
+        {
+          "id": "PHYS 6CL"
+        }
+      ]
+    },
+    {
+      "id": "ud_genetics",
+      "label": "Genetics: MCDB 101A-B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MCDB 101A"
+        },
+        {
+          "id": "MCDB 101B"
+        }
+      ]
+    },
+    {
+      "id": "ud_biochemistry",
+      "label": "Biochemistry: MCDB 108A-B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MCDB 108A"
+        },
+        {
+          "id": "MCDB 108B"
+        }
+      ]
+    },
+    {
+      "id": "ud_biochem_computational",
+      "label": "Biochemistry-Computational & Systems Biology: MCDB 108C",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MCDB 108C"
+        }
+      ]
+    },
+    {
+      "id": "ud_cell_biology",
+      "label": "One Cell Biology course: MCDB 103, 126B, 131, or 135",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MCDB 103"
+        },
+        {
+          "id": "MCDB 126B"
+        },
+        {
+          "id": "MCDB 131"
+        },
+        {
+          "id": "MCDB 135"
+        }
+      ]
+    },
+    {
+      "id": "ud_laboratory",
+      "label": "One Laboratory or course-lab sequence",
+      "upper_division_required": true,
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "MCDB 101L"
+        },
+        {
+          "id": "MCDB 103L"
+        },
+        {
+          "id": "MCDB 109L"
+        },
+        {
+          "id": "MCDB 112",
+          "note": "Course-lab sequence with MCDB 112L"
+        },
+        {
+          "id": "MCDB 112L",
+          "note": "Course-lab sequence with MCDB 112"
+        },
+        {
+          "id": "MCDB 126",
+          "note": "Course-lab sequence with MCDB 126AL"
+        },
+        {
+          "id": "MCDB 126AL",
+          "note": "Course-lab sequence with MCDB 126"
+        },
+        {
+          "id": "MCDB 126B",
+          "note": "Course-lab sequence with MCDB 126BL"
+        },
+        {
+          "id": "MCDB 126BL",
+          "note": "Course-lab sequence with MCDB 126B"
+        },
+        {
+          "id": "MCDB 131",
+          "note": "Course-lab sequence with MCDB 131L"
+        },
+        {
+          "id": "MCDB 131L",
+          "note": "Course-lab sequence with MCDB 131"
+        },
+        {
+          "id": "MCDB 132",
+          "note": "Course-lab sequence with MCDB 132L"
+        },
+        {
+          "id": "MCDB 132L",
+          "note": "Course-lab sequence with MCDB 132"
+        },
+        {
+          "id": "MCDB 133",
+          "note": "Course-lab sequence with MCDB 133L"
+        },
+        {
+          "id": "MCDB 133L",
+          "note": "Course-lab sequence with MCDB 133"
+        },
+        {
+          "id": "MCDB 140L"
+        }
+      ]
+    },
+    {
+      "id": "ud_electives",
+      "label": "Electives: Additional UD units within MCDB; EEMB 131, 144, 145, 146, 150A; Chemistry 112A or 113A (not both), 141, 143, 145, 147, 161, 162A, 162B; Psychology 115, 133, 134, 137, 162, to bring the unit total to 48",
+      "upper_division_required": true,
+      "note": "Only one course outside of MCDB will apply. Non MCDB courses may require additional prerequisites. CHEM 112A and 113A cannot both be used.",
+      "courses": [
+        {
+          "id": "EEMB 131"
+        },
+        {
+          "id": "EEMB 144"
+        },
+        {
+          "id": "EEMB 145"
+        },
+        {
+          "id": "EEMB 146"
+        },
+        {
+          "id": "EEMB 150A"
+        },
+        {
+          "id": "CHEM 112A",
+          "note": "Cannot be used with CHEM 113A"
+        },
+        {
+          "id": "CHEM 113A",
+          "note": "Cannot be used with CHEM 112A"
+        },
+        {
+          "id": "CHEM 141"
+        },
+        {
+          "id": "CHEM 143"
+        },
+        {
+          "id": "CHEM 145"
+        },
+        {
+          "id": "CHEM 147"
+        },
+        {
+          "id": "CHEM 161"
+        },
+        {
+          "id": "CHEM 162A"
+        },
+        {
+          "id": "CHEM 162B"
+        },
+        {
+          "id": "PSY 115"
+        },
+        {
+          "id": "PSY 133"
+        },
+        {
+          "id": "PSY 134"
+        },
+        {
+          "id": "PSY 137"
+        },
+        {
+          "id": "PSY 162"
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

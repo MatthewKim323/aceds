@@ -4,6 +4,7 @@ import { motion } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
 import { getMajorById, type Major, type CourseGroup } from '../data/majors'
+import { toCourseNorm } from '../lib/pdf-parser'
 
 type NodeState = 'done' | 'ready' | 'remaining'
 
@@ -37,7 +38,9 @@ export function GradPath() {
       }
       const firstMajor = p.major?.split(',').filter(Boolean)[0] || null
       setMajorId(firstMajor)
-      setCompleted(new Set(p.completed_courses || []))
+      setCompleted(
+        new Set((p.completed_courses || []).map((c) => toCourseNorm(String(c)))),
+      )
     })
   }, [user])
 
@@ -56,9 +59,13 @@ export function GradPath() {
     let done = 0
     let total = 0
     for (const t of tiers) {
-      for (const n of t.nodes) {
-        total += 1
-        if (n.state === 'done') done += 1
+      const doneInTier = t.nodes.filter((n) => n.state === 'done').length
+      if (t.pick != null && t.pick > 0) {
+        total += t.pick
+        done += Math.min(doneInTier, t.pick)
+      } else {
+        total += t.nodes.length
+        done += doneInTier
       }
     }
     return { done, total, pct: total === 0 ? 0 : Math.round((done / total) * 100) }
@@ -78,30 +85,36 @@ export function GradPath() {
           </p>
         </div>
         {stats && (
-          <div className="gp-progress">
-            <div className="gp-ring">
-              <svg viewBox="0 0 60 60" className="gp-ring-svg">
-                <circle cx="30" cy="30" r="26" className="gp-ring-bg" />
-                <motion.circle
-                  cx="30"
-                  cy="30"
-                  r="26"
-                  className="gp-ring-fg"
-                  strokeDasharray={`${2 * Math.PI * 26}`}
-                  initial={{ strokeDashoffset: 2 * Math.PI * 26 }}
-                  animate={{
-                    strokeDashoffset: 2 * Math.PI * 26 * (1 - stats.pct / 100),
-                  }}
-                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                  transform="rotate(-90 30 30)"
-                />
-              </svg>
-              <span className="gp-ring-n">{stats.pct}%</span>
+          <div className="gp-progress-block">
+            <div className="gp-progress">
+              <div className="gp-ring">
+                <svg viewBox="0 0 60 60" className="gp-ring-svg">
+                  <circle cx="30" cy="30" r="26" className="gp-ring-bg" />
+                  <motion.circle
+                    cx="30"
+                    cy="30"
+                    r="26"
+                    className="gp-ring-fg"
+                    strokeDasharray={`${2 * Math.PI * 26}`}
+                    initial={{ strokeDashoffset: 2 * Math.PI * 26 }}
+                    animate={{
+                      strokeDashoffset: 2 * Math.PI * 26 * (1 - stats.pct / 100),
+                    }}
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    transform="rotate(-90 30 30)"
+                  />
+                </svg>
+                <span className="gp-ring-n">{stats.pct}%</span>
+              </div>
+              <div className="gp-progress-meta">
+                <span className="gp-progress-main">{stats.done} / {stats.total}</span>
+                <span className="gp-progress-label">requirement units toward degree</span>
+              </div>
             </div>
-            <div className="gp-progress-meta">
-              <span className="gp-progress-main">{stats.done} / {stats.total}</span>
-              <span className="gp-progress-label">core courses done</span>
-            </div>
+            <p className="gp-progress-footnote" role="note">
+              “Pick N of M” groups count at most N completions toward the ring so the % matches how many
+              electives you still need, not every listed course.
+            </p>
           </div>
         )}
       </header>
@@ -130,8 +143,10 @@ export function GradPath() {
 
 function buildTier(group: CourseGroup, completed: Set<string>): DisplayTier {
   const nodes: DisplayCourse[] = group.courses.map((c) => {
+    const idN = toCourseNorm(c.id)
+    const altN = c.alt != null ? toCourseNorm(c.alt) : null
     const isDone =
-      completed.has(c.id) || (c.alt != null && completed.has(c.alt))
+      completed.has(idN) || (altN != null && completed.has(altN))
     return {
       id: c.id,
       alt: c.alt,
@@ -139,12 +154,19 @@ function buildTier(group: CourseGroup, completed: Set<string>): DisplayTier {
     }
   })
   const doneN = nodes.filter((n) => n.state === 'done').length
+  const pick = group.pick
+  const completionRatio =
+    pick != null && pick > 0
+      ? Math.min(doneN / pick, 1)
+      : nodes.length === 0
+        ? 0
+        : doneN / nodes.length
   return {
     label: group.label,
     note: group.note,
     pick: group.pick,
     nodes,
-    completionRatio: nodes.length === 0 ? 0 : doneN / nodes.length,
+    completionRatio,
   }
 }
 

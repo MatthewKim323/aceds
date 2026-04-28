@@ -1,0 +1,2320 @@
+{
+  "id": "history_ba",
+  "name": "History Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "History",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 40,
+  "source_pdf": "HISTORY DEPARTMENT - History Major (2025).pdf",
+  "notes": "The breadth requirement may be fulfilled at the lower-division and/or upper-division level, and the same course may fulfill a chronological and regional requirement simultaneously. Upper division History courses substituted for the lower division requirements may not be applied to the 40 upper division History units required, although the units will apply to the 60 upper division Letters and Science units required for graduation. Up to 4 units of HIST 99 may apply to the lower division major requirements, and 8 units of HIST 199 or any HIST 196 courses (excluding 196SJ) may apply to the upper division major requirements by petition. History 174Q and 196SJ cannot be applied towards the major. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. Up to 4 units of any History 196 courses may be taken P/NP for major credit. All other major courses, including those applied to the major from other departments, must be taken for letter grades. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "prep_a",
+      "label": "Any four lower-division History courses",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 4
+      },
+      "courses": [
+        {
+          "id": "HIST 2A"
+        },
+        {
+          "id": "HIST W2A"
+        },
+        {
+          "id": "HIST 2AH"
+        },
+        {
+          "id": "HIST 2B"
+        },
+        {
+          "id": "HIST 2BH"
+        },
+        {
+          "id": "HIST 2C"
+        },
+        {
+          "id": "HIST 2CH"
+        },
+        {
+          "id": "HIST 4A"
+        },
+        {
+          "id": "HIST 4AH"
+        },
+        {
+          "id": "HIST 4B"
+        },
+        {
+          "id": "HIST 4BH"
+        },
+        {
+          "id": "HIST 4C"
+        },
+        {
+          "id": "HIST 4CH"
+        },
+        {
+          "id": "HIST 8A"
+        },
+        {
+          "id": "HIST 8B"
+        },
+        {
+          "id": "HIST 15"
+        },
+        {
+          "id": "HIST 17A"
+        },
+        {
+          "id": "HIST 17AH"
+        },
+        {
+          "id": "HIST 17B"
+        },
+        {
+          "id": "HIST 17BH"
+        },
+        {
+          "id": "HIST 17C"
+        },
+        {
+          "id": "HIST 17CH"
+        },
+        {
+          "id": "HIST 20"
+        },
+        {
+          "id": "HIST 20H"
+        },
+        {
+          "id": "HIST 22"
+        },
+        {
+          "id": "HIST 25"
+        },
+        {
+          "id": "HIST 28"
+        },
+        {
+          "id": "HIST 46A"
+        },
+        {
+          "id": "HIST 46B"
+        },
+        {
+          "id": "HIST 46MI"
+        },
+        {
+          "id": "HIST 49A"
+        },
+        {
+          "id": "HIST 49B"
+        },
+        {
+          "id": "HIST 49C"
+        },
+        {
+          "id": "HIST 56"
+        },
+        {
+          "id": "HIST 74"
+        },
+        {
+          "id": "HIST 80"
+        },
+        {
+          "id": "HIST W80"
+        },
+        {
+          "id": "HIST 87"
+        },
+        {
+          "id": "HIST 88"
+        }
+      ]
+    },
+    {
+      "id": "prep_b",
+      "label": "History 9",
+      "courses": [
+        {
+          "id": "HIST 9",
+          "units": 4
+        }
+      ]
+    },
+    {
+      "id": "ud_a",
+      "label": "One Undergraduate Research Seminar (any upper division History course with the letter R after its course number)",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "HIST 101SR"
+        },
+        {
+          "id": "HIST 101WR"
+        },
+        {
+          "id": "HIST 105R"
+        },
+        {
+          "id": "HIST 106R"
+        },
+        {
+          "id": "HIST 111R"
+        },
+        {
+          "id": "HIST 112R"
+        },
+        {
+          "id": "HIST 115R"
+        },
+        {
+          "id": "HIST 117R"
+        },
+        {
+          "id": "HIST 121R"
+        },
+        {
+          "id": "HIST 124R"
+        },
+        {
+          "id": "HIST 132R"
+        },
+        {
+          "id": "HIST 133R"
+        },
+        {
+          "id": "HIST 135R"
+        },
+        {
+          "id": "HIST 140R"
+        },
+        {
+          "id": "HIST 141R"
+        },
+        {
+          "id": "HIST 146FR"
+        },
+        {
+          "id": "HIST 146R"
+        },
+        {
+          "id": "HIST 147R"
+        },
+        {
+          "id": "HIST 151R"
+        },
+        {
+          "id": "HIST 156R"
+        },
+        {
+          "id": "HIST 159R"
+        },
+        {
+          "id": "HIST 161R"
+        },
+        {
+          "id": "HIST 162R"
+        },
+        {
+          "id": "HIST 164MR"
+        },
+        {
+          "id": "HIST 164R"
+        },
+        {
+          "id": "HIST 166R"
+        },
+        {
+          "id": "HIST 167R"
+        },
+        {
+          "id": "HIST 168CR"
+        },
+        {
+          "id": "HIST 170R"
+        },
+        {
+          "id": "HIST 171R"
+        },
+        {
+          "id": "HIST 174R"
+        },
+        {
+          "id": "HIST 175R"
+        },
+        {
+          "id": "HIST 176R"
+        },
+        {
+          "id": "HIST 177R"
+        },
+        {
+          "id": "HIST 178R"
+        },
+        {
+          "id": "HIST 179R"
+        },
+        {
+          "id": "HIST 184R"
+        },
+        {
+          "id": "HIST 185R"
+        },
+        {
+          "id": "HIST 187R"
+        },
+        {
+          "id": "HIST 192R"
+        },
+        {
+          "id": "HIST 193R"
+        },
+        {
+          "id": "HIST 194AH",
+          "note": "4 units of History 194AH-BH may be substituted for the Seminar"
+        },
+        {
+          "id": "HIST 194BH",
+          "note": "4 units of History 194AH-BH may be substituted for the Seminar"
+        }
+      ]
+    },
+    {
+      "id": "ud_b",
+      "label": "History upper division electives",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "HIST 101G"
+        },
+        {
+          "id": "HIST 101MQ"
+        },
+        {
+          "id": "HIST 101QA"
+        },
+        {
+          "id": "HIST 101SR"
+        },
+        {
+          "id": "HIST 101WR"
+        },
+        {
+          "id": "HIST 104G"
+        },
+        {
+          "id": "HIST 104SS"
+        },
+        {
+          "id": "HIST 105A"
+        },
+        {
+          "id": "HIST 105C"
+        },
+        {
+          "id": "HIST 105CW"
+        },
+        {
+          "id": "HIST 105II"
+        },
+        {
+          "id": "HIST 105Q"
+        },
+        {
+          "id": "HIST 105R"
+        },
+        {
+          "id": "HIST 106B"
+        },
+        {
+          "id": "HIST 106C"
+        },
+        {
+          "id": "HIST 106R"
+        },
+        {
+          "id": "HIST 106T"
+        },
+        {
+          "id": "HIST 107C"
+        },
+        {
+          "id": "HIST 107S"
+        },
+        {
+          "id": "HIST 108LT"
+        },
+        {
+          "id": "HIST 108W"
+        },
+        {
+          "id": "HIST 109S"
+        },
+        {
+          "id": "HIST 109T"
+        },
+        {
+          "id": "HIST 110"
+        },
+        {
+          "id": "HIST 111A"
+        },
+        {
+          "id": "HIST 111B"
+        },
+        {
+          "id": "HIST 111C"
+        },
+        {
+          "id": "HIST 111F"
+        },
+        {
+          "id": "HIST 111Q"
+        },
+        {
+          "id": "HIST 111R"
+        },
+        {
+          "id": "HIST 111T"
+        },
+        {
+          "id": "HIST 112A"
+        },
+        {
+          "id": "HIST 112C"
+        },
+        {
+          "id": "HIST 112D"
+        },
+        {
+          "id": "HIST 112E"
+        },
+        {
+          "id": "HIST 112Q"
+        },
+        {
+          "id": "HIST 112R"
+        },
+        {
+          "id": "HIST 114A"
+        },
+        {
+          "id": "HIST 114B"
+        },
+        {
+          "id": "HIST 114C"
+        },
+        {
+          "id": "HIST 114D"
+        },
+        {
+          "id": "HIST 115A"
+        },
+        {
+          "id": "HIST 115B"
+        },
+        {
+          "id": "HIST 115Q"
+        },
+        {
+          "id": "HIST 115R"
+        },
+        {
+          "id": "HIST 115X"
+        },
+        {
+          "id": "HIST 116"
+        },
+        {
+          "id": "HIST 117A"
+        },
+        {
+          "id": "HIST 117C"
+        },
+        {
+          "id": "HIST 117E"
+        },
+        {
+          "id": "HIST 117R"
+        },
+        {
+          "id": "HIST 118A"
+        },
+        {
+          "id": "HIST 118B"
+        },
+        {
+          "id": "HIST 119"
+        },
+        {
+          "id": "HIST 121A"
+        },
+        {
+          "id": "HIST 121B"
+        },
+        {
+          "id": "HIST 121C"
+        },
+        {
+          "id": "HIST 121D"
+        },
+        {
+          "id": "HIST 121E"
+        },
+        {
+          "id": "HIST 121F"
+        },
+        {
+          "id": "HIST 121Q"
+        },
+        {
+          "id": "HIST 121R"
+        },
+        {
+          "id": "HIST 122"
+        },
+        {
+          "id": "HIST 123A"
+        },
+        {
+          "id": "HIST 123B"
+        },
+        {
+          "id": "HIST 123C"
+        },
+        {
+          "id": "HIST 123Q"
+        },
+        {
+          "id": "HIST 123R"
+        },
+        {
+          "id": "HIST 124A"
+        },
+        {
+          "id": "HIST 124B"
+        },
+        {
+          "id": "HIST 124C"
+        },
+        {
+          "id": "HIST 124R"
+        },
+        {
+          "id": "HIST 125"
+        },
+        {
+          "id": "HIST 127A"
+        },
+        {
+          "id": "HIST 127F"
+        },
+        {
+          "id": "HIST 129A"
+        },
+        {
+          "id": "HIST 129B"
+        },
+        {
+          "id": "HIST 129C"
+        },
+        {
+          "id": "HIST 129D"
+        },
+        {
+          "id": "HIST 129E"
+        },
+        {
+          "id": "HIST 129F"
+        },
+        {
+          "id": "HIST 129Q"
+        },
+        {
+          "id": "HIST 130"
+        },
+        {
+          "id": "HIST 132"
+        },
+        {
+          "id": "HIST 132R"
+        },
+        {
+          "id": "HIST 133A"
+        },
+        {
+          "id": "HIST 133B"
+        },
+        {
+          "id": "HIST 133C"
+        },
+        {
+          "id": "HIST 133D"
+        },
+        {
+          "id": "HIST 133Q"
+        },
+        {
+          "id": "HIST 133R"
+        },
+        {
+          "id": "HIST 135B"
+        },
+        {
+          "id": "HIST 135C"
+        },
+        {
+          "id": "HIST 135R"
+        },
+        {
+          "id": "HIST 136CA"
+        },
+        {
+          "id": "HIST 136M"
+        },
+        {
+          "id": "HIST 136W"
+        },
+        {
+          "id": "HIST 138FM"
+        },
+        {
+          "id": "HIST 138X"
+        },
+        {
+          "id": "HIST 140A"
+        },
+        {
+          "id": "HIST 140B"
+        },
+        {
+          "id": "HIST 140R"
+        },
+        {
+          "id": "HIST 141A"
+        },
+        {
+          "id": "HIST 141B"
+        },
+        {
+          "id": "HIST 141C"
+        },
+        {
+          "id": "HIST 141R"
+        },
+        {
+          "id": "HIST 142AL"
+        },
+        {
+          "id": "HIST 142S"
+        },
+        {
+          "id": "HIST 144B"
+        },
+        {
+          "id": "HIST 144C"
+        },
+        {
+          "id": "HIST 144F"
+        },
+        {
+          "id": "HIST 144J"
+        },
+        {
+          "id": "HIST 144L"
+        },
+        {
+          "id": "HIST 144W"
+        },
+        {
+          "id": "HIST 145A"
+        },
+        {
+          "id": "HIST 145B"
+        },
+        {
+          "id": "HIST 145C"
+        },
+        {
+          "id": "HIST 146"
+        },
+        {
+          "id": "HIST 146BQ"
+        },
+        {
+          "id": "HIST 146FR"
+        },
+        {
+          "id": "HIST 146R"
+        },
+        {
+          "id": "HIST 146T"
+        },
+        {
+          "id": "HIST 146W"
+        },
+        {
+          "id": "HIST 147D"
+        },
+        {
+          "id": "HIST 147G"
+        },
+        {
+          "id": "HIST 147Q"
+        },
+        {
+          "id": "HIST 147R"
+        },
+        {
+          "id": "HIST 148A"
+        },
+        {
+          "id": "HIST 148AU"
+        },
+        {
+          "id": "HIST 148B"
+        },
+        {
+          "id": "HIST 148PL"
+        },
+        {
+          "id": "HIST 149AD"
+        },
+        {
+          "id": "HIST 149BF"
+        },
+        {
+          "id": "HIST 149H"
+        },
+        {
+          "id": "HIST 149IA"
+        },
+        {
+          "id": "HIST 150CL"
+        },
+        {
+          "id": "HIST 151A"
+        },
+        {
+          "id": "HIST 151AS"
+        },
+        {
+          "id": "HIST 151B"
+        },
+        {
+          "id": "HIST 151C"
+        },
+        {
+          "id": "HIST 151CU"
+        },
+        {
+          "id": "HIST 151FQ"
+        },
+        {
+          "id": "HIST 151Q"
+        },
+        {
+          "id": "HIST 151R"
+        },
+        {
+          "id": "HIST 153A"
+        },
+        {
+          "id": "HIST 153M"
+        },
+        {
+          "id": "HIST 154LA"
+        },
+        {
+          "id": "HIST 154LB"
+        },
+        {
+          "id": "HIST 156A"
+        },
+        {
+          "id": "HIST 156B"
+        },
+        {
+          "id": "HIST 156R"
+        },
+        {
+          "id": "HIST 157A"
+        },
+        {
+          "id": "HIST 157B"
+        },
+        {
+          "id": "HIST 158A"
+        },
+        {
+          "id": "HIST 159B"
+        },
+        {
+          "id": "HIST 159C"
+        },
+        {
+          "id": "HIST 159Q"
+        },
+        {
+          "id": "HIST 159R"
+        },
+        {
+          "id": "HIST 160C"
+        },
+        {
+          "id": "HIST 161A"
+        },
+        {
+          "id": "HIST 161B"
+        },
+        {
+          "id": "HIST 161R"
+        },
+        {
+          "id": "HIST 162B"
+        },
+        {
+          "id": "HIST 162R"
+        },
+        {
+          "id": "HIST 164C"
+        },
+        {
+          "id": "HIST 164IB"
+        },
+        {
+          "id": "HIST 164MR"
+        },
+        {
+          "id": "HIST 164R"
+        },
+        {
+          "id": "HIST 165"
+        },
+        {
+          "id": "HIST 165S"
+        },
+        {
+          "id": "HIST 166A"
+        },
+        {
+          "id": "HIST 166B"
+        },
+        {
+          "id": "HIST 166C"
+        },
+        {
+          "id": "HIST 166D"
+        },
+        {
+          "id": "HIST 166LB"
+        },
+        {
+          "id": "HIST 166R"
+        },
+        {
+          "id": "HIST 167CB"
+        },
+        {
+          "id": "HIST 167Q"
+        },
+        {
+          "id": "HIST 167R"
+        },
+        {
+          "id": "HIST 168A"
+        },
+        {
+          "id": "HIST 168B"
+        },
+        {
+          "id": "HIST 168CR"
+        },
+        {
+          "id": "HIST 168M"
+        },
+        {
+          "id": "HIST 168N"
+        },
+        {
+          "id": "HIST 168T"
+        },
+        {
+          "id": "HIST 169B"
+        },
+        {
+          "id": "HIST 170A"
+        },
+        {
+          "id": "HIST 170B"
+        },
+        {
+          "id": "HIST 170R"
+        },
+        {
+          "id": "HIST 171C"
+        },
+        {
+          "id": "HIST 171D"
+        },
+        {
+          "id": "HIST 171ME"
+        },
+        {
+          "id": "HIST 171Q"
+        },
+        {
+          "id": "HIST 171R"
+        },
+        {
+          "id": "HIST 172A"
+        },
+        {
+          "id": "HIST 172B"
+        },
+        {
+          "id": "HIST 173T"
+        },
+        {
+          "id": "HIST 174B"
+        },
+        {
+          "id": "HIST 174C"
+        },
+        {
+          "id": "HIST 174R"
+        },
+        {
+          "id": "HIST 175A"
+        },
+        {
+          "id": "HIST 175B"
+        },
+        {
+          "id": "HIST 175D"
+        },
+        {
+          "id": "HIST 175R"
+        },
+        {
+          "id": "HIST 176B"
+        },
+        {
+          "id": "HIST 176R"
+        },
+        {
+          "id": "HIST 177"
+        },
+        {
+          "id": "HIST 177R"
+        },
+        {
+          "id": "HIST 178A"
+        },
+        {
+          "id": "HIST 178B"
+        },
+        {
+          "id": "HIST 178R"
+        },
+        {
+          "id": "HIST 179A"
+        },
+        {
+          "id": "HIST 179B"
+        },
+        {
+          "id": "HIST 179R"
+        },
+        {
+          "id": "HIST 183Q"
+        },
+        {
+          "id": "HIST 184A"
+        },
+        {
+          "id": "HIST 184B"
+        },
+        {
+          "id": "HIST 184E"
+        },
+        {
+          "id": "HIST 184M"
+        },
+        {
+          "id": "HIST 184R"
+        },
+        {
+          "id": "HIST 185A"
+        },
+        {
+          "id": "HIST 185B"
+        },
+        {
+          "id": "HIST 185CQ"
+        },
+        {
+          "id": "HIST 185R"
+        },
+        {
+          "id": "HIST 185T"
+        },
+        {
+          "id": "HIST 187A"
+        },
+        {
+          "id": "HIST 187B"
+        },
+        {
+          "id": "HIST 187C"
+        },
+        {
+          "id": "HIST 187R"
+        },
+        {
+          "id": "HIST 187S"
+        },
+        {
+          "id": "HIST 188A"
+        },
+        {
+          "id": "HIST 188S"
+        },
+        {
+          "id": "HIST 188T"
+        },
+        {
+          "id": "HIST 189E"
+        },
+        {
+          "id": "HIST 189M"
+        },
+        {
+          "id": "HIST 192"
+        },
+        {
+          "id": "HIST 192R"
+        },
+        {
+          "id": "HIST 193AQ"
+        },
+        {
+          "id": "HIST 193AW"
+        },
+        {
+          "id": "HIST 193C"
+        },
+        {
+          "id": "HIST 193F"
+        },
+        {
+          "id": "HIST 193MA"
+        },
+        {
+          "id": "HIST 193P"
+        },
+        {
+          "id": "HIST 193R"
+        }
+      ],
+      "subgroups": [
+        {
+          "id": "breadth_chronological",
+          "label": "Three courses focusing before 1800 CE",
+          "pick": {
+            "mode": "choose_n_courses",
+            "n_courses": 3
+          },
+          "courses": [
+            {
+              "id": "HIST 2A"
+            },
+            {
+              "id": "HIST W2A"
+            },
+            {
+              "id": "HIST 2AH"
+            },
+            {
+              "id": "HIST 2B"
+            },
+            {
+              "id": "HIST 2BH"
+            },
+            {
+              "id": "HIST 4A"
+            },
+            {
+              "id": "HIST 4AH"
+            },
+            {
+              "id": "HIST 4B"
+            },
+            {
+              "id": "HIST 4BH"
+            },
+            {
+              "id": "HIST 17A"
+            },
+            {
+              "id": "HIST 17AH"
+            },
+            {
+              "id": "HIST 46A"
+            },
+            {
+              "id": "HIST 49A"
+            },
+            {
+              "id": "HIST 87"
+            },
+            {
+              "id": "HIST 101G"
+            },
+            {
+              "id": "HIST 101MQ"
+            },
+            {
+              "id": "HIST 104G"
+            },
+            {
+              "id": "HIST 106B"
+            },
+            {
+              "id": "HIST 111A"
+            },
+            {
+              "id": "HIST 111B"
+            },
+            {
+              "id": "HIST 111C"
+            },
+            {
+              "id": "HIST 111F"
+            },
+            {
+              "id": "HIST 111Q"
+            },
+            {
+              "id": "HIST 111R"
+            },
+            {
+              "id": "HIST 111T"
+            },
+            {
+              "id": "HIST 112A"
+            },
+            {
+              "id": "HIST 112C"
+            },
+            {
+              "id": "HIST 112D"
+            },
+            {
+              "id": "HIST 112E"
+            },
+            {
+              "id": "HIST 112Q"
+            },
+            {
+              "id": "HIST 112R"
+            },
+            {
+              "id": "HIST 114A"
+            },
+            {
+              "id": "HIST 114B"
+            },
+            {
+              "id": "HIST 114C"
+            },
+            {
+              "id": "HIST 115A"
+            },
+            {
+              "id": "HIST 115B"
+            },
+            {
+              "id": "HIST 115Q"
+            },
+            {
+              "id": "HIST 115R"
+            },
+            {
+              "id": "HIST 115X"
+            },
+            {
+              "id": "HIST 117A"
+            },
+            {
+              "id": "HIST 117C"
+            },
+            {
+              "id": "HIST 117E"
+            },
+            {
+              "id": "HIST 117R"
+            },
+            {
+              "id": "HIST 118A"
+            },
+            {
+              "id": "HIST 118B"
+            },
+            {
+              "id": "HIST 119"
+            },
+            {
+              "id": "HIST 121A"
+            },
+            {
+              "id": "HIST 121B"
+            },
+            {
+              "id": "HIST 121C"
+            },
+            {
+              "id": "HIST 121D"
+            },
+            {
+              "id": "HIST 121E"
+            },
+            {
+              "id": "HIST 121F"
+            },
+            {
+              "id": "HIST 121Q"
+            },
+            {
+              "id": "HIST 121R"
+            },
+            {
+              "id": "HIST 122"
+            },
+            {
+              "id": "HIST 125"
+            },
+            {
+              "id": "HIST 127F"
+            },
+            {
+              "id": "HIST 129A"
+            },
+            {
+              "id": "HIST 129B"
+            },
+            {
+              "id": "HIST 129C"
+            },
+            {
+              "id": "HIST 129D"
+            },
+            {
+              "id": "HIST 129E"
+            },
+            {
+              "id": "HIST 129F"
+            },
+            {
+              "id": "HIST 129Q"
+            },
+            {
+              "id": "HIST 130"
+            },
+            {
+              "id": "HIST 138FM"
+            },
+            {
+              "id": "HIST 138X"
+            },
+            {
+              "id": "HIST 140A"
+            },
+            {
+              "id": "HIST 140B"
+            },
+            {
+              "id": "HIST 140R"
+            },
+            {
+              "id": "HIST 145A"
+            },
+            {
+              "id": "HIST 145B"
+            },
+            {
+              "id": "HIST 145C"
+            },
+            {
+              "id": "HIST 148A"
+            },
+            {
+              "id": "HIST 149BF"
+            },
+            {
+              "id": "HIST 150CL"
+            },
+            {
+              "id": "HIST 151A"
+            },
+            {
+              "id": "HIST 151AS"
+            },
+            {
+              "id": "HIST 154LA"
+            },
+            {
+              "id": "HIST 156A"
+            },
+            {
+              "id": "HIST 157A"
+            },
+            {
+              "id": "HIST 161A"
+            },
+            {
+              "id": "HIST 161B"
+            },
+            {
+              "id": "HIST 179A"
+            },
+            {
+              "id": "HIST 183Q"
+            },
+            {
+              "id": "HIST 184A"
+            },
+            {
+              "id": "HIST 184B"
+            },
+            {
+              "id": "HIST 184E"
+            },
+            {
+              "id": "HIST 184M"
+            },
+            {
+              "id": "HIST 187A"
+            },
+            {
+              "id": "HIST 187S"
+            },
+            {
+              "id": "HIST 188A"
+            },
+            {
+              "id": "HIST 193C"
+            },
+            {
+              "id": "HIST 193MA"
+            }
+          ]
+        },
+        {
+          "id": "breadth_regional",
+          "label": "At least one course in at least 4 of the following 6 categories",
+          "note": "Choose at least 4 categories",
+          "subgroups": [
+            {
+              "id": "region_africa_middle_east",
+              "label": "Africa and the Middle East",
+              "courses": [
+                {
+                  "id": "HIST 46A"
+                },
+                {
+                  "id": "HIST 46B"
+                },
+                {
+                  "id": "HIST 46MI"
+                },
+                {
+                  "id": "HIST 49A"
+                },
+                {
+                  "id": "HIST 49B"
+                },
+                {
+                  "id": "HIST 49C"
+                },
+                {
+                  "id": "HIST 111F"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 119"
+                },
+                {
+                  "id": "HIST 125"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 145A"
+                },
+                {
+                  "id": "HIST 145B"
+                },
+                {
+                  "id": "HIST 145C"
+                },
+                {
+                  "id": "HIST 146"
+                },
+                {
+                  "id": "HIST 146BQ"
+                },
+                {
+                  "id": "HIST 146FR"
+                },
+                {
+                  "id": "HIST 146R"
+                },
+                {
+                  "id": "HIST 146T"
+                },
+                {
+                  "id": "HIST 146W"
+                },
+                {
+                  "id": "HIST 147D"
+                },
+                {
+                  "id": "HIST 147G"
+                },
+                {
+                  "id": "HIST 147Q"
+                },
+                {
+                  "id": "HIST 147R"
+                },
+                {
+                  "id": "HIST 148A"
+                },
+                {
+                  "id": "HIST 148AU"
+                },
+                {
+                  "id": "HIST 148B"
+                },
+                {
+                  "id": "HIST 148PL"
+                },
+                {
+                  "id": "HIST 149BF"
+                },
+                {
+                  "id": "HIST 149IA"
+                },
+                {
+                  "id": "HIST 171ME"
+                }
+              ]
+            },
+            {
+              "id": "region_asia",
+              "label": "Asia",
+              "courses": [
+                {
+                  "id": "HIST 25"
+                },
+                {
+                  "id": "HIST 28"
+                },
+                {
+                  "id": "HIST 80"
+                },
+                {
+                  "id": "HIST W80"
+                },
+                {
+                  "id": "HIST 87"
+                },
+                {
+                  "id": "HIST 88"
+                },
+                {
+                  "id": "HIST 111F"
+                },
+                {
+                  "id": "HIST 111R"
+                },
+                {
+                  "id": "HIST 135R"
+                },
+                {
+                  "id": "HIST 183Q"
+                },
+                {
+                  "id": "HIST 184A"
+                },
+                {
+                  "id": "HIST 184B"
+                },
+                {
+                  "id": "HIST 184E"
+                },
+                {
+                  "id": "HIST 184M"
+                },
+                {
+                  "id": "HIST 184R"
+                },
+                {
+                  "id": "HIST 185A"
+                },
+                {
+                  "id": "HIST 185B"
+                },
+                {
+                  "id": "HIST 185CQ"
+                },
+                {
+                  "id": "HIST 185R"
+                },
+                {
+                  "id": "HIST 185T"
+                },
+                {
+                  "id": "HIST 187A"
+                },
+                {
+                  "id": "HIST 187B"
+                },
+                {
+                  "id": "HIST 187C"
+                },
+                {
+                  "id": "HIST 187R"
+                },
+                {
+                  "id": "HIST 187S"
+                },
+                {
+                  "id": "HIST 188A"
+                },
+                {
+                  "id": "HIST 188S"
+                },
+                {
+                  "id": "HIST 188T"
+                },
+                {
+                  "id": "HIST 189M"
+                }
+              ]
+            },
+            {
+              "id": "region_europe",
+              "label": "Europe",
+              "courses": [
+                {
+                  "id": "HIST 4A"
+                },
+                {
+                  "id": "HIST 4AH"
+                },
+                {
+                  "id": "HIST 4B"
+                },
+                {
+                  "id": "HIST 4BH"
+                },
+                {
+                  "id": "HIST 4C"
+                },
+                {
+                  "id": "HIST 4CH"
+                },
+                {
+                  "id": "HIST 20"
+                },
+                {
+                  "id": "HIST 22"
+                },
+                {
+                  "id": "HIST 104G"
+                },
+                {
+                  "id": "HIST 106B"
+                },
+                {
+                  "id": "HIST 108LT"
+                },
+                {
+                  "id": "HIST 110"
+                },
+                {
+                  "id": "HIST 111A"
+                },
+                {
+                  "id": "HIST 111B"
+                },
+                {
+                  "id": "HIST 111C"
+                },
+                {
+                  "id": "HIST 111Q"
+                },
+                {
+                  "id": "HIST 111R"
+                },
+                {
+                  "id": "HIST 111T"
+                },
+                {
+                  "id": "HIST 112A"
+                },
+                {
+                  "id": "HIST 112C"
+                },
+                {
+                  "id": "HIST 112D"
+                },
+                {
+                  "id": "HIST 112E"
+                },
+                {
+                  "id": "HIST 112Q"
+                },
+                {
+                  "id": "HIST 112R"
+                },
+                {
+                  "id": "HIST 114A"
+                },
+                {
+                  "id": "HIST 114B"
+                },
+                {
+                  "id": "HIST 114C"
+                },
+                {
+                  "id": "HIST 115A"
+                },
+                {
+                  "id": "HIST 115B"
+                },
+                {
+                  "id": "HIST 115Q"
+                },
+                {
+                  "id": "HIST 115R"
+                },
+                {
+                  "id": "HIST 115X"
+                },
+                {
+                  "id": "HIST 116"
+                },
+                {
+                  "id": "HIST 117A"
+                },
+                {
+                  "id": "HIST 117C"
+                },
+                {
+                  "id": "HIST 117E"
+                },
+                {
+                  "id": "HIST 117R"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 118B"
+                },
+                {
+                  "id": "HIST 121A"
+                },
+                {
+                  "id": "HIST 121B"
+                },
+                {
+                  "id": "HIST 121C"
+                },
+                {
+                  "id": "HIST 121D"
+                },
+                {
+                  "id": "HIST 121F"
+                },
+                {
+                  "id": "HIST 121Q"
+                },
+                {
+                  "id": "HIST 121R"
+                },
+                {
+                  "id": "HIST 122"
+                },
+                {
+                  "id": "HIST 123A"
+                },
+                {
+                  "id": "HIST 123B"
+                },
+                {
+                  "id": "HIST 123C"
+                },
+                {
+                  "id": "HIST 123Q"
+                },
+                {
+                  "id": "HIST 123R"
+                },
+                {
+                  "id": "HIST 124A"
+                },
+                {
+                  "id": "HIST 124B"
+                },
+                {
+                  "id": "HIST 124R"
+                },
+                {
+                  "id": "HIST 125"
+                },
+                {
+                  "id": "HIST 127A"
+                },
+                {
+                  "id": "HIST 127F"
+                },
+                {
+                  "id": "HIST 129A"
+                },
+                {
+                  "id": "HIST 129B"
+                },
+                {
+                  "id": "HIST 129C"
+                },
+                {
+                  "id": "HIST 129D"
+                },
+                {
+                  "id": "HIST 129E"
+                },
+                {
+                  "id": "HIST 129F"
+                },
+                {
+                  "id": "HIST 129Q"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 133A"
+                },
+                {
+                  "id": "HIST 133B"
+                },
+                {
+                  "id": "HIST 133C"
+                },
+                {
+                  "id": "HIST 133D"
+                },
+                {
+                  "id": "HIST 133Q"
+                },
+                {
+                  "id": "HIST 133R"
+                },
+                {
+                  "id": "HIST 135B"
+                },
+                {
+                  "id": "HIST 135C"
+                },
+                {
+                  "id": "HIST 135R"
+                },
+                {
+                  "id": "HIST 138FM"
+                },
+                {
+                  "id": "HIST 138X"
+                },
+                {
+                  "id": "HIST 140A"
+                },
+                {
+                  "id": "HIST 140B"
+                },
+                {
+                  "id": "HIST 140R"
+                },
+                {
+                  "id": "HIST 141A"
+                },
+                {
+                  "id": "HIST 141B"
+                },
+                {
+                  "id": "HIST 141C"
+                },
+                {
+                  "id": "HIST 141R"
+                },
+                {
+                  "id": "HIST 184E"
+                }
+              ]
+            },
+            {
+              "id": "region_latin_america",
+              "label": "Latin America",
+              "courses": [
+                {
+                  "id": "HIST 8A"
+                },
+                {
+                  "id": "HIST 8B"
+                },
+                {
+                  "id": "HIST 56"
+                },
+                {
+                  "id": "HIST 144F"
+                },
+                {
+                  "id": "HIST 149AD"
+                },
+                {
+                  "id": "HIST 150CL"
+                },
+                {
+                  "id": "HIST 151A"
+                },
+                {
+                  "id": "HIST 151AS"
+                },
+                {
+                  "id": "HIST 151B"
+                },
+                {
+                  "id": "HIST 151C"
+                },
+                {
+                  "id": "HIST 151CU"
+                },
+                {
+                  "id": "HIST 151FQ"
+                },
+                {
+                  "id": "HIST 151Q"
+                },
+                {
+                  "id": "HIST 151R"
+                },
+                {
+                  "id": "HIST 153A"
+                },
+                {
+                  "id": "HIST 154LA"
+                },
+                {
+                  "id": "HIST 154LB"
+                },
+                {
+                  "id": "HIST 156A"
+                },
+                {
+                  "id": "HIST 156B"
+                },
+                {
+                  "id": "HIST 156R"
+                },
+                {
+                  "id": "HIST 157A"
+                },
+                {
+                  "id": "HIST 157B"
+                },
+                {
+                  "id": "HIST 193C"
+                }
+              ]
+            },
+            {
+              "id": "region_united_states",
+              "label": "United States",
+              "courses": [
+                {
+                  "id": "HIST 17A"
+                },
+                {
+                  "id": "HIST 17AH"
+                },
+                {
+                  "id": "HIST 17B"
+                },
+                {
+                  "id": "HIST 17BH"
+                },
+                {
+                  "id": "HIST 17C"
+                },
+                {
+                  "id": "HIST 17CH"
+                },
+                {
+                  "id": "HIST 20"
+                },
+                {
+                  "id": "HIST 20H"
+                },
+                {
+                  "id": "HIST 101MQ"
+                },
+                {
+                  "id": "HIST 104SS"
+                },
+                {
+                  "id": "HIST 101QA"
+                },
+                {
+                  "id": "HIST 105A"
+                },
+                {
+                  "id": "HIST 105CW"
+                },
+                {
+                  "id": "HIST 105Q"
+                },
+                {
+                  "id": "HIST 108LT"
+                },
+                {
+                  "id": "HIST 108W"
+                },
+                {
+                  "id": "HIST 109S"
+                },
+                {
+                  "id": "HIST 109T"
+                },
+                {
+                  "id": "HIST 136CA"
+                },
+                {
+                  "id": "HIST 136M"
+                },
+                {
+                  "id": "HIST 142AL"
+                },
+                {
+                  "id": "HIST 142S"
+                },
+                {
+                  "id": "HIST 144B"
+                },
+                {
+                  "id": "HIST 144C"
+                },
+                {
+                  "id": "HIST 144F"
+                },
+                {
+                  "id": "HIST 144J"
+                },
+                {
+                  "id": "HIST 144L"
+                },
+                {
+                  "id": "HIST 144W"
+                },
+                {
+                  "id": "HIST 149BF"
+                },
+                {
+                  "id": "HIST 158A"
+                },
+                {
+                  "id": "HIST 159B"
+                },
+                {
+                  "id": "HIST 159C"
+                },
+                {
+                  "id": "HIST 159Q"
+                },
+                {
+                  "id": "HIST 159R"
+                },
+                {
+                  "id": "HIST 160C"
+                },
+                {
+                  "id": "HIST 161A"
+                },
+                {
+                  "id": "HIST 161B"
+                },
+                {
+                  "id": "HIST 161R"
+                },
+                {
+                  "id": "HIST 162B"
+                },
+                {
+                  "id": "HIST 162R"
+                },
+                {
+                  "id": "HIST 164C"
+                },
+                {
+                  "id": "HIST 164IB"
+                },
+                {
+                  "id": "HIST 164MR"
+                },
+                {
+                  "id": "HIST 164R"
+                },
+                {
+                  "id": "HIST 165"
+                },
+                {
+                  "id": "HIST 165S"
+                },
+                {
+                  "id": "HIST 166A"
+                },
+                {
+                  "id": "HIST 166B"
+                },
+                {
+                  "id": "HIST 166C"
+                },
+                {
+                  "id": "HIST 166D"
+                },
+                {
+                  "id": "HIST 166LB"
+                },
+                {
+                  "id": "HIST 166R"
+                },
+                {
+                  "id": "HIST 167CB"
+                },
+                {
+                  "id": "HIST 167Q"
+                },
+                {
+                  "id": "HIST 167R"
+                },
+                {
+                  "id": "HIST 168A"
+                },
+                {
+                  "id": "HIST 168B"
+                },
+                {
+                  "id": "HIST 168CR"
+                },
+                {
+                  "id": "HIST 168M"
+                },
+                {
+                  "id": "HIST 168N"
+                },
+                {
+                  "id": "HIST 168T"
+                },
+                {
+                  "id": "HIST 169B"
+                },
+                {
+                  "id": "HIST 170A"
+                },
+                {
+                  "id": "HIST 170B"
+                },
+                {
+                  "id": "HIST 170R"
+                },
+                {
+                  "id": "HIST 171C"
+                },
+                {
+                  "id": "HIST 171D"
+                },
+                {
+                  "id": "HIST 171ME"
+                },
+                {
+                  "id": "HIST 171Q"
+                },
+                {
+                  "id": "HIST 171R"
+                },
+                {
+                  "id": "HIST 172A"
+                },
+                {
+                  "id": "HIST 172B"
+                },
+                {
+                  "id": "HIST 173T"
+                },
+                {
+                  "id": "HIST 174B"
+                },
+                {
+                  "id": "HIST 174C"
+                },
+                {
+                  "id": "HIST 174R"
+                },
+                {
+                  "id": "HIST 175A"
+                },
+                {
+                  "id": "HIST 175B"
+                },
+                {
+                  "id": "HIST 175D"
+                },
+                {
+                  "id": "HIST 175R"
+                },
+                {
+                  "id": "HIST 176B"
+                },
+                {
+                  "id": "HIST 176R"
+                },
+                {
+                  "id": "HIST 177"
+                },
+                {
+                  "id": "HIST 177R"
+                },
+                {
+                  "id": "HIST 178A"
+                },
+                {
+                  "id": "HIST 178B"
+                },
+                {
+                  "id": "HIST 178R"
+                },
+                {
+                  "id": "HIST 179A"
+                },
+                {
+                  "id": "HIST 179B"
+                },
+                {
+                  "id": "HIST 179R"
+                },
+                {
+                  "id": "HIST 192"
+                },
+                {
+                  "id": "HIST 192R"
+                },
+                {
+                  "id": "HIST 193MA"
+                }
+              ]
+            },
+            {
+              "id": "region_world_history",
+              "label": "World History and Comparative History",
+              "courses": [
+                {
+                  "id": "HIST 2A"
+                },
+                {
+                  "id": "HIST W2A"
+                },
+                {
+                  "id": "HIST 2AH"
+                },
+                {
+                  "id": "HIST 2B"
+                },
+                {
+                  "id": "HIST 2BH"
+                },
+                {
+                  "id": "HIST 2C"
+                },
+                {
+                  "id": "HIST 2CH"
+                },
+                {
+                  "id": "HIST 15"
+                },
+                {
+                  "id": "HIST 22"
+                },
+                {
+                  "id": "HIST 28"
+                },
+                {
+                  "id": "HIST 46A"
+                },
+                {
+                  "id": "HIST 46B"
+                },
+                {
+                  "id": "HIST 49A"
+                },
+                {
+                  "id": "HIST 49B"
+                },
+                {
+                  "id": "HIST 49C"
+                },
+                {
+                  "id": "HIST 74"
+                },
+                {
+                  "id": "HIST 101G"
+                },
+                {
+                  "id": "HIST 101MQ"
+                },
+                {
+                  "id": "HIST 101QA"
+                },
+                {
+                  "id": "HIST 101SR"
+                },
+                {
+                  "id": "HIST 101WR"
+                },
+                {
+                  "id": "HIST 104SS"
+                },
+                {
+                  "id": "HIST 105C"
+                },
+                {
+                  "id": "HIST 105II"
+                },
+                {
+                  "id": "HIST 105R"
+                },
+                {
+                  "id": "HIST 106C"
+                },
+                {
+                  "id": "HIST 106R"
+                },
+                {
+                  "id": "HIST 106T"
+                },
+                {
+                  "id": "HIST 107C"
+                },
+                {
+                  "id": "HIST 107S"
+                },
+                {
+                  "id": "HIST 110"
+                },
+                {
+                  "id": "HIST 112D"
+                },
+                {
+                  "id": "HIST 112E"
+                },
+                {
+                  "id": "HIST 112Q"
+                },
+                {
+                  "id": "HIST 112R"
+                },
+                {
+                  "id": "HIST 114D"
+                },
+                {
+                  "id": "HIST 118A"
+                },
+                {
+                  "id": "HIST 124C"
+                },
+                {
+                  "id": "HIST 130"
+                },
+                {
+                  "id": "HIST 132"
+                },
+                {
+                  "id": "HIST 132R"
+                },
+                {
+                  "id": "HIST 136W"
+                },
+                {
+                  "id": "HIST 141C"
+                },
+                {
+                  "id": "HIST 149BF"
+                },
+                {
+                  "id": "HIST 149H"
+                },
+                {
+                  "id": "HIST 150CL"
+                },
+                {
+                  "id": "HIST 153M"
+                },
+                {
+                  "id": "HIST 168N"
+                },
+                {
+                  "id": "HIST 184E"
+                },
+                {
+                  "id": "HIST 189E"
+                },
+                {
+                  "id": "HIST 193AQ"
+                },
+                {
+                  "id": "HIST 193AW"
+                },
+                {
+                  "id": "HIST 193C"
+                },
+                {
+                  "id": "HIST 193F"
+                },
+                {
+                  "id": "HIST 193MA"
+                },
+                {
+                  "id": "HIST 193P"
+                },
+                {
+                  "id": "HIST 193R"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reviewed": false
+}

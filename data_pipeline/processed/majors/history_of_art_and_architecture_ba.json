@@ -1,0 +1,127 @@
+{
+  "id": "history_of_art_and_architecture_ba",
+  "name": "History of Art and Architecture",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "History of Art & Architecture",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.0,
+  "upper_div_units_required": 36,
+  "source_pdf": "History of Art and Architecture Major (2025)-1.pdf",
+  "reviewed": false,
+  "notes": "P/NP grading not allowed for any major course (Prep or UD major), including internships and courses applied to the major from other departments. Substitutions in the major requirements permissible only by petition to the department chair and dean. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors. Students wishing to pursue an Honors thesis should consult with Faculty Undergraduate Advisor and must take at least one ARTHI 186/187 seminar prior to beginning their honors thesis. Consultation with the Faculty Undergraduate Advisor is recommended when choosing upper-division courses.",
+  "groups": [
+    {
+      "id": "prep_european_tradition",
+      "label": "Two courses from the European Tradition",
+      "pick": {
+        "n_courses": 2,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ARTHI 6B"
+        },
+        {
+          "id": "ARTHI 6C"
+        },
+        {
+          "id": "ARTHI 6M"
+        },
+        {
+          "id": "ARTHI W 6R"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_world_cultures",
+      "label": "Two courses from World Cultures",
+      "pick": {
+        "n_courses": 2,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ARTHI 6DL"
+        },
+        {
+          "id": "ARTHI 6DS"
+        },
+        {
+          "id": "ARTHI 6DW"
+        },
+        {
+          "id": "ARTHI 6E"
+        },
+        {
+          "id": "ARTHI 6H"
+        },
+        {
+          "id": "ARTHI 6K"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "prep_additional_field",
+      "label": "One Art History course from an additional field",
+      "pick": {
+        "n_courses": 1,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": false,
+      "courses": [
+        {
+          "id": "ARTHI 5A",
+          "title": "History of Architecture"
+        },
+        {
+          "id": "ARTHI 6F",
+          "title": "History of Architecture"
+        },
+        {
+          "id": "ARTHI 6J",
+          "title": "History of Architecture"
+        },
+        {
+          "id": "ARTHI 5B",
+          "title": "Museum Studies"
+        },
+        {
+          "id": "ARTHI 6G",
+          "title": "History of Photography"
+        },
+        {
+          "id": "ARTHI 6L",
+          "title": "History of Games"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_major",
+      "label": "Upper-Division Major",
+      "note": "Nine upper-division Art History courses (at least one of which must be 186/187 series). 36 UD units required.",
+      "pick": {
+        "n_courses": 9,
+        "mode": "choose_n_courses"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "ARTHI 186",
+          "note": "At least one course must be from 186/187 series"
+        },
+        {
+          "id": "ARTHI 187",
+          "note": "At least one course must be from 186/187 series"
+        }
+      ],
+      "subgroups": []
+    }
+  ]
+}

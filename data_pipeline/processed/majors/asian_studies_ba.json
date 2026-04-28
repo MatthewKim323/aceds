@@ -1,0 +1,842 @@
+{
+  "id": "asian_studies_ba",
+  "name": "Asian Studies Major",
+  "kind": "major",
+  "degree": "B.A.",
+  "catalog_year": "2025-2026",
+  "department": "East Asian Languages and Cultural Studies",
+  "college": "College of Letters and Science",
+  "upper_div_units_required": 36,
+  "source_pdf": "Asian-Studies-Major-2025-2.pdf",
+  "reviewed": false,
+  "groups": [
+    {
+      "id": "language",
+      "label": "Language",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "CHIN 1"
+        },
+        {
+          "id": "CHIN 2"
+        },
+        {
+          "id": "CHIN 3"
+        },
+        {
+          "id": "CHIN 4"
+        },
+        {
+          "id": "CHIN 5"
+        },
+        {
+          "id": "CHIN 6"
+        },
+        {
+          "id": "JAPAN 1"
+        },
+        {
+          "id": "JAPAN 2"
+        },
+        {
+          "id": "JAPAN 3"
+        },
+        {
+          "id": "JAPAN 4"
+        },
+        {
+          "id": "JAPAN 5"
+        },
+        {
+          "id": "JAPAN 6"
+        },
+        {
+          "id": "KOR 1"
+        },
+        {
+          "id": "KOR 2"
+        },
+        {
+          "id": "KOR 3"
+        },
+        {
+          "id": "KOR 4"
+        },
+        {
+          "id": "KOR 5"
+        },
+        {
+          "id": "KOR 6"
+        }
+      ],
+      "note": "Complete sequence in one language: Chinese 1-6, Japanese 1-6, or Korean 1-6"
+    },
+    {
+      "id": "core_cultural_courses",
+      "label": "Core Cultural Courses",
+      "courses": [
+        {
+          "id": "EACS 4A"
+        },
+        {
+          "id": "EACS 4B"
+        }
+      ]
+    },
+    {
+      "id": "prep_elective",
+      "label": "Preparation Elective",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 1
+      },
+      "courses": [
+        {
+          "id": "CHIN 32"
+        },
+        {
+          "id": "CHIN 40"
+        },
+        {
+          "id": "CHIN 48"
+        },
+        {
+          "id": "CHIN 80"
+        },
+        {
+          "id": "CHIN 82"
+        },
+        {
+          "id": "EACS 3"
+        },
+        {
+          "id": "EACS 5"
+        },
+        {
+          "id": "EACS 21"
+        },
+        {
+          "id": "EACS 40"
+        },
+        {
+          "id": "EACS 47"
+        },
+        {
+          "id": "EACS 80"
+        },
+        {
+          "id": "JAPAN 17"
+        },
+        {
+          "id": "JAPAN 25"
+        },
+        {
+          "id": "JAPAN 63"
+        },
+        {
+          "id": "JAPAN 73"
+        },
+        {
+          "id": "JAPAN 80"
+        },
+        {
+          "id": "KOR 20"
+        },
+        {
+          "id": "KOR 24"
+        },
+        {
+          "id": "ARTHI 6DS"
+        },
+        {
+          "id": "C LIT 31"
+        },
+        {
+          "id": "HIST 80"
+        },
+        {
+          "id": "HIST 87"
+        },
+        {
+          "id": "HIST 88"
+        },
+        {
+          "id": "RG ST 3"
+        },
+        {
+          "id": "RG ST 4"
+        },
+        {
+          "id": "RG ST 19"
+        },
+        {
+          "id": "RG ST 21"
+        },
+        {
+          "id": "RG ST 31"
+        },
+        {
+          "id": "RG ST 32"
+        },
+        {
+          "id": "RG ST 47"
+        },
+        {
+          "id": "RG ST 73"
+        }
+      ]
+    },
+    {
+      "id": "ud_area_a_required",
+      "label": "Five UD courses from AREA A",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 5
+      },
+      "upper_division_required": true,
+      "note": "Department courses focusing on East Asia, China, Japan, and Korea",
+      "subgroups": [
+        {
+          "id": "area_a_art_film_music",
+          "label": "Art, Film, and Music (Area A)",
+          "courses": [
+            {
+              "id": "CHIN 134K"
+            },
+            {
+              "id": "CHIN 143"
+            },
+            {
+              "id": "CHIN 144"
+            },
+            {
+              "id": "CHIN 167"
+            },
+            {
+              "id": "CHIN 170"
+            },
+            {
+              "id": "CHIN 172"
+            },
+            {
+              "id": "CHIN 176"
+            },
+            {
+              "id": "EACS 134A"
+            },
+            {
+              "id": "EACS 179"
+            },
+            {
+              "id": "JAPAN 149"
+            },
+            {
+              "id": "JAPAN 156"
+            },
+            {
+              "id": "JAPAN 159"
+            },
+            {
+              "id": "JAPAN 165"
+            },
+            {
+              "id": "JAPAN 169"
+            },
+            {
+              "id": "KOR 123"
+            },
+            {
+              "id": "KOR 139"
+            },
+            {
+              "id": "KOR 142"
+            },
+            {
+              "id": "KOR 153"
+            },
+            {
+              "id": "KOR 175"
+            }
+          ]
+        },
+        {
+          "id": "area_a_culture_society_politics",
+          "label": "Culture, Society, and Politics (Area A)",
+          "courses": [
+            {
+              "id": "CHIN 138A"
+            },
+            {
+              "id": "CHIN 138B"
+            },
+            {
+              "id": "CHIN 146"
+            },
+            {
+              "id": "CHIN 152"
+            },
+            {
+              "id": "CHIN 176"
+            },
+            {
+              "id": "CHIN 180AA"
+            },
+            {
+              "id": "CHIN 180ZZ"
+            },
+            {
+              "id": "CHIN 183B"
+            },
+            {
+              "id": "EACS 103A"
+            },
+            {
+              "id": "EACS 103B"
+            },
+            {
+              "id": "EACS 103C"
+            },
+            {
+              "id": "EACS 109B"
+            },
+            {
+              "id": "EACS 131"
+            },
+            {
+              "id": "EACS 132"
+            },
+            {
+              "id": "EACS 136"
+            },
+            {
+              "id": "EACS 141"
+            },
+            {
+              "id": "EACS 154"
+            },
+            {
+              "id": "EACS 166"
+            },
+            {
+              "id": "EACS 176"
+            },
+            {
+              "id": "EACS 181AA"
+            },
+            {
+              "id": "EACS 181ZZ"
+            },
+            {
+              "id": "JAPAN 111"
+            },
+            {
+              "id": "JAPAN 138"
+            },
+            {
+              "id": "JAPAN 139"
+            },
+            {
+              "id": "JAPAN 140"
+            },
+            {
+              "id": "JAPAN 150"
+            },
+            {
+              "id": "JAPAN 153"
+            },
+            {
+              "id": "JAPAN 156"
+            },
+            {
+              "id": "JAPAN 161"
+            },
+            {
+              "id": "JAPAN 162"
+            },
+            {
+              "id": "JAPAN 164"
+            },
+            {
+              "id": "JAPAN 165"
+            },
+            {
+              "id": "JAPAN 180AA"
+            },
+            {
+              "id": "JAPAN 180ZZ"
+            },
+            {
+              "id": "KOR 152"
+            },
+            {
+              "id": "KOR 153"
+            }
+          ]
+        },
+        {
+          "id": "area_a_history",
+          "label": "History (Area A)",
+          "courses": [
+            {
+              "id": "CHIN 184T"
+            },
+            {
+              "id": "CHIN 185A"
+            },
+            {
+              "id": "CHIN 185B"
+            },
+            {
+              "id": "CHIN 185CQ"
+            },
+            {
+              "id": "CHIN 185R"
+            },
+            {
+              "id": "CHIN 188A"
+            },
+            {
+              "id": "CHIN 188B"
+            },
+            {
+              "id": "EACS 109B"
+            },
+            {
+              "id": "EACS 132"
+            },
+            {
+              "id": "EACS 136"
+            },
+            {
+              "id": "EACS 166"
+            },
+            {
+              "id": "JAPAN 162"
+            },
+            {
+              "id": "JAPAN 164"
+            },
+            {
+              "id": "KOR 152"
+            }
+          ]
+        },
+        {
+          "id": "area_a_literature",
+          "label": "Literature (Area A)",
+          "courses": [
+            {
+              "id": "CHIN 126A"
+            },
+            {
+              "id": "CHIN 126B"
+            },
+            {
+              "id": "CHIN 139"
+            },
+            {
+              "id": "CHIN 143"
+            },
+            {
+              "id": "CHIN 144"
+            },
+            {
+              "id": "CHIN 146"
+            },
+            {
+              "id": "CHIN 167"
+            },
+            {
+              "id": "CHIN 172"
+            },
+            {
+              "id": "EACS 142"
+            },
+            {
+              "id": "EACS 165"
+            },
+            {
+              "id": "JAPAN 112"
+            },
+            {
+              "id": "JAPAN 115"
+            },
+            {
+              "id": "JAPAN 136"
+            },
+            {
+              "id": "JAPAN 137"
+            },
+            {
+              "id": "JAPAN 149"
+            },
+            {
+              "id": "JAPAN 156"
+            },
+            {
+              "id": "JAPAN 169"
+            },
+            {
+              "id": "KOR 113"
+            },
+            {
+              "id": "KOR 123"
+            }
+          ]
+        },
+        {
+          "id": "area_a_languages",
+          "label": "Languages (Area A)",
+          "courses": [
+            {
+              "id": "CHIN 101A"
+            },
+            {
+              "id": "CHIN 101B"
+            },
+            {
+              "id": "CHIN 103"
+            },
+            {
+              "id": "CHIN 122A"
+            },
+            {
+              "id": "CHIN 122B"
+            },
+            {
+              "id": "CHIN 122C"
+            },
+            {
+              "id": "CHIN 127A"
+            },
+            {
+              "id": "CHIN 127B"
+            },
+            {
+              "id": "CHIN 127C"
+            },
+            {
+              "id": "JAPAN 120A"
+            },
+            {
+              "id": "JAPAN 120B"
+            },
+            {
+              "id": "JAPAN 120C"
+            },
+            {
+              "id": "JAPAN 144"
+            },
+            {
+              "id": "JAPAN 145"
+            },
+            {
+              "id": "JAPAN 146"
+            },
+            {
+              "id": "JAPAN 181"
+            },
+            {
+              "id": "JAPAN 183"
+            }
+          ],
+          "note": "Other upper division Asian language courses through UCSB or from other institutions may be considered by petition"
+        },
+        {
+          "id": "area_a_religious_traditions",
+          "label": "Religious Traditions (Area A)",
+          "courses": [
+            {
+              "id": "EACS 109B"
+            },
+            {
+              "id": "EACS 128"
+            },
+            {
+              "id": "EACS 147T"
+            },
+            {
+              "id": "EACS 171"
+            },
+            {
+              "id": "EACS 176"
+            },
+            {
+              "id": "EACS 179"
+            },
+            {
+              "id": "CHIN 183B"
+            },
+            {
+              "id": "JAPAN 167A"
+            },
+            {
+              "id": "JAPAN 175B"
+            }
+          ]
+        },
+        {
+          "id": "area_a_other",
+          "label": "Other (Area A)",
+          "courses": [
+            {
+              "id": "EACS 196"
+            }
+          ],
+          "note": "A maximum of 4 total units from EACS 196 can apply towards the major"
+        }
+      ]
+    },
+    {
+      "id": "ud_area_a_or_b_electives",
+      "label": "Four UD courses from AREA A or B",
+      "pick": {
+        "mode": "choose_n_courses",
+        "n_courses": 4
+      },
+      "upper_division_required": true,
+      "note": "Any other course offered on campus with strong Asia-related content - department approval required",
+      "subgroups": [
+        {
+          "id": "area_b_art_film_music",
+          "label": "Art, Film, and Music (Area B)",
+          "courses": [
+            {
+              "id": "ARTHI 134A"
+            },
+            {
+              "id": "ARTHI 134B"
+            },
+            {
+              "id": "ARTHI 134C"
+            },
+            {
+              "id": "ARTHI 134D"
+            },
+            {
+              "id": "ARTHI 134E"
+            },
+            {
+              "id": "ARTHI 134K"
+            },
+            {
+              "id": "ARTHI 136A"
+            },
+            {
+              "id": "ARTHI 136B"
+            },
+            {
+              "id": "ARTHI 136J"
+            },
+            {
+              "id": "ARTHI 136V"
+            },
+            {
+              "id": "ARTHI 186RS"
+            },
+            {
+              "id": "FAMST 124"
+            }
+          ]
+        },
+        {
+          "id": "area_b_culture_society_politics",
+          "label": "Culture, Society, and Politics (Area B)",
+          "courses": [
+            {
+              "id": "ANTH 103A"
+            },
+            {
+              "id": "ANTH 103B"
+            },
+            {
+              "id": "ANTH 103C"
+            },
+            {
+              "id": "ANTH 142"
+            },
+            {
+              "id": "ANTH 172"
+            },
+            {
+              "id": "C LIT 162"
+            },
+            {
+              "id": "ENV S 112"
+            },
+            {
+              "id": "GLOBL 104"
+            },
+            {
+              "id": "GLOBL 110"
+            },
+            {
+              "id": "GLOBL 120"
+            },
+            {
+              "id": "GLOBL 130"
+            },
+            {
+              "id": "GLOBL 180A"
+            },
+            {
+              "id": "GLOBL 180B"
+            },
+            {
+              "id": "POL S 106"
+            }
+          ]
+        },
+        {
+          "id": "area_b_history",
+          "label": "History (Area B)",
+          "courses": [
+            {
+              "id": "HIST 182A"
+            },
+            {
+              "id": "HIST 182B"
+            },
+            {
+              "id": "HIST 184M"
+            },
+            {
+              "id": "HIST 184T"
+            },
+            {
+              "id": "HIST 187A"
+            },
+            {
+              "id": "HIST 187B"
+            },
+            {
+              "id": "HIST 187C"
+            },
+            {
+              "id": "HIST 187S"
+            },
+            {
+              "id": "HIST 188A"
+            },
+            {
+              "id": "HIST 188B"
+            },
+            {
+              "id": "HIST 189M"
+            }
+          ]
+        },
+        {
+          "id": "area_b_literature",
+          "label": "Literature (Area B)",
+          "courses": [
+            {
+              "id": "LING 138"
+            },
+            {
+              "id": "RG ST 159G"
+            },
+            {
+              "id": "RG ST 159H"
+            },
+            {
+              "id": "RG ST 159I"
+            },
+            {
+              "id": "RG ST 159J"
+            },
+            {
+              "id": "RG ST 159K"
+            },
+            {
+              "id": "RG ST 159L"
+            },
+            {
+              "id": "RG ST 159M"
+            },
+            {
+              "id": "RG ST 159N"
+            },
+            {
+              "id": "RG ST 159O"
+            }
+          ]
+        },
+        {
+          "id": "area_b_languages",
+          "label": "Languages (Area B)",
+          "courses": [
+            {
+              "id": "RGST 159A"
+            },
+            {
+              "id": "RGST 159B"
+            },
+            {
+              "id": "RGST 159C"
+            },
+            {
+              "id": "RGST 159D"
+            },
+            {
+              "id": "RGST 159E"
+            },
+            {
+              "id": "RGST 159F"
+            }
+          ]
+        },
+        {
+          "id": "area_b_religious_traditions",
+          "label": "Religious Traditions (Area B)",
+          "courses": [
+            {
+              "id": "RGST 111B"
+            },
+            {
+              "id": "RGST 123"
+            },
+            {
+              "id": "RGST 128"
+            },
+            {
+              "id": "RGST 140D"
+            },
+            {
+              "id": "RGST 156A"
+            },
+            {
+              "id": "RGST 158C"
+            },
+            {
+              "id": "RGST 160A"
+            },
+            {
+              "id": "RGST 161D"
+            },
+            {
+              "id": "RGST 162D"
+            },
+            {
+              "id": "RGST 167A"
+            },
+            {
+              "id": "RGST 171"
+            },
+            {
+              "id": "RGST 179"
+            },
+            {
+              "id": "RGST 193B"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notes": "P/NP grading not allowed for any major course. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With approval of each department chairperson, up to 8 units may be applied simultaneously to both UD majors."
+}

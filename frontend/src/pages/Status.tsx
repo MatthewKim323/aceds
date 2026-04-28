@@ -93,6 +93,37 @@ export function Status() {
             )}
           </section>
 
+          <section className="st-evidence" aria-labelledby="st-evidence-h">
+            <h2 id="st-evidence-h" className="st-section-title">
+              Evidence (pitch bundle)
+            </h2>
+            <p className="st-evidence-intro">
+              Plots below are served from <code>/pitch/*.svg</code> (same assets as{' '}
+              <code>data_pipeline/processed/pitch/</code>). Full table:{' '}
+              <code>MODEL_CARD.md</code> and <code>data_pipeline/processed/pitch/metrics_table.md</code>.
+            </p>
+            <div className="st-evidence-grid">
+              {[
+                ['01_per_dept_rmse.svg', 'Dept RMSE'],
+                ['02_calibration.svg', 'Calibration'],
+                ['03_feature_ablation.svg', 'Ablations'],
+                ['04_feature_importance.svg', 'Importance'],
+                ['05_optimizer_latency.svg', 'IP latency'],
+                ['06_data_coverage.svg', 'Coverage'],
+              ].map(([file, label]) => (
+                <a
+                  key={file}
+                  className="st-evidence-link"
+                  href={`/pitch/${file}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          </section>
+
           {lastFetch && (
             <p className="st-footer">
               last polled {prettyDate(lastFetch.toISOString())} · auto-refresh every 30s

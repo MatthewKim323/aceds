@@ -29,6 +29,9 @@ class Settings(BaseSettings):
     supabase_url: str = Field(default="", alias="SUPABASE_URL")
     supabase_service_role_key: str = Field(default="", alias="SUPABASE_SERVICE_ROLE_KEY")
 
+    # UCSB developer API (https://developer.ucsb.edu) — used by GET /catalog/* for live explorer.
+    ucsb_api_key: str = Field(default="", alias="UCSB_API_KEY")
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.ace_cors_origins.split(",") if o.strip()]

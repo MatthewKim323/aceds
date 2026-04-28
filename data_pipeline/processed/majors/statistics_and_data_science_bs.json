@@ -1,0 +1,277 @@
+{
+  "id": "statistics_and_data_science_bs",
+  "name": "Statistics and Data Science",
+  "kind": "major",
+  "degree": "B.S.",
+  "catalog_year": "2025-2026",
+  "department": "Statistics and Applied Probability",
+  "college": "College of Letters and Science",
+  "pre_major_gpa": 2.5,
+  "upper_div_units_required": 48,
+  "source_pdf": "Statistics & Data Science BS Major (2025) (1).pdf",
+  "reviewed": false,
+  "notes": "To be admitted to the full major, students must complete all pre-major courses with a 2.5 or higher UC grade-point average. All pre-major courses must be completed with a grade of 'C' or better. Students are permitted to repeat a maximum of two pre-major courses. Only one repeat is allowed in each course. Preparation courses are excluded from the pre-major GPA, but will apply to the overall major GPA. Students must complete Computer Science 8 and either 9 or 16 with a grade of 'C' or better. Only one repeat is allowed in each preparation for the major and pre-major requirement. Entry into the pre-major does not guarantee admission to full major status. P/NP grading not allowed for any major course. At least 2.0 overall UC average in all upper-division major courses and all courses (Prep and UD) for the major. With the approval of each department chairperson, up to a total of 8 units may be applied simultaneously to both UD majors.",
+  "groups": [
+    {
+      "id": "pre_major",
+      "label": "Pre-Major",
+      "note": "Either Math 4A, 4B, 6A, or 6B must be completed with a grade of 'B' or better to take Math 8 or PSTAT 8. Math 8 is a prerequisite for all upper division Math courses except Math 117, 104A, 104B, and 104C. If you plan to take additional upper division Math courses, you must take Math 8.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "MATH 2A",
+          "alt": [
+            "MATH 3A"
+          ]
+        },
+        {
+          "id": "MATH 2B",
+          "alt": [
+            "MATH 3B"
+          ]
+        },
+        {
+          "id": "MATH 4A"
+        },
+        {
+          "id": "MATH 4B"
+        },
+        {
+          "id": "MATH 6A"
+        },
+        {
+          "id": "MATH 8",
+          "alt": [
+            "PSTAT 8"
+          ],
+          "units": 5
+        },
+        {
+          "id": "PSTAT 10",
+          "units": 5
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "preparation_for_major",
+      "label": "Preparation for the Major",
+      "note": "CMPSC 9 is recommended over CMPSC 16. Also, students cannot get credit for CMPSC 8 at UCSB if transferring in credit for CMPSC 9 or 16, so please see the Department advisors in such instances.",
+      "upper_division_required": false,
+      "min_grade": "C",
+      "courses": [
+        {
+          "id": "CMPSC 8",
+          "alt": [
+            "CMPSC W8"
+          ],
+          "units": 4
+        },
+        {
+          "id": "CMPSC 9",
+          "alt": [
+            "CMPSC 16"
+          ],
+          "units": 4
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_a",
+      "label": "Upper-Division Major - A",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 120A",
+          "alt": [
+            "PSTAT W120A"
+          ]
+        },
+        {
+          "id": "PSTAT 120B"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_b",
+      "label": "Upper-Division Major - B",
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 122"
+        },
+        {
+          "id": "PSTAT 126"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_c",
+      "label": "Upper-Division Major - C",
+      "note": "24 units from elective PSTAT courses. Math 100A-B, 101A-B, 102A-B, 193; PSTAT 109, 182T (or W 182T), 188, 190, 193 will NOT apply to the major. Guide to PSTAT Courses: Probability and Statistics Theory: PSTAT 120A (or W 120A), 120B, 120C; Data Science and Applied Statistics courses: PSTAT 100, 105, 115, 122, 123, 126, 127, 130, 131, 132, 134, 135, 174 (or W 174), 175, 197A-B-C; Actuarial and Financial Mathematics courses: PSTAT 170, 171, 172A-B, 173, 176, 183; Stochastic Modelling courses: PSTAT 160A (or W 160A), 160B; For students preparing to continue to graduate school: PSTAT 160A (or W 160A), 160B, PSTAT 199 (research), and at least one UD Math course (Math 117 and/or Math 108A) is highly recommended.",
+      "pick": {
+        "n_units": 24,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "PSTAT 100"
+        },
+        {
+          "id": "PSTAT 105"
+        },
+        {
+          "id": "PSTAT 115"
+        },
+        {
+          "id": "PSTAT 120C"
+        },
+        {
+          "id": "PSTAT 123"
+        },
+        {
+          "id": "PSTAT 127"
+        },
+        {
+          "id": "PSTAT 130"
+        },
+        {
+          "id": "PSTAT 131"
+        },
+        {
+          "id": "PSTAT 132"
+        },
+        {
+          "id": "PSTAT 134"
+        },
+        {
+          "id": "PSTAT 135"
+        },
+        {
+          "id": "PSTAT 160A",
+          "alt": [
+            "PSTAT W160A"
+          ]
+        },
+        {
+          "id": "PSTAT 160B"
+        },
+        {
+          "id": "PSTAT 170"
+        },
+        {
+          "id": "PSTAT 171"
+        },
+        {
+          "id": "PSTAT 172A"
+        },
+        {
+          "id": "PSTAT 172B"
+        },
+        {
+          "id": "PSTAT 173"
+        },
+        {
+          "id": "PSTAT 174",
+          "alt": [
+            "PSTAT W174"
+          ]
+        },
+        {
+          "id": "PSTAT 175"
+        },
+        {
+          "id": "PSTAT 176"
+        },
+        {
+          "id": "PSTAT 183"
+        },
+        {
+          "id": "PSTAT 197A"
+        },
+        {
+          "id": "PSTAT 197B"
+        },
+        {
+          "id": "PSTAT 197C"
+        },
+        {
+          "id": "PSTAT 199"
+        }
+      ],
+      "subgroups": []
+    },
+    {
+      "id": "upper_division_d",
+      "label": "Upper-Division Major - D",
+      "note": "8 units from: other PSTAT courses not used above; Math 104A-B-C, 108A-B, 111A-B-C, 117, 118A-B-C, 132A-B; Econ 100B, 101, 134A-B. Math 100A-B, 101A-B, 102A-B, 193; PSTAT 109, 182T (or W 182T), 188, 190, 193 will NOT apply to the major.",
+      "pick": {
+        "n_units": 8,
+        "mode": "choose_n_units"
+      },
+      "upper_division_required": true,
+      "courses": [
+        {
+          "id": "MATH 104A"
+        },
+        {
+          "id": "MATH 104B"
+        },
+        {
+          "id": "MATH 104C"
+        },
+        {
+          "id": "MATH 108A"
+        },
+        {
+          "id": "MATH 108B"
+        },
+        {
+          "id": "MATH 111A"
+        },
+        {
+          "id": "MATH 111B"
+        },
+        {
+          "id": "MATH 111C"
+        },
+        {
+          "id": "MATH 117"
+        },
+        {
+          "id": "MATH 118A"
+        },
+        {
+          "id": "MATH 118B"
+        },
+        {
+          "id": "MATH 118C"
+        },
+        {
+          "id": "MATH 132A"
+        },
+        {
+          "id": "MATH 132B"
+        },
+        {
+          "id": "ECON 100B"
+        },
+        {
+          "id": "ECON 101"
+        },
+        {
+          "id": "ECON 134A"
+        },
+        {
+          "id": "ECON 134B"
+        }
+      ],
+      "subgroups": []
+    }
+  ]
+}

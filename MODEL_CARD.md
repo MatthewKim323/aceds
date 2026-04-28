@@ -77,15 +77,21 @@ From `processed/cold_start_report.md` (2026 Winter test set, n=1,132):
 | Cold both (new instructor AND new course) | 60 | 0.307 | −0.035 |
 | Overall | 1132 | 0.234 | −0.017 |
 
-Cold-start is where uncertainty goes up by design. The `predicted_gpa_std` returned by the API widens in the cold regimes to match.
+Cold-start is where uncertainty goes up by design.
+
+### API uncertainty (`predicted_gpa_std`)
+
+The FastAPI `POST /predict` field `predicted_gpa_std` is **not** a conformal or Bayesian posterior width. It is the **held-out test residual RMSE** for the section’s cold-start **regime** (same buckets as the table above: `warm`, `cold_pair`, `cold_both`, plus `cold_instr` / `cold_course` interpolated between warm and cold_pair). Values are fixed in `backend/app/ml/predictor.py` (`regime_residual_rmse`) and match `processed/cold_start_report.md` for the split regimes. This gives judges a defensible, documented mapping from regime → typical error scale without pretending we have per-row calibrated intervals.
+
+**Optional extension (not shipped):** split conformal or residual quantiles on the validation fold could replace the regime table for tighter, coverage-guaranteed intervals.
 
 ## Limitations
 
 1. **Aggregate, not individual.** The target is a section's mean GPA. Your personal grade will vary. The synthetic-student layer (`16_synthetic_students.py`) adds per-student perturbation on top, but that layer is calibrated against distributions, not real students.
 2. **Temporal coverage skew.** Recent quarters (post-COVID grade inflation) are under-represented in the training set. The val/test splits control for this but don't eliminate it.
-3. **RMP bias.** RMP ratings over-represent the loudest students. We use match-confidence as an ablation split (`exact_initial + only_candidate` = "strict") and verify the ranking is unchanged.
+3. **RMP bias.** RMP ratings over-represent the loudest students. We use match-confidence as an ablation split (`exact_initial + only_candidate` = "strict") and verify the ranking is unchanged. To reproduce a **strict-RMP training subset**, run `python data_pipeline/scripts/10_build_features.py --strict-rmp` then re-run `13_xgboost.py` and compare `xgb_report.json` / pitch metrics to the default build.
 4. **Small courses.** Dropped rows with `n_letter <= 5`. Those sections exist but are too noisy to train on — the model does not predict them and the optimizer treats them as "unknown quality."
-5. **Label noise.** `avgGPA` is a section average, not a per-student letter grade. Two sections with the same avgGPA can have very different spreads.
+5. **Label noise.** `avgGPA` is a section average, not a per-student letter grade. Two sections with the same avgGPA can have very different spreads. Rows with missing or non-positive `avgGPA` are dropped in `10_build_features.py` before training (see script log for counts).
 
 ## Optimizer service-level
 

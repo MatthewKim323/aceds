@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
 import { getMajorById } from '../data/majors'
-import { parsePDF } from '../lib/pdf-parser'
+import { parsePDF, toCourseNorm, courseNormIssues, buildSatisfiedCourseSet } from '../lib/pdf-parser'
 import { supabase } from '../lib/supabase'
 
 // ── Types ──
@@ -27,6 +27,25 @@ interface Profile {
 }
 
 type Tab = 'overview' | 'courses' | 'requirements' | 'settings'
+
+/** Course codes satisfied only via AP / articulation (not duplicated as transcript rows). */
+function courseCodesFromApOnly(
+  completedCourses: string[],
+  apCredits: Profile['ap_credits'],
+): { code: string; exam: string }[] {
+  const taken = new Set(completedCourses.map((c) => toCourseNorm(c)))
+  const out: { code: string; exam: string }[] = []
+  const seen = new Set<string>()
+  for (const ap of apCredits ?? []) {
+    for (const eq of ap.ucsb_equivalent ?? []) {
+      const n = toCourseNorm(eq)
+      if (!n || taken.has(n) || seen.has(n)) continue
+      seen.add(n)
+      out.push({ code: n, exam: ap.exam })
+    }
+  }
+  return out
+}
 
 export function Dashboard() {
   const { user, loading: authLoading, signOut } = useAuth()
@@ -69,14 +88,16 @@ export function Dashboard() {
     '1': 'Freshman', '2': 'Sophomore', '3': 'Junior', '4': 'Senior', '5': '5th year+',
   }
 
-  const completedSet = new Set(profile.completed_courses)
+  const satisfiedSet = buildSatisfiedCourseSet(profile.completed_courses, profile.ap_credits)
   let majorCompleted = 0
   let majorTotal = 0
   for (const major of selectedMajors) {
     for (const g of major.groups) {
       majorTotal += g.courses.length
       for (const c of g.courses) {
-        if (completedSet.has(c.id) || (c.alt && completedSet.has(c.alt))) majorCompleted++
+        const idN = toCourseNorm(c.id)
+        const altN = c.alt ? toCourseNorm(c.alt) : null
+        if (satisfiedSet.has(idN) || (altN && satisfiedSet.has(altN))) majorCompleted++
       }
     }
   }
@@ -191,7 +212,7 @@ export function Dashboard() {
                 gpa={gpa}
                 totalUnits={totalUnits}
                 unitsRemaining={unitsRemaining}
-                completedCourses={profile.completed_courses.length}
+                completedCourses={satisfiedSet.size}
                 inProgressCourses={profile.in_progress_courses.length}
                 majorCompleted={majorCompleted}
                 majorTotal={majorTotal}
@@ -214,6 +235,8 @@ export function Dashboard() {
             >
               <CoursesTab
                 completedCourses={profile.completed_courses}
+                satisfiedSet={satisfiedSet}
+                apCredits={profile.ap_credits}
                 inProgressCourses={profile.in_progress_courses}
                 courseGrades={profile.course_grades}
                 majors={selectedMajors}
@@ -234,7 +257,7 @@ export function Dashboard() {
               <RequirementsTab
                 requirementStatus={profile.requirement_status}
                 majors={selectedMajors}
-                completedSet={completedSet}
+                satisfiedSet={satisfiedSet}
                 majorCompleted={majorCompleted}
                 majorTotal={majorTotal}
               />
@@ -482,6 +505,8 @@ function OverviewTab({
 
 function CoursesTab({
   completedCourses,
+  satisfiedSet,
+  apCredits,
   inProgressCourses,
   courseGrades,
   majors,
@@ -489,6 +514,8 @@ function CoursesTab({
   onUpdate,
 }: {
   completedCourses: string[]
+  satisfiedSet: Set<string>
+  apCredits: Profile['ap_credits']
   inProgressCourses: string[]
   courseGrades: Record<string, string>
   majors: NonNullable<ReturnType<typeof getMajorById>>[]
@@ -498,20 +525,39 @@ function CoursesTab({
   const inputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
   const [uploadMsg, setUploadMsg] = useState<string | null>(null)
+  const [normHints, setNormHints] = useState<string[]>([])
+  const apOnlyCourses = courseCodesFromApOnly(completedCourses, apCredits)
 
   async function handleReUpload(file: File) {
     setUploading(true)
     setUploadMsg(null)
+    setNormHints([])
     try {
       const doc = await parsePDF(file)
       const courseGradesMap: Record<string, string> = {}
+      const hints: string[] = []
       for (const c of doc.completed_courses) {
-        if (c.grade) courseGradesMap[c.course_code] = c.grade
+        const id = toCourseNorm(c.course_code)
+        if (c.grade) courseGradesMap[id] = c.grade
+        const iss = courseNormIssues(c.course_code)
+        if (iss) hints.push(iss)
+        if (c.course_code !== id) {
+          hints.push(`Normalized "${c.course_code}" → "${id}" for catalog match`)
+        }
       }
+      for (const c of doc.in_progress_courses) {
+        const id = toCourseNorm(c.course_code)
+        const iss = courseNormIssues(c.course_code)
+        if (iss) hints.push(iss)
+        if (c.course_code !== id) {
+          hints.push(`In progress: "${c.course_code}" → "${id}"`)
+        }
+      }
+      if (hints.length) setNormHints(Array.from(new Set(hints)).slice(0, 12))
 
       const payload = {
-        completed_courses: doc.completed_courses.map((c) => c.course_code),
-        in_progress_courses: doc.in_progress_courses.map((c) => c.course_code),
+        completed_courses: doc.completed_courses.map((c) => toCourseNorm(c.course_code)),
+        in_progress_courses: doc.in_progress_courses.map((c) => toCourseNorm(c.course_code)),
         course_grades: courseGradesMap,
         cumulative_gpa: doc.cumulative_gpa,
         transfer_units: doc.transfer_units,
@@ -556,24 +602,51 @@ function CoursesTab({
         </div>
       </div>
       {uploadMsg && <p className="dash-msg">{uploadMsg}</p>}
+      {normHints.length > 0 && (
+        <div className="dash-norm-hints" role="status">
+          <strong>Course codes</strong>
+          <ul>
+            {normHints.map((h) => (
+              <li key={h}>{h}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Completed */}
       <div className="dash-card dash-card--wide">
         <div className="dash-card-header">
-          <span className="dash-card-title">Completed ({completedCourses.length})</span>
+          <span className="dash-card-title">Completed ({satisfiedSet.size})</span>
+          {apOnlyCourses.length > 0 && (
+            <span className="dash-card-badge">{apOnlyCourses.length} AP / articulation</span>
+          )}
         </div>
-        {completedCourses.length > 0 ? (
-          <div className="dash-course-grid">
-            {completedCourses.map((code) => {
-              const grade = courseGrades[code]
-              return (
-                <div key={code} className="dash-course-chip">
-                  <span className="dash-course-code">{code}</span>
-                  {grade && <span className={`dash-course-grade ${gradeColor(grade)}`}>{grade}</span>}
-                </div>
-              )
-            })}
-          </div>
+        {satisfiedSet.size > 0 ? (
+          <>
+            {completedCourses.length > 0 && (
+              <div className="dash-course-grid">
+                {completedCourses.map((code) => {
+                  const grade = courseGrades[code]
+                  return (
+                    <div key={code} className="dash-course-chip">
+                      <span className="dash-course-code">{code}</span>
+                      {grade && <span className={`dash-course-grade ${gradeColor(grade)}`}>{grade}</span>}
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+            {apOnlyCourses.length > 0 && (
+              <div className={completedCourses.length > 0 ? 'dash-course-grid dash-course-grid--mt' : 'dash-course-grid'}>
+                {apOnlyCourses.map(({ code, exam }) => (
+                  <div key={`ap-${code}`} className="dash-course-chip done" title={`${exam} → ${code}`}>
+                    <span className="dash-course-code">{code}</span>
+                    <span className="dash-course-grade grade-p">AP</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         ) : (
           <p className="dash-empty">No completed courses yet. Upload a transcript to populate.</p>
         )}
@@ -602,9 +675,11 @@ function CoursesTab({
             <span className="dash-card-title">{m.name} {m.degree}</span>
           </div>
           {m.groups.map((group) => {
-            const done = group.courses.filter(
-              (c) => completedCourses.includes(c.id) || (c.alt && completedCourses.includes(c.alt)),
-            ).length
+            const done = group.courses.filter((c) => {
+              const idN = toCourseNorm(c.id)
+              const altN = c.alt ? toCourseNorm(c.alt) : null
+              return satisfiedSet.has(idN) || (altN != null && satisfiedSet.has(altN))
+            }).length
             return (
               <div key={group.label} className="dash-req-group">
                 <div className="dash-req-group-header">
@@ -613,7 +688,10 @@ function CoursesTab({
                 </div>
                 <div className="dash-course-grid">
                   {group.courses.map((c) => {
-                    const isDone = completedCourses.includes(c.id) || (c.alt && completedCourses.includes(c.alt))
+                    const idN = toCourseNorm(c.id)
+                    const altN = c.alt ? toCourseNorm(c.alt) : null
+                    const isDone =
+                      satisfiedSet.has(idN) || (altN != null && satisfiedSet.has(altN))
                     return (
                       <div key={c.id} className={`dash-course-chip ${isDone ? 'done' : 'pending'}`}>
                         <span className="dash-course-code">{c.id}</span>
@@ -644,13 +722,13 @@ function gradeColor(grade: string): string {
 function RequirementsTab({
   requirementStatus,
   majors,
-  completedSet,
+  satisfiedSet,
   majorCompleted,
   majorTotal,
 }: {
   requirementStatus: Record<string, unknown> | null
   majors: NonNullable<ReturnType<typeof getMajorById>>[]
-  completedSet: Set<string>
+  satisfiedSet: Set<string>
   majorCompleted: number
   majorTotal: number
 }) {
@@ -762,9 +840,11 @@ function RequirementsTab({
                 {m.name} {m.degree}
               </div>
               {m.groups.map((group) => {
-                const done = group.courses.filter(
-                  (c) => completedSet.has(c.id) || (c.alt && completedSet.has(c.alt)),
-                ).length
+                const done = group.courses.filter((c) => {
+                  const idN = toCourseNorm(c.id)
+                  const altN = c.alt ? toCourseNorm(c.alt) : null
+                  return satisfiedSet.has(idN) || (altN != null && satisfiedSet.has(altN))
+                }).length
                 return (
                   <div key={group.label} className="dash-req-group">
                     <div className="dash-req-group-header">

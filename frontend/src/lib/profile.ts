@@ -1,5 +1,5 @@
 import { supabase } from './supabase'
-import type { ParsedDocument } from './pdf-parser'
+import { toCourseNorm, type ParsedDocument } from './pdf-parser'
 
 function prioritiesToWeights(ordered: string[]) {
   const weights: Record<string, number> = {}
@@ -45,10 +45,11 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
 
   if (data.parsedDoc) {
     for (const c of data.parsedDoc.completed_courses) {
-      if (c.grade) courseGrades[c.course_code] = c.grade
+      const id = toCourseNorm(c.course_code)
+      if (c.grade) courseGrades[id] = c.grade
     }
     for (const c of data.parsedDoc.in_progress_courses) {
-      inProgressCourses.push(c.course_code)
+      inProgressCourses.push(toCourseNorm(c.course_code))
     }
   }
 
@@ -56,7 +57,7 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
     user_id: userId,
     major: data.majorIds.join(','),
     year: data.year,
-    completed_courses: data.completedCourses,
+    completed_courses: data.completedCourses.map((c) => toCourseNorm(String(c))),
     in_progress_courses: inProgressCourses,
     course_grades: courseGrades,
     cumulative_gpa: data.parsedDoc?.cumulative_gpa ?? null,
@@ -74,7 +75,7 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
     .from('student_profiles')
     .select('id')
     .eq('user_id', userId)
-    .single()
+    .maybeSingle()
 
   if (existing) {
     const { error } = await supabase

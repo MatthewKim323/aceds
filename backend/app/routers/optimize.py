@@ -77,6 +77,8 @@ async def optimize(req: OptimizeRequest) -> OptimizeResponse:
                 rmp_rating=prof.get("rmp_rating"),
                 fill_rate=r.get("fill_rate"),
                 capacity=r.get("max_enroll"),
+                predicted_gpa_std=(p.predicted_gpa_std if p else None),
+                regime=(p.regime if p else None),
             )
         )
 

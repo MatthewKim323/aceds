@@ -499,6 +499,42 @@ function parseTranscript(text: string): ParsedDocument {
   }
 }
 
+/** Match backend `course_norm` / catalog: uppercase, single spaces (see `04_merge.normalize_course_code`). */
+export function toCourseNorm(raw: string): string {
+  return raw.replace(/\s+/g, ' ').trim().toUpperCase()
+}
+
+/** UCSB courses satisfied by transcript grades plus AP / articulation equivalents from Academic History. */
+export function buildSatisfiedCourseSet(
+  completedCourseCodes: string[],
+  apCredits: APCredit[] | undefined | null,
+): Set<string> {
+  const s = new Set<string>()
+  for (const c of completedCourseCodes) {
+    const n = toCourseNorm(c)
+    if (n) s.add(n)
+  }
+  for (const ap of apCredits ?? []) {
+    for (const eq of ap.ucsb_equivalent ?? []) {
+      const n = toCourseNorm(eq)
+      if (n) s.add(n)
+    }
+  }
+  return s
+}
+
+/** Heuristic: flag codes that are unlikely to join to Nexus/catalog rows. */
+export function courseNormIssues(code: string): string | null {
+  const n = toCourseNorm(code)
+  if (!n.includes(' ')) {
+    return `"${n}" should look like "DEPT 123" — check the PDF parse`
+  }
+  if (n.length < 5) {
+    return `"${n}" is very short — verify it is a real UCSB course`
+  }
+  return null
+}
+
 // ── Main parse function ──
 
 export async function parsePDF(file: File): Promise<ParsedDocument> {
@@ -523,21 +559,35 @@ export async function parsePDF(file: File): Promise<ParsedDocument> {
 
 export function computeStats(
   doc: ParsedDocument,
-  majorGroups?: { label: string; courses: { id: string; alt?: string }[] }[],
+  majorGroups?: {
+    label: string
+    pick?: number
+    courses: { id: string; alt?: string }[]
+  }[],
 ) {
   const totalCompleted = doc.completed_courses.length
   const totalInProgress = doc.in_progress_courses.length
-  const completedIds = new Set(doc.completed_courses.map((c) => c.course_code))
+  const completedIds = buildSatisfiedCourseSet(
+    doc.completed_courses.map((c) => c.course_code),
+    doc.ap_credits,
+  )
 
   let majorCoursesCompleted = 0
   let majorCoursesTotal = 0
   if (majorGroups) {
     for (const group of majorGroups) {
-      majorCoursesTotal += group.courses.length
-      for (const course of group.courses) {
-        if (completedIds.has(course.id) || (course.alt && completedIds.has(course.alt))) {
-          majorCoursesCompleted++
-        }
+      const matched = group.courses.filter(
+        (course) =>
+          completedIds.has(toCourseNorm(course.id)) ||
+          (course.alt != null && completedIds.has(toCourseNorm(course.alt))),
+      ).length
+      const pick = group.pick
+      if (pick != null && pick > 0) {
+        majorCoursesTotal += pick
+        majorCoursesCompleted += Math.min(matched, pick)
+      } else {
+        majorCoursesTotal += group.courses.length
+        majorCoursesCompleted += matched
       }
     }
   }
