@@ -772,7 +772,7 @@ export default function VimaLoader() {
             whiteSpace: "nowrap",
           }}
         >
-          loading spatial field · CII stream · COLMAP zones
+indexing section-grade history · UCSB catalog mesh · schedule feasibility graph
         </div>
         <div
           aria-hidden
