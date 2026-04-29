@@ -3,9 +3,9 @@
 Idempotent upsert of the full ACE pipeline into Supabase.
 
 Loads:
-  courses              from unified.csv + ucsb_catalog_<q>.csv
-  professors           from unified.csv + raw/rmp_cache.json (confidence)
-  grade_distributions  from unified.csv (one row per section)
+  courses              from unified.csv + ucsb_catalog_<q>.csv; plus catalog-only stubs so sections FK succeeds
+  professors           from unified.csv + raw/rmp_cache.json (confidence) [before grade_distributions]
+  grade_distributions  from unified.csv (FK: instructor must exist in professors)
   sections             from raw/ucsb_catalog_<q>.csv
   major_requirements   from processed/majors/*.json (kind=major)
   minor_requirements   from processed/majors/*.json (kind=minor)
@@ -49,6 +49,13 @@ def get_client() -> Client:
         print("SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY missing", file=sys.stderr)
         sys.exit(1)
     return create_client(url, key)
+
+
+def _norm_course(course_id) -> str:
+    """Match 04_merge.normalize_course_code: collapse whitespace, upper — aligns unified.csv keys."""
+    if pd.isna(course_id):
+        return ""
+    return " ".join(str(course_id).upper().split())
 
 
 def _sanitize(d: dict) -> dict:
@@ -96,10 +103,10 @@ def upsert_batches(sb: Client, table: str, rows: list[dict], on_conflict: str) -
     return n
 
 
-def load_courses_and_grades(sb: Client, unified: pd.DataFrame, catalog: pd.DataFrame) -> None:
+def load_courses(sb: Client, unified: pd.DataFrame, catalog: pd.DataFrame) -> None:
     catalog_by_course = (
         catalog.dropna(subset=["courseId"])
-        .assign(course_norm=lambda d: d["courseId"].astype(str).str.strip())
+        .assign(course_norm=lambda d: d["courseId"].map(_norm_course))
         .drop_duplicates("course_norm")
         .set_index("course_norm")
     )
@@ -133,6 +140,55 @@ def load_courses_and_grades(sb: Client, unified: pd.DataFrame, catalog: pd.DataF
         )
     upsert_batches(sb, "courses", course_rows, on_conflict="course_norm")
 
+
+def upsert_catalog_stub_courses(sb: Client, unified: pd.DataFrame, catalog: pd.DataFrame) -> None:
+    """Upsert courses that appear in the quarter catalog but have no Nexus row in unified.csv.
+
+    sections.course_norm FK references courses; schedules often include new courses not yet in grades data.
+    """
+    in_unified = set(unified["course_norm"].astype(str).unique())
+    cat = catalog.dropna(subset=["courseId"]).assign(course_norm=lambda d: d["courseId"].map(_norm_course))
+    cat = cat[cat["course_norm"].astype(str).str.len() > 0].drop_duplicates("course_norm", keep="first")
+
+    stubs: list[dict] = []
+    for _, row in cat.iterrows():
+        cn = row["course_norm"]
+        if cn in in_unified:
+            continue
+        dept = row.get("deptCode")
+        if dept is None or (isinstance(dept, float) and pd.isna(dept)) or not str(dept).strip():
+            parts = str(cn).split()
+            dept = parts[0] if parts else str(cn)
+        else:
+            dept = " ".join(str(dept).strip().upper().split())
+        tail = str(cn).split(" ", 1)[-1] if " " in str(cn) else str(cn)
+        title = row.get("title")
+        desc = row.get("description")
+        units = row.get("unitsFixed")
+        ge_raw = row.get("generalEducation_raw")
+        stubs.append(
+            {
+                "course_norm": cn,
+                "dept": dept,
+                "course_id": tail,
+                "title": None if pd.isna(title) else title,
+                "description": None if pd.isna(desc) else desc,
+                "units_fixed": (
+                    float(units)
+                    if units is not None and not (isinstance(units, float) and pd.isna(units))
+                    else None
+                ),
+                "ge_raw": None if ge_raw is None or (isinstance(ge_raw, float) and pd.isna(ge_raw)) else ge_raw,
+                "ge_areas": _parse_ge(ge_raw),
+                "level": _level(tail),
+            }
+        )
+    if stubs:
+        upsert_batches(sb, "courses", stubs, on_conflict="course_norm")
+
+
+def load_grade_distributions(sb: Client, unified: pd.DataFrame) -> None:
+    """Must run after professors exist (FK grade_distributions.instructor_norm → professors)."""
     grade_rows = []
     for _, r in unified.iterrows():
         if r["n_letter"] == 0:
@@ -209,11 +265,14 @@ def load_sections(sb: Client, catalog: pd.DataFrame, quarter_code: str) -> None:
     for _, r in catalog.iterrows():
         if pd.isna(r.get("enrollCode")) or pd.isna(r.get("courseId")):
             continue
+        cn = _norm_course(r["courseId"])
+        if not cn:
+            continue
         rows.append(
             {
                 "enroll_code": str(r["enrollCode"]),
                 "quarter_code": quarter_code,
-                "course_norm": str(r["courseId"]).strip(),
+                "course_norm": cn,
                 "instructor_norm": r.get("instructor_norm") if not pd.isna(r.get("instructor_norm", float("nan"))) else None,
                 "section_label": r.get("section"),
                 "days": r.get("days"),
@@ -275,13 +334,25 @@ def main() -> None:
     catalog = pd.read_csv(RAW / f"ucsb_catalog_{args.quarter}.csv")
     cache = json.loads((RAW / "rmp_cache.json").read_text())
 
-    if args.only in (None, "courses"):
-        load_courses_and_grades(sb, unified, catalog)
-    if args.only in (None, "professors"):
+    # Order matters: grade_distributions references professors(instructor_norm).
+    if args.only == "professors":
         load_professors(sb, unified, cache)
-    if args.only in (None, "sections"):
+    elif args.only == "sections":
+        upsert_catalog_stub_courses(sb, unified, catalog)
         load_sections(sb, catalog, args.quarter)
-    if args.only in (None, "majors"):
+    elif args.only == "majors":
+        load_majors(sb)
+    elif args.only == "courses":
+        load_courses(sb, unified, catalog)
+        upsert_catalog_stub_courses(sb, unified, catalog)
+        load_professors(sb, unified, cache)
+        load_grade_distributions(sb, unified)
+    else:
+        load_courses(sb, unified, catalog)
+        upsert_catalog_stub_courses(sb, unified, catalog)
+        load_professors(sb, unified, cache)
+        load_grade_distributions(sb, unified)
+        load_sections(sb, catalog, args.quarter)
         load_majors(sb)
 
     sb.table("data_refresh_log").insert(

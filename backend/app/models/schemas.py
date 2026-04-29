@@ -18,10 +18,21 @@ class Prediction(BaseModel):
     regime: str = Field(
         description="warm | cold_instr | cold_course | cold_pair | cold_both (cold-start bucket)"
     )
+    gpa_lo: float = Field(description="Lower end of symmetric uncertainty interval (clipped to [0,4])")
+    gpa_hi: float = Field(description="Upper end of symmetric uncertainty interval (clipped to [0,4])")
+    interval_half_width: float = Field(
+        ge=0.0,
+        description="(gpa_hi - gpa_lo) / 2; used by risk-aware optimizer objective",
+    )
 
 
 class PredictResponse(BaseModel):
     predictions: list[Prediction]
+    model_version: str = Field(description="Pinned predictor id from model_meta.json")
+    conformal_method: str = Field(
+        default="gaussian_fallback",
+        description="split_abs_residual_val | gaussian_fallback — see conformal_quantiles.json",
+    )
 
 
 # ---------- optimize -------------------------------------------------------
@@ -39,11 +50,31 @@ class OptimizePreferences(BaseModel):
     preferred_days: list[str] = Field(default_factory=lambda: ["M", "T", "W", "R", "F"])
     avoid_friday_afternoon: bool = False
     diversity_lambda: float = 0.15
+    risk_lambda: float = Field(
+        default=0.0,
+        ge=0.0,
+        le=2.0,
+        description="Risk aversion in grade term: effective_gpa = pred - risk_lambda * interval_half_width before 0..4 normalization",
+    )
+    elective_subject_bonus: float = Field(
+        default=0.0,
+        ge=0.0,
+        le=0.5,
+        description="Additive objective bump for optional courses whose course_norm starts with a preferred prefix",
+    )
+    preferred_elective_prefixes: list[str] = Field(
+        default_factory=list,
+        description="Uppercase course_norm prefixes (e.g. PSTAT, CMPSC) — bonus applies only to optional pool",
+    )
 
 
 class OptimizeRequest(BaseModel):
     quarter_code: str
     major_id: str
+    user_id: str | None = Field(
+        default=None,
+        description="Optional auth user id for append-only optimization_runs logging (RLS-scoped reads on client)",
+    )
     required_courses: list[str] = Field(
         description="course_norm codes that MUST appear in the schedule"
     )
@@ -67,7 +98,17 @@ class SectionPick(BaseModel):
     predicted_gpa: float | None
     predicted_gpa_std: float | None = None
     regime: str | None = None
+    gpa_lo: float | None = None
+    gpa_hi: float | None = None
+    interval_half_width: float | None = None
     rmp_rating: float | None
+    rmp_num_ratings: int | None = None
+    rmp_difficulty: float | None = None
+    # Nexus aggregates (all offerings of course; same instructor+course when known)
+    course_hist_avg_gpa: float | None = None
+    course_hist_n_letter: int | None = None
+    pair_hist_avg_gpa: float | None = None
+    pair_hist_n_letter: int | None = None
     reason: dict[str, float] = Field(default_factory=dict)
 
 
@@ -80,3 +121,5 @@ class ScheduleCandidate(BaseModel):
 
 class OptimizeResponse(BaseModel):
     candidates: list[ScheduleCandidate]
+    model_version: str = Field(default="unknown")
+    conformal_method: str = Field(default="unknown")

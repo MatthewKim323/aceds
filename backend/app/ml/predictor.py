@@ -12,6 +12,8 @@ import xgboost as xgb
 from ..config import get_settings
 from ..db import get_supabase
 from ..models.schemas import Prediction, PredictRequest, PredictResponse
+from .conformal import conformal_method_label, half_width_abs
+from .model_meta import predictor_id
 
 log = logging.getLogger(__name__)
 
@@ -45,13 +47,25 @@ def _build_feature_rows(section_ids: list[str], quarter_code: str) -> pd.DataFra
     sb = get_supabase()
     sections = (
         sb.table("sections")
-        .select("*, courses(units_fixed, ge_raw, level), professors(*)")
+        .select("enroll_code,quarter_code,course_norm,instructor_norm,section_label,days,begin_time,end_time,max_enroll,enrolled,open_seats, courses(units_fixed, ge_raw, level)")
         .in_("enroll_code", section_ids)
         .eq("quarter_code", quarter_code)
         .execute()
         .data
         or []
     )
+    instrs = sorted({s.get("instructor_norm") for s in sections if s.get("instructor_norm")})
+    prof_by_norm: dict[str, dict] = {}
+    if instrs:
+        prows = (
+            sb.table("professors")
+            .select("*")
+            .in_("instructor_norm", instrs)
+            .execute()
+            .data
+            or []
+        )
+        prof_by_norm = {p["instructor_norm"]: p for p in prows}
     if not sections:
         return pd.DataFrame()
 
@@ -87,9 +101,9 @@ def _build_feature_rows(section_ids: list[str], quarter_code: str) -> pd.DataFra
     rows = []
     for s in sections:
         course = s.get("courses") or {}
-        prof = s.get("professors") or {}
         course_norm = s["course_norm"]
         instr = s.get("instructor_norm") or ""
+        prof = (prof_by_norm.get(instr) if instr else None) or {}
         dept = course_norm.split(" ", 1)[0]
 
         def _lookup(df: pd.DataFrame, filt: dict) -> dict:
@@ -178,8 +192,10 @@ def regime_residual_rmse(regime: str) -> float:
 def predict_sections(req: PredictRequest) -> PredictResponse:
     booster, feature_cols, categorical_cols = _load_artifacts()
     df = _build_feature_rows(req.section_ids, req.quarter_code)
+    mid = predictor_id()
+    cml = conformal_method_label()
     if df.empty:
-        return PredictResponse(predictions=[])
+        return PredictResponse(predictions=[], model_version=mid, conformal_method=cml)
 
     X = df.reindex(columns=feature_cols).copy()  # noqa: N806  (ML convention: design matrix)
     for c in categorical_cols:
@@ -194,13 +210,21 @@ def predict_sections(req: PredictRequest) -> PredictResponse:
     out = []
     for i, row in df.iterrows():
         regime = _regime(row)
+        rmse = regime_residual_rmse(regime)
+        pred = float(preds[i])
+        hw = half_width_abs(regime, rmse)
+        lo = max(0.0, pred - hw)
+        hi = min(4.0, pred + hw)
         out.append(
             Prediction(
                 enroll_code=row["enroll_code"],
                 course_norm=row["course_norm"],
-                predicted_gpa=float(preds[i]),
-                predicted_gpa_std=regime_residual_rmse(regime),
+                predicted_gpa=pred,
+                predicted_gpa_std=rmse,
                 regime=regime,
+                gpa_lo=lo,
+                gpa_hi=hi,
+                interval_half_width=hw,
             )
         )
-    return PredictResponse(predictions=out)
+    return PredictResponse(predictions=out, model_version=mid, conformal_method=cml)

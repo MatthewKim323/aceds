@@ -12,6 +12,9 @@ Usage:
     python scripts/13_xgboost.py            # baseline
     python scripts/13_xgboost.py --tune     # Optuna sweep (~15 min)
     python scripts/13_xgboost.py --no-rmp   # ablation: drop RMP features
+
+After training, refresh intervals:
+    python scripts/21_conformal_calibration.py
 """
 
 from __future__ import annotations

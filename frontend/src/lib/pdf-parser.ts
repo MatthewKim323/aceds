@@ -1,7 +1,11 @@
 import * as pdfjsLib from 'pdfjs-dist'
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 
+import { toCourseNorm } from './course-norm'
+
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker
+
+export { toCourseNorm } from './course-norm'
 
 // ── Types ──
 
@@ -126,8 +130,9 @@ function parseAcademicHistory(text: string): ParsedDocument {
   // AP:   "S23 AP-ENGL-A1 8.0 AP4 AP English"
   // IP:   "S26 ECON 10A 0.0 MICROECON THEORY"
 
+  /* Include CR/TR — transfer / articulation credit lines often use these instead of letter grades */
   const courseRe =
-    /^([FWSU]\d{2})\s+([A-Z][A-Z &]+?)\s+(\d{1,3}[A-Z]{0,2})\s+(\d+\.\d)\s+(A[+-]?|B[+-]?|C[+-]?|D[+-]?|F|P|NP|W|I)\s+/
+    /^([FWSU]\d{2})\s+([A-Z][A-Z &]+?)\s+(\d{1,3}[A-Z]{0,2})\s+(\d+\.\d)\s+(A[+-]?|B[+-]?|C[+-]?|D[+-]?|F|P|NP|W|I|CR|TR)\s+/
 
   const courseNoGradeRe =
     /^([FWSU]\d{2})\s+([A-Z][A-Z &]+?)\s+(\d{1,3}[A-Z]{0,2})\s+0\.0\s+/
@@ -145,15 +150,7 @@ function parseAcademicHistory(text: string): ParsedDocument {
       const score = parseInt(scoreStr.replace('AP', ''))
       const examName = apMatch[5].trim()
 
-      // Map AP code to UCSB equivalent
-      const equivs: string[] = []
-      if (apCode.startsWith('AP-')) {
-        // These are non-course AP credits (AP-ENGL-A1, AP-AMER, etc.)
-      } else if (apCode.includes('COMP SCI P')) {
-        equivs.push('AP COMP SCI P')
-      } else {
-        equivs.push(apCode)
-      }
+      const equivs = resolveApUcsbEquivalents(apCode, examName).map((c) => toCourseNorm(c))
 
       apCredits.push({ exam: examName, ucsb_equivalent: equivs, units, score })
       continue
@@ -499,9 +496,66 @@ function parseTranscript(text: string): ParsedDocument {
   }
 }
 
-/** Match backend `course_norm` / catalog: uppercase, single spaces (see `04_merge.normalize_course_code`). */
-export function toCourseNorm(raw: string): string {
-  return raw.replace(/\s+/g, ' ').trim().toUpperCase()
+/** Normalize GOLD/Coll.Board-style AP tokens for lookup (e.g. "AP MATH BC" → "AP-MATH-BC"). */
+export function normalizeApExamCodeKey(raw: string): string {
+  return raw
+    .trim()
+    .toUpperCase()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+/**
+ * Infer UCSB calculus credit from the AP exam title when Academic History lists AP-* codes
+ * but does not spell out MATH 3A/3B (used for profiles already saved with empty ucsb_equivalent).
+ */
+export function inferCalculusCoursesFromApExamName(examName: string): string[] {
+  const n = examName.toUpperCase()
+  if (
+    /\bCALCULUS\s*(BC|B\s*\/\s*C)\b|\bCALC\s*BC\b|\bCALCULUS\s+BC\b/i.test(examName) ||
+    /MATHEMATICS:\s*CALCULUS\s*BC/i.test(n)
+  ) {
+    return ['MATH 3A', 'MATH 3B']
+  }
+  if (
+    /\bCALCULUS\s*(AB|A\s*\/\s*B)\b|\bCALC\s*AB\b|\bCALCULUS\s+AB\b/i.test(examName) ||
+    /MATHEMATICS:\s*CALCULUS\s*AB/i.test(n)
+  ) {
+    return ['MATH 3A']
+  }
+  return []
+}
+
+/**
+ * Map AP line (code + exam name) to UCSB course codes — GOLD uses AP-MATH-* etc.; older logic dropped AP-* entirely.
+ */
+export function resolveApUcsbEquivalents(apCode: string, examName: string): string[] {
+  const key = normalizeApExamCodeKey(apCode)
+
+  const table: Record<string, string[]> = {
+    'AP-MATH-AB': ['MATH 3A'],
+    'AP-MATH-A1': ['MATH 3A'],
+    'AP-CALC-AB': ['MATH 3A'],
+    'AP-MATH-BC': ['MATH 3A', 'MATH 3B'],
+    'AP-MATH-B1': ['MATH 3A', 'MATH 3B'],
+    'AP-CALC-BC': ['MATH 3A', 'MATH 3B'],
+  }
+
+  if (table[key]) return [...table[key]]
+
+  const fromExam = inferCalculusCoursesFromApExamName(examName)
+  if (fromExam.length > 0) return fromExam
+
+  if (/COMP\s*SCI\s*P|COMPUTER\s*SCIENCE\s*PRINCIPLES/i.test(apCode + examName)) {
+    return ['AP COMP SCI P']
+  }
+
+  if (!key.startsWith('AP-')) {
+    const t = apCode.trim()
+    return t ? [t] : []
+  }
+
+  return []
 }
 
 /** UCSB courses satisfied by transcript grades plus AP / articulation equivalents from Academic History. */
@@ -515,7 +569,11 @@ export function buildSatisfiedCourseSet(
     if (n) s.add(n)
   }
   for (const ap of apCredits ?? []) {
-    for (const eq of ap.ucsb_equivalent ?? []) {
+    let codes = ap.ucsb_equivalent ?? []
+    if (codes.length === 0) {
+      codes = inferCalculusCoursesFromApExamName(ap.exam)
+    }
+    for (const eq of codes) {
       const n = toCourseNorm(eq)
       if (n) s.add(n)
     }

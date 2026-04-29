@@ -1,0 +1,19 @@
+{
+  "test_quarter": "2026 Winter (held-out)",
+  "n_test_sections": 1132,
+  "rmse_global_mean": 0.418592788840835,
+  "rmse_heuristic": 0.272413458524749,
+  "rmse_elastic_net": 0.2545422236183627,
+  "rmse_xgboost": 0.23423421339802955,
+  "pct_rmse_reduction_vs_heuristic": 14.02,
+  "pct_rmse_reduction_vs_global_mean": 44.04,
+  "row_level_win_rate_xgb_vs_heuristic": 0.5318,
+  "row_level_strict_wins": 602,
+  "row_level_strict_losses": 530,
+  "row_level_ties": 0,
+  "median_abs_error_heuristic": 0.14764803150308725,
+  "median_abs_error_xgboost": 0.13159568367546437,
+  "mean_abs_error_heuristic": 0.19594773245522223,
+  "mean_abs_error_xgboost": 0.17373825817943322,
+  "interpretation": "RMSE aggregates squared errors across all 1,132 held-out sections. Row win rate is strict |e_XGB| < |e_heur|; ties were 0 on this split. Slightly >50% row wins can coexist with ~14% RMSE drop because a few large heuristic misses are reduced disproportionately by XGBoost."
+}

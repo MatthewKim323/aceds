@@ -26,7 +26,7 @@ curl http://localhost:8000/health
 curl "http://localhost:8000/courses?dept=CMPSC&limit=5"
 curl -X POST http://localhost:8000/predict \
   -H 'Content-Type: application/json' \
-  -d '{"enroll_codes":["12345","67890"]}'
+  -d '{"section_ids":["7559","7567"],"quarter_code":"20262"}'
 ```
 
 ## Routers

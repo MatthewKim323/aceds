@@ -1,5 +1,28 @@
 import { supabase } from './supabase'
-import { toCourseNorm, type ParsedDocument } from './pdf-parser'
+import { toCourseNorm } from './course-norm'
+import { type ParsedDocument } from './pdf-parser'
+
+export type IngestSource = 'transcript' | 'academic_history' | 'manual'
+
+/** Append-only audit row (non-blocking; fails quietly if table missing). */
+export async function logStudentIngestionEvent(
+  userId: string,
+  source: IngestSource,
+  summary: Record<string, unknown>,
+  parseSchemaVersion: string = 'v1',
+): Promise<void> {
+  try {
+    const { error } = await supabase.from('student_ingestion_events').insert({
+      user_id: userId,
+      source,
+      parse_schema_version: parseSchemaVersion,
+      summary,
+    })
+    if (error) console.warn('[ace] student_ingestion_events:', error.message)
+  } catch (e) {
+    console.warn('[ace] student_ingestion_events:', e)
+  }
+}
 
 function prioritiesToWeights(ordered: string[]) {
   const weights: Record<string, number> = {}
@@ -37,11 +60,25 @@ export interface OnboardingPayload {
   units: number
   priorities: string[]
   parsedDoc: ParsedDocument | null
+  /** How the user supplied academic data (drives ingestion audit `source`). */
+  ingestSource?: IngestSource
 }
 
 export async function saveProfile(userId: string, data: OnboardingPayload) {
-  const courseGrades: Record<string, string> = {}
-  const inProgressCourses: string[] = []
+  const { data: existing } = await supabase
+    .from('student_profiles')
+    .select(
+      'id, course_grades, in_progress_courses, cumulative_gpa, transfer_units, ap_credits, requirement_status',
+    )
+    .eq('user_id', userId)
+    .maybeSingle()
+
+  let courseGrades: Record<string, string> = {}
+  let inProgressCourses: string[] = []
+  let cumulativeGpa: number | null = null
+  let transferUnits = 0
+  let apCredits: unknown[] = []
+  let requirementStatus: unknown = null
 
   if (data.parsedDoc) {
     for (const c of data.parsedDoc.completed_courses) {
@@ -50,6 +87,21 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
     }
     for (const c of data.parsedDoc.in_progress_courses) {
       inProgressCourses.push(toCourseNorm(c.course_code))
+    }
+    cumulativeGpa = data.parsedDoc.cumulative_gpa ?? null
+    transferUnits = data.parsedDoc.transfer_units ?? 0
+    apCredits = data.parsedDoc.ap_credits ?? []
+    requirementStatus = data.parsedDoc.requirement_status ?? null
+  } else if (existing) {
+    courseGrades = { ...((existing.course_grades as Record<string, string>) ?? {}) }
+    inProgressCourses = [...((existing.in_progress_courses as string[]) ?? [])]
+    cumulativeGpa = (existing.cumulative_gpa as number | null) ?? null
+    transferUnits = (existing.transfer_units as number) ?? 0
+    apCredits = Array.isArray(existing.ap_credits) ? [...existing.ap_credits] : []
+    requirementStatus = existing.requirement_status ?? null
+    const completedNorm = new Set(data.completedCourses.map((c) => toCourseNorm(String(c))))
+    for (const k of Object.keys(courseGrades)) {
+      if (!completedNorm.has(k)) delete courseGrades[k]
     }
   }
 
@@ -60,10 +112,10 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
     completed_courses: data.completedCourses.map((c) => toCourseNorm(String(c))),
     in_progress_courses: inProgressCourses,
     course_grades: courseGrades,
-    cumulative_gpa: data.parsedDoc?.cumulative_gpa ?? null,
-    transfer_units: data.parsedDoc?.transfer_units ?? 0,
-    ap_credits: data.parsedDoc?.ap_credits ?? [],
-    requirement_status: data.parsedDoc?.requirement_status ?? null,
+    cumulative_gpa: cumulativeGpa,
+    transfer_units: transferUnits,
+    ap_credits: apCredits,
+    requirement_status: requirementStatus,
     earliest_class: formatTime(data.earliestTime),
     preferred_days: patternToDb(data.pattern),
     target_units: data.units,
@@ -71,21 +123,29 @@ export async function saveProfile(userId: string, data: OnboardingPayload) {
     onboarding_complete: true,
   }
 
-  const { data: existing } = await supabase
-    .from('student_profiles')
-    .select('id')
-    .eq('user_id', userId)
-    .maybeSingle()
+  const ingestSummary: Record<string, unknown> = {
+    majors: data.majorIds,
+    completed_count: data.completedCourses.length,
+    in_progress_count: inProgressCourses.length,
+    grades_count: Object.keys(courseGrades).length,
+    gpa_present: cumulativeGpa != null,
+    has_parsed_doc: Boolean(data.parsedDoc),
+  }
+  const source: IngestSource =
+    data.ingestSource ??
+    (data.parsedDoc ? 'transcript' : 'manual')
 
-  if (existing) {
+  if (existing?.id) {
     const { error } = await supabase
       .from('student_profiles')
       .update(payload)
       .eq('user_id', userId)
+    if (!error) void logStudentIngestionEvent(userId, source, ingestSummary)
     return { error: error?.message ?? null }
   }
 
   const { error } = await supabase.from('student_profiles').insert(payload)
+  if (!error) void logStudentIngestionEvent(userId, source, ingestSummary)
   return { error: error?.message ?? null }
 }
 
@@ -127,6 +187,12 @@ export async function updateProfilePartial(
     .from('student_profiles')
     .update(patch)
     .eq('user_id', userId)
+  if (!error) {
+    void logStudentIngestionEvent(userId, 'manual', {
+      kind: 'settings_update',
+      keys: Object.keys(patch),
+    })
+  }
   return { error: error?.message ?? null }
 }
 
@@ -148,5 +214,14 @@ export async function applySyntheticStudent(
     onboarding_complete: true,
     demo_student_id: s.id,
   }
-  return updateProfilePartial(userId, payload)
+  const out = await updateProfilePartial(userId, payload)
+  if (!out.error) {
+    void logStudentIngestionEvent(userId, 'manual', {
+      kind: 'synthetic_student',
+      demo_student_id: s.id,
+      major_id: s.major_id,
+      completed_count: s.completed_courses.length,
+    })
+  }
+  return out
 }

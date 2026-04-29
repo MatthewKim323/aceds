@@ -32,7 +32,25 @@ def _model_metadata() -> dict:
         data = json.loads(report.read_text())
     except Exception:
         return {"trained": False, "error": "failed to parse xgb_report.json"}
-    return {"trained": True, **data}
+    out: dict = {"trained": True, **data}
+    # Status page expects top-level metrics + n_* (see frontend Status.tsx)
+    sp = data.get("splits") or {}
+    test, val = sp.get("test") or {}, sp.get("val") or {}
+    train = sp.get("train") or {}
+    src = test if test.get("rmse") is not None else val
+    if src:
+        out["metrics"] = {
+            "rmse": src.get("rmse"),
+            "r2": src.get("r2"),
+            "mae": src.get("mae"),
+        }
+    if train:
+        out["n_train"] = train.get("n")
+    if val:
+        out["n_val"] = val.get("n")
+    if test:
+        out["n_test"] = test.get("n")
+    return out
 
 
 @router.get("/status")

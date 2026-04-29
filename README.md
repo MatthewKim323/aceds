@@ -9,8 +9,8 @@ ACE is the registration tool Gauchos deserve. Pick your required courses, tell u
 ## What makes this more than a GPA calculator
 
 - **104,549 course × instructor × quarter rows** from the Daily Nexus, 2009 → 2026 Winter, joined with 6,028 unique RateMyProfessor lookups and the live UCSB catalog for 20262.
-- **XGBoost grade predictor** with 32 features and native NaN handling. Test RMSE **0.234**, calibration slope **1.03** — 14% sharper than a sensible hard-cascade heuristic, and meaningfully better than ElasticNet on the same features. Cold-start regimes (new instructor-course pair, new everything) are explicitly modeled; **`predicted_gpa_std` in the API is the per-regime test residual RMSE** (see [`MODEL_CARD.md`](MODEL_CARD.md)), not a personal grade interval.
-- **Integer-program scheduler** (PuLP + CBC) that respects unit budgets, time conflicts, user-chosen must-take courses, and a preference vector over grade / professor / time / availability. Solves 3–6 course problems in **p50 = 44 ms, p95 = 83 ms** across 240 benchmarks.
+- **XGBoost grade predictor** with 32 features and native NaN handling. Test RMSE **0.234**, calibration slope **1.03** — 14% sharper than a sensible hard-cascade heuristic, and meaningfully better than ElasticNet on the same features. Cold-start regimes are explicit; the API returns **`gpa_lo` / `gpa_hi`** (symmetric intervals: val-split conformal quantiles when `conformal_quantiles.json` is present, else Gaussian fallback) plus **`predicted_gpa_std`** (per-regime test RMSE bucket). See [`MODEL_CARD.md`](MODEL_CARD.md) and [`REPRO.md`](REPRO.md).
+- **Integer-program scheduler** (PuLP + CBC) that respects unit budgets, time conflicts, user-chosen must-take courses, and a preference vector over grade / professor / time / availability. Optional **`risk_lambda`** shrinks the grade term toward a pessimistic bound using interval half-width. Solves 3–6 course problems in **p50 = 44 ms, p95 = 83 ms** across 240 benchmarks.
 - **Synthetic-student layer.** 50 distributionally-calibrated fake Gauchos, so judges can click "try demo" instead of uploading a real transcript.
 - **Evidence bundle.** Every number above is reproducible from a single script. Plots and a metrics table live in [`data_pipeline/processed/pitch/`](data_pipeline/processed/pitch/README.md).
 
@@ -26,6 +26,9 @@ ace/
 │   ├── scripts/             01_fetch_nexus → 20_ablation_plots, numbered & idempotent
 │   └── processed/pitch/     Pitch-deck plots, metrics table, latency CSV
 ├── MODEL_CARD.md            What the model does, limitations, full eval table
+├── REPRO.md                 Artifact hashes + `make ds-*` train/conformal/plots entrypoints
+├── DECISION_EVAL.md         Toy MILP mean-only vs risk-aware objective
+├── docs/ACE_decision_system_note.md  Short technical note (problem → ILP → eval)
 └── .github/workflows/ci.yml Ruff + mypy + pytest + docker smoke + frontend typecheck/build
 ```
 

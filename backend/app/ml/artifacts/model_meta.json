@@ -1,0 +1,10 @@
+{
+  "predictor_id": "xgb_hist_reg_v1",
+  "description": "XGBoost reg:squarederror on temporal splits; see MODEL_CARD.md",
+  "companion_files": [
+    "xgb_model.json",
+    "xgb_feature_cols.json",
+    "conformal_quantiles.json"
+  ],
+  "notes": "Regenerate conformal_quantiles.json with data_pipeline/scripts/21_conformal_calibration.py after retraining."
+}

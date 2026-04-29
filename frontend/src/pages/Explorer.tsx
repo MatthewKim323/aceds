@@ -2,6 +2,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { useAuth } from '../lib/auth'
 import { api, type CatalogMeta, type Course } from '../lib/api'
+import { getProfile } from '../lib/profile'
+import { toCourseNorm } from '../lib/pdf-parser'
+import {
+  buildPersonalizationFromMajors,
+  catalogPersonalScore,
+  compareCoursesDefault,
+} from '../lib/explorer-personalize'
 
 type GELabel = { code: string; label: string }
 const GE_AREAS: GELabel[] = [
@@ -66,6 +73,12 @@ function quarterSelectOptions(meta: CatalogMeta | null): { code: string; label: 
   return base
 }
 
+type StudentProfileRow = {
+  major?: string | null
+  completed_courses?: string[] | null
+  in_progress_courses?: string[] | null
+}
+
 export function Explorer() {
   const { user, loading: authLoading } = useAuth()
   const [params, setParams] = useSearchParams()
@@ -75,6 +88,7 @@ export function Explorer() {
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [profile, setProfile] = useState<StudentProfileRow | null>(null)
 
   const quarterParam = (params.get('quarter') || '').trim()
   const dept = (params.get('dept') || '').trim()
@@ -118,6 +132,18 @@ export function Explorer() {
     }
   }, [quarterParam, setParams])
 
+  useEffect(() => {
+    if (!user?.id) return
+    let cancelled = false
+    getProfile(user.id).then(({ profile: p }) => {
+      if (cancelled || !p) return
+      setProfile(p as StudentProfileRow)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id])
+
   const effectiveQuarter = quarterParam || meta?.quarter || null
   const apiKeyMissing = meta ? !meta.ucsb_api_configured : false
 
@@ -156,6 +182,34 @@ export function Explorer() {
     }
   }, [effectiveQuarter, dept, ge, level, q, apiKeyMissing])
 
+  const majorIds = useMemo(
+    () => (profile?.major ?? '').split(',').map((s) => s.trim()).filter(Boolean),
+    [profile?.major],
+  )
+
+  const personalization = useMemo(
+    () => buildPersonalizationFromMajors(majorIds),
+    [majorIds.join('|')],
+  )
+
+  const completedNorms = useMemo(() => {
+    const s = new Set<string>()
+    for (const c of profile?.completed_courses ?? []) {
+      const n = toCourseNorm(String(c))
+      if (n) s.add(n)
+    }
+    return s
+  }, [profile?.completed_courses])
+
+  const inProgressNorms = useMemo(() => {
+    const s = new Set<string>()
+    for (const c of profile?.in_progress_courses ?? []) {
+      const n = toCourseNorm(String(c))
+      if (n) s.add(n)
+    }
+    return s
+  }, [profile?.in_progress_courses])
+
   const countsByDept = useMemo(() => {
     const m = new Map<string, number>()
     for (const c of courses) {
@@ -165,17 +219,35 @@ export function Explorer() {
     return m
   }, [courses])
 
-  const sortedRows = useMemo(() => {
-    return [...courses].sort((a, b) => {
-      const da = (a.dept || '').localeCompare(b.dept || '')
-      if (da !== 0) return da
-      return (a.course_norm || '').localeCompare(b.course_norm || '')
-    })
-  }, [courses])
+  const rankedRows = useMemo(() => {
+    return courses
+      .map((c) => ({
+        c,
+        score: catalogPersonalScore(c, personalization, completedNorms, inProgressNorms),
+      }))
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score
+        return compareCoursesDefault(a.c, b.c)
+      })
+  }, [courses, personalization, completedNorms, inProgressNorms])
+
+  const featuredOrdered = useMemo(() => {
+    if (!personalization.neededDepts.size) return FEATURED
+    const hit: typeof FEATURED = []
+    const rest: typeof FEATURED = []
+    for (const f of FEATURED) {
+      if (personalization.neededDepts.has(f.dept)) hit.push(f)
+      else rest.push(f)
+    }
+    return [...hit, ...rest]
+  }, [personalization])
 
   const quarterOptions = useMemo(() => quarterSelectOptions(meta), [meta])
 
   const filteredView = Boolean(dept || ge || level || q)
+
+  const showPersonalStrip =
+    majorIds.length > 0 && personalization.majorNames.length > 0 && !filteredView
 
   if (authLoading) return null
   if (!user) return <Navigate to="/auth" replace />
@@ -319,7 +391,7 @@ export function Explorer() {
         <section className="ce-discover">
           <h2 className="ce-h2">Browse by subject</h2>
           <div className="ce-tiles">
-            {FEATURED.map(({ dept: d, label }) => {
+            {featuredOrdered.map(({ dept: d, label }) => {
               const n = countsByDept.get(d) ?? 0
               const on = dept === d
               return (
@@ -351,33 +423,72 @@ export function Explorer() {
           </div>
         ) : loading && courses.length === 0 ? (
           <div className="ce-empty">Loading catalog from UCSB… first load can take a minute.</div>
-        ) : sortedRows.length === 0 ? (
+        ) : rankedRows.length === 0 ? (
           <div className="ce-empty">No courses match these filters.</div>
         ) : (
-          <div className="ce-table-wrap">
-            <table className="ce-table">
-              <thead>
-                <tr>
-                  <th>Code</th>
-                  <th>Title</th>
-                  <th className="ce-th-n">Units</th>
-                  <th>GE</th>
-                  <th className="ce-th-n">Level</th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedRows.map((c) => (
-                  <tr key={c.course_norm}>
-                    <td className="ce-mono">{c.course_norm.trim()}</td>
-                    <td className="ce-titlecell">{c.title?.trim() || '—'}</td>
-                    <td className="ce-n">{c.units_fixed != null ? String(c.units_fixed) : '—'}</td>
-                    <td className="ce-ge">{c.ge_areas.length ? c.ge_areas.join(', ') : '—'}</td>
-                    <td className="ce-n">{c.level}</td>
+          <>
+            {showPersonalStrip ? (
+              <p className="ce-personal-strip">
+                <span className="ce-personal-label">For you</span>
+                Rows are ordered for{' '}
+                <strong>{personalization.majorNames.join(' · ')}</strong> — requirement courses and your
+                subjects first (completed courses move down). Add or change majors in{' '}
+                <Link to="/onboarding" className="ce-link">
+                  onboarding
+                </Link>
+                .
+              </p>
+            ) : null}
+            <div className="ce-table-wrap">
+              <table className="ce-table">
+                <thead>
+                  <tr>
+                    <th className="ce-th-tag" aria-hidden />
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th className="ce-th-n">Units</th>
+                    <th>GE</th>
+                    <th className="ce-th-n">Level</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {rankedRows.map(({ c, score }) => {
+                    const cn = toCourseNorm(c.course_norm)
+                    const isDone = completedNorms.has(cn)
+                    const isReq = personalization.neededCourseNorms.has(cn)
+                    const rowForYou = score >= 80 && !isDone
+                    return (
+                      <tr
+                        key={c.course_norm}
+                        className={rowForYou ? 'ce-row-for-you' : undefined}
+                      >
+                        <td className="ce-tag-cell">
+                          {isReq && !isDone ? (
+                            <span className="ce-pill-tag" title="On your major sheet">
+                              req
+                            </span>
+                          ) : inProgressNorms.has(cn) ? (
+                            <span className="ce-pill-tag ce-pill-tag-ip" title="In progress">
+                              now
+                            </span>
+                          ) : isDone ? (
+                            <span className="ce-pill-tag ce-pill-tag-done" title="Already completed">
+                              done
+                            </span>
+                          ) : null}
+                        </td>
+                        <td className="ce-mono">{c.course_norm.trim()}</td>
+                        <td className="ce-titlecell">{c.title?.trim() || '—'}</td>
+                        <td className="ce-n">{c.units_fixed != null ? String(c.units_fixed) : '—'}</td>
+                        <td className="ce-ge">{c.ge_areas.length ? c.ge_areas.join(', ') : '—'}</td>
+                        <td className="ce-n">{c.level}</td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
 
         <footer className="ce-foot">

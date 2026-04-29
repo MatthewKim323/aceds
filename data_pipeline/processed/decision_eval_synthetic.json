@@ -1,0 +1,20 @@
+{
+  "description": "Toy MILP: two required courses, same calendar day offset, identical predicted GPA, different interval half-width. Risk-aware lowers total objective when grade weight dominates.",
+  "mean_only": {
+    "risk_lambda": 0.0,
+    "picked": [
+      "e1",
+      "e2"
+    ],
+    "total_score": 1.6
+  },
+  "risk_aware": {
+    "risk_lambda": 0.75,
+    "picked": [
+      "e1",
+      "e2"
+    ],
+    "total_score": 1.50625
+  },
+  "total_score_delta": -0.09375
+}

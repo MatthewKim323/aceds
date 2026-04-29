@@ -10,6 +10,7 @@ import { Schedule } from './pages/Schedule'
 import { GradPath } from './pages/GradPath'
 import { Status } from './pages/Status'
 import { Settings } from './pages/Settings'
+import { ShowcaseLab } from './pages/ShowcaseLab'
 
 function AppRoutes() {
   const location = useLocation()
@@ -33,6 +34,7 @@ function AppRoutes() {
           <Route path="/schedule" element={<Schedule />} />
           <Route path="/grad-path" element={<GradPath />} />
           <Route path="/status" element={<Status />} />
+          <Route path="/showcase-lab" element={<ShowcaseLab />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </motion.div>

@@ -174,7 +174,7 @@ function ProfilePane({ profile }: { profile: LoadedProfile | null }) {
           value={profile?.onboarding_complete ? 'complete' : 'incomplete'}
         />
       </dl>
-      <Link to="/onboarding" className="set-cta">edit profile →</Link>
+      <Link to="/onboarding?edit=1" className="set-cta">edit profile →</Link>
     </motion.div>
   )
 }

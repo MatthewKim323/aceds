@@ -559,6 +559,158 @@
   color: rgba(247, 236, 239, 0.48);
 }
 
+/* Pipeline flow diagram (#pipeline) */
+.ace-pipeline-flow {
+  margin-top: 2.25rem;
+  margin-bottom: 0.25rem;
+}
+
+.ace-pipeline-flow-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.ace-pipeline-flow-upstream {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(8px, 2vw, 14px);
+}
+
+@media (max-width: 700px) {
+  .ace-pipeline-flow-upstream {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.ace-pipeline-flow-node {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(242, 167, 184, 0.14);
+  background: linear-gradient(165deg, rgba(247, 236, 239, 0.04), rgba(8, 5, 3, 0.35));
+  text-align: center;
+}
+
+.ace-pipeline-flow-node--src {
+  min-height: 4.5rem;
+  justify-content: center;
+}
+
+.ace-pipeline-flow-node-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+  color: rgba(247, 236, 239, 0.9);
+}
+
+.ace-pipeline-flow-node-hint {
+  font-size: 10px;
+  line-height: 1.4;
+  color: rgba(247, 236, 239, 0.38);
+}
+
+.ace-pipeline-flow-node--merge {
+  text-align: center;
+  padding: 1rem 1rem 1.05rem;
+  border-color: rgba(242, 167, 184, 0.28);
+  background: linear-gradient(
+    180deg,
+    rgba(166, 77, 121, 0.12),
+    rgba(8, 5, 3, 0.55)
+  );
+  box-shadow:
+    0 0 0 1px rgba(242, 167, 184, 0.06) inset,
+    0 12px 36px rgba(0, 0, 0, 0.35);
+}
+
+.ace-pipeline-flow-node--merge .ace-pipeline-flow-node-label {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.ace-pipeline-flow-node--out {
+  text-align: center;
+  padding: 1rem 1rem;
+  border-color: rgba(52, 211, 153, 0.22);
+  background: linear-gradient(165deg, rgba(52, 211, 153, 0.06), rgba(8, 5, 3, 0.5));
+}
+
+.ace-pipeline-flow-node--out .ace-pipeline-flow-node-label {
+  color: rgba(209, 250, 229, 0.92);
+}
+
+.ace-pipeline-flow-node--out .ace-pipeline-flow-node-hint {
+  color: rgba(209, 250, 229, 0.38);
+}
+
+.ace-pipeline-flow-svg-wrap {
+  height: 52px;
+  margin: -4px 0 2px;
+  overflow: visible;
+}
+
+.ace-pipeline-flow-svg {
+  display: block;
+  width: 100%;
+  height: 52px;
+}
+
+@media (max-width: 700px) {
+  .ace-pipeline-flow-svg-wrap {
+    display: none;
+  }
+}
+
+.ace-pipeline-flow-bridge {
+  display: none;
+  margin: 0.35rem 0 0.15rem;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(242, 167, 184, 0.42);
+}
+
+@media (max-width: 700px) {
+  .ace-pipeline-flow-bridge {
+    display: block;
+  }
+}
+
+.ace-pipeline-flow-merge {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  .ace-pipeline-flow-merge {
+    margin-top: 0.35rem;
+  }
+}
+
+.ace-pipeline-flow-arrow {
+  display: flex;
+  justify-content: center;
+  padding: 0.15rem 0 0.35rem;
+}
+
+.ace-pipeline-flow-out {
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ace-pipeline-flow-path {
+    opacity: 0.85;
+  }
+}
+
 /* Pipeline grid */
 .ace-pipeline-grid {
   margin-top: 2.25rem;

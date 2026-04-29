@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef, useEffect } from 'react'
-import { useNavigate, Navigate } from 'react-router-dom'
+import { useNavigate, Navigate, useSearchParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { majors, getMajorById } from '../data/majors'
 import { useAuth } from '../lib/auth'
@@ -30,13 +30,77 @@ interface OnboardingState {
   parsedDoc: ParsedDocument | null
 }
 
+function prioritiesFromWeights(w: Record<string, number> | null | undefined): string[] {
+  if (!w || typeof w !== 'object') return [...PRIORITIES]
+  const labelByKey: Record<string, string> = {
+    professor: 'Professor Rating',
+    grades: 'Easy A',
+    convenience: 'Schedule Convenience',
+    availability: 'Seat Availability',
+  }
+  const keys = Object.keys(labelByKey) as (keyof typeof labelByKey)[]
+  const ranked = keys
+    .map((key) => ({
+      label: labelByKey[key],
+      weight: typeof w[key] === 'number' ? w[key] : 0,
+    }))
+    .sort((a, b) => b.weight - a.weight)
+    .map((x) => x.label)
+  const seen = new Set(ranked)
+  for (const p of PRIORITIES) {
+    if (!seen.has(p)) ranked.push(p)
+  }
+  return ranked
+}
+
+function deriveOnboardingStateFromProfile(profile: Record<string, unknown>): OnboardingState {
+  const majorStr = typeof profile.major === 'string' ? profile.major : ''
+  const majorIds = majorStr.split(',').map((s) => s.trim()).filter(Boolean)
+  const year = typeof profile.year === 'string' ? profile.year : ''
+  const coursesRaw = profile.completed_courses
+  const courses: string[] = Array.isArray(coursesRaw)
+    ? coursesRaw.map((c) => toCourseNorm(String(c)))
+    : []
+  const earliestRaw = typeof profile.earliest_class === 'string' ? profile.earliest_class : '09:00'
+  const hm = earliestRaw.match(/^(\d{1,2})/)
+  let earliestTime = 9
+  if (hm) {
+    const n = parseInt(hm[1], 10)
+    if (Number.isFinite(n)) earliestTime = Math.min(23, Math.max(6, n))
+  }
+  const pref = typeof profile.preferred_days === 'string' ? profile.preferred_days : 'no_preference'
+  let pattern = 'No preference'
+  if (pref === 'mwf') pattern = 'MWF'
+  else if (pref === 'tr') pattern = 'TR'
+  const units = typeof profile.target_units === 'number' ? profile.target_units : 16
+  const pw = profile.priority_weights as Record<string, number> | null | undefined
+  const priorities = prioritiesFromWeights(pw ?? null)
+
+  return {
+    majorIds,
+    year,
+    completedCourses: new Set(courses),
+    uploadMethod: 'manual',
+    earliestTime,
+    pattern,
+    units,
+    priorities,
+    parsedDoc: null,
+  }
+}
+
 export function Onboarding() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const isEditing =
+    searchParams.get('edit') === '1' ||
+    searchParams.get('edit') === 'true'
   const { user, loading: authLoading } = useAuth()
   const [step, setStep] = useState(0)
   const [dir, setDir] = useState(1)
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  const hydratedFromDbRef = useRef(false)
   const [state, setState] = useState<OnboardingState>({
     majorIds: [],
     year: '',
@@ -50,18 +114,27 @@ export function Onboarding() {
   })
 
   useEffect(() => {
+    hydratedFromDbRef.current = false
+  }, [user?.id, isEditing])
+
+  useEffect(() => {
     if (authLoading || !user) return
     let cancelled = false
     getProfile(user.id).then(({ profile }) => {
       if (cancelled) return
-      if (profile?.onboarding_complete) {
+      if (profile?.onboarding_complete && !isEditing) {
         navigate('/dashboard', { replace: true })
+        return
+      }
+      if (isEditing && profile && !hydratedFromDbRef.current) {
+        setState(deriveOnboardingStateFromProfile(profile as Record<string, unknown>))
+        hydratedFromDbRef.current = true
       }
     })
     return () => {
       cancelled = true
     }
-  }, [authLoading, user, navigate])
+  }, [authLoading, user, navigate, isEditing])
 
   const canAdvance = useCallback(() => {
     if (step === 0) return state.majorIds.length > 0
@@ -85,6 +158,7 @@ export function Onboarding() {
           units: state.units,
           priorities: state.priorities,
           parsedDoc: state.parsedDoc,
+          ingestSource: state.uploadMethod,
         })
         setSaving(false)
         if (error) {
@@ -101,7 +175,7 @@ export function Onboarding() {
           parsedDoc: state.parsedDoc,
         }),
       )
-      navigate('/dashboard')
+      navigate(isEditing ? '/settings' : '/dashboard')
       return
     }
     setDir(1)
@@ -162,7 +236,12 @@ export function Onboarding() {
   return (
     <div className="onboarding">
       <div className="ob-header">
-        <a href="/" className="ob-logo">ACE</a>
+        <div className="ob-header-brand">
+          {isEditing ? (
+            <Link to="/settings" className="ob-edit-back">&larr; settings</Link>
+          ) : null}
+          <a href="/" className="ob-logo">ACE</a>
+        </div>
         <div className="ob-steps">
           {['Major', 'Year', 'Courses', 'Preferences'].map((label, i) => (
             <div key={label} className={`ob-step-dot ${i === step ? 'active' : ''} ${i < step ? 'done' : ''}`}>

@@ -52,6 +52,9 @@ export type Prediction = {
   predicted_gpa: number
   predicted_gpa_std: number
   regime: string
+  gpa_lo: number
+  gpa_hi: number
+  interval_half_width: number
 }
 
 export type SectionPick = {
@@ -64,7 +67,16 @@ export type SectionPick = {
   predicted_gpa: number | null
   predicted_gpa_std?: number | null
   regime?: string | null
+  gpa_lo?: number | null
+  gpa_hi?: number | null
+  interval_half_width?: number | null
   rmp_rating: number | null
+  rmp_num_ratings?: number | null
+  rmp_difficulty?: number | null
+  course_hist_avg_gpa?: number | null
+  course_hist_n_letter?: number | null
+  pair_hist_avg_gpa?: number | null
+  pair_hist_n_letter?: number | null
   reason: Record<string, number>
 }
 
@@ -73,6 +85,12 @@ export type ScheduleCandidate = {
   total_units: number
   sections: SectionPick[]
   explanation: Record<string, unknown>
+}
+
+export type OptimizeResponsePayload = {
+  candidates: ScheduleCandidate[]
+  model_version?: string
+  conformal_method?: string
 }
 
 export type OptimizePreferences = {
@@ -87,6 +105,10 @@ export type OptimizePreferences = {
   preferred_days: string[]
   avoid_friday_afternoon: boolean
   diversity_lambda: number
+  /** Penalize wide GPA intervals in the grade term (0 = mean-only). */
+  risk_lambda?: number
+  elective_subject_bonus?: number
+  preferred_elective_prefixes?: string[]
 }
 
 export type OptimizeRequest = {
@@ -98,6 +120,8 @@ export type OptimizeRequest = {
   completed_courses?: string[]
   preferences: OptimizePreferences
   top_k?: number
+  /** For optimization_runs audit log (RLS). */
+  user_id?: string | null
 }
 
 class ApiError extends Error {
@@ -239,12 +263,12 @@ export const api = {
 
   // ml
   predict: (section_ids: string[], quarter_code: string) =>
-    req<{ predictions: Prediction[] }>('/predict', {
+    req<{ predictions: Prediction[]; model_version?: string; conformal_method?: string }>('/predict', {
       method: 'POST',
       body: JSON.stringify({ section_ids, quarter_code }),
     }),
   optimize: (body: OptimizeRequest) =>
-    req<{ candidates: ScheduleCandidate[] }>('/optimize', {
+    req<OptimizeResponsePayload>('/optimize', {
       method: 'POST',
       body: JSON.stringify(body),
     }),

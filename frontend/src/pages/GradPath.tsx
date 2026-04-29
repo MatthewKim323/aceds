@@ -3,8 +3,9 @@ import { Link, Navigate } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
-import { getMajorById, type Major, type CourseGroup } from '../data/majors'
-import { toCourseNorm } from '../lib/pdf-parser'
+import { getMajorById, type CourseGroup, type Major } from '../data/majors'
+import { buildSatisfiedCourseSet, toCourseNorm } from '../lib/pdf-parser'
+import { tierTotalUnits, tierDoneUnits } from '../lib/courseUnits'
 
 type NodeState = 'done' | 'ready' | 'remaining'
 
@@ -25,7 +26,7 @@ interface DisplayTier {
 export function GradPath() {
   const { user, loading: authLoading } = useAuth()
   const [majorId, setMajorId] = useState<string | null>(null)
-  const [completed, setCompleted] = useState<Set<string>>(new Set())
+  const [satisfied, setSatisfied] = useState<Set<string>>(new Set())
   const [major, setMajor] = useState<Major | null>(null)
 
   useEffect(() => {
@@ -35,11 +36,12 @@ export function GradPath() {
       const p = profile as unknown as {
         major: string
         completed_courses: string[]
+        ap_credits?: { exam: string; ucsb_equivalent: string[]; units: number; score: number | null }[]
       }
       const firstMajor = p.major?.split(',').filter(Boolean)[0] || null
       setMajorId(firstMajor)
-      setCompleted(
-        new Set((p.completed_courses || []).map((c) => toCourseNorm(String(c)))),
+      setSatisfied(
+        buildSatisfiedCourseSet(p.completed_courses || [], p.ap_credits ?? []),
       )
     })
   }, [user])
@@ -51,25 +53,23 @@ export function GradPath() {
 
   const tiers = useMemo<DisplayTier[]>(() => {
     if (!major) return []
-    return major.groups.map((g) => buildTier(g, completed))
-  }, [major, completed])
+    return major.groups.map((g) => buildTier(g, satisfied))
+  }, [major, satisfied])
 
   const stats = useMemo(() => {
-    if (!tiers.length) return null
-    let done = 0
-    let total = 0
-    for (const t of tiers) {
-      const doneInTier = t.nodes.filter((n) => n.state === 'done').length
-      if (t.pick != null && t.pick > 0) {
-        total += t.pick
-        done += Math.min(doneInTier, t.pick)
-      } else {
-        total += t.nodes.length
-        done += doneInTier
-      }
+    if (!major) return null
+    let doneUnits = 0
+    let totalUnits = 0
+    for (const g of major.groups) {
+      totalUnits += tierTotalUnits(g)
+      doneUnits += tierDoneUnits(g, satisfied)
     }
-    return { done, total, pct: total === 0 ? 0 : Math.round((done / total) * 100) }
-  }, [tiers])
+    return {
+      doneUnits,
+      totalUnits,
+      pct: totalUnits === 0 ? 0 : Math.round((doneUnits / totalUnits) * 100),
+    }
+  }, [major, satisfied])
 
   if (authLoading) return null
   if (!user) return <Navigate to="/auth" replace />
@@ -107,13 +107,14 @@ export function GradPath() {
                 <span className="gp-ring-n">{stats.pct}%</span>
               </div>
               <div className="gp-progress-meta">
-                <span className="gp-progress-main">{stats.done} / {stats.total}</span>
-                <span className="gp-progress-label">requirement units toward degree</span>
+                <span className="gp-progress-main">{stats.doneUnits} / {stats.totalUnits}</span>
+                <span className="gp-progress-label">estimated major requirement units</span>
               </div>
             </div>
             <p className="gp-progress-footnote" role="note">
-              “Pick N of M” groups count at most N completions toward the ring so the % matches how many
-              electives you still need, not every listed course.
+              Units use transcript-style estimates (typically 4 per course; labs lower). “Pick N” pools count
+              at most N×4 units toward the total. AP/articulation satisfying a requirement counts when it
+              appears in your profile. Your catalog may differ slightly from actual units.
             </p>
           </div>
         )}
@@ -141,12 +142,12 @@ export function GradPath() {
   )
 }
 
-function buildTier(group: CourseGroup, completed: Set<string>): DisplayTier {
+function buildTier(group: CourseGroup, satisfied: Set<string>): DisplayTier {
   const nodes: DisplayCourse[] = group.courses.map((c) => {
     const idN = toCourseNorm(c.id)
     const altN = c.alt != null ? toCourseNorm(c.alt) : null
     const isDone =
-      completed.has(idN) || (altN != null && completed.has(altN))
+      satisfied.has(idN) || (altN != null && satisfied.has(altN))
     return {
       id: c.id,
       alt: c.alt,

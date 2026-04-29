@@ -30,8 +30,10 @@ from dataclasses import dataclass
 import pulp
 
 from ..models.schemas import (
+    OptimizePreferences,
     OptimizeRequest,
     OptimizeResponse,
+    PredictResponse,
     ScheduleCandidate,
     SectionPick,
 )
@@ -61,6 +63,9 @@ class SectionCandidate:
     capacity: int | None
     predicted_gpa_std: float | None = None
     regime: str | None = None
+    gpa_lo: float | None = None
+    gpa_hi: float | None = None
+    interval_half_width: float | None = None
 
     # derived / convenience
     def is_required_day(self, allowed: set[str]) -> bool:
@@ -76,10 +81,19 @@ class SectionCandidate:
     def is_fri_afternoon(self) -> bool:
         return "F" in self.days and (self.begin_min or 0) >= 12 * 60
 
-    def score_components(self) -> dict[str, float]:
+    def score_components(self, prefs: OptimizePreferences) -> dict[str, float]:
         """Raw 0..1 feature values; weights are applied by the caller."""
-        # grade — normalise predicted GPA 0..4 to 0..1 (linear)
-        grade = ((self.predicted_gpa or 0.0) / 4.0) if self.predicted_gpa is not None else 0.5
+        # grade — risk-aware: shrink effective GPA toward pessimistic bound when risk_lambda > 0
+        gpa_point = self.predicted_gpa if self.predicted_gpa is not None else 2.0
+        half_w = self.interval_half_width
+        if half_w is None and self.gpa_lo is not None and self.gpa_hi is not None:
+            half_w = (self.gpa_hi - self.gpa_lo) / 2.0
+        if half_w is None:
+            half_w = 0.0
+        lam = prefs.risk_lambda
+        effective = float(gpa_point) - lam * float(half_w)
+        effective = max(0.0, min(4.0, effective))
+        grade = (effective / 4.0) if self.predicted_gpa is not None else 0.5
         # professor — RMP 0..5 to 0..1
         prof = ((self.rmp_rating or 0.0) / 5.0) if self.rmp_rating is not None else 0.5
         # convenience — prefer 10-16h, penalise edges
@@ -125,6 +139,7 @@ def _sections_conflict(a: SectionCandidate, b: SectionCandidate) -> bool:
 def optimize(
     req: OptimizeRequest,
     candidates_by_course: dict[str, list[SectionCandidate]],
+    predict_response: PredictResponse | None = None,
 ) -> OptimizeResponse:
     """
     `candidates_by_course` maps course_norm -> available section candidates
@@ -162,7 +177,9 @@ def optimize(
             all_sections.append(s)
 
     if not all_sections:
-        return OptimizeResponse(candidates=[])
+        mv = predict_response.model_version if predict_response else "unknown"
+        cm = predict_response.conformal_method if predict_response else "unknown"
+        return OptimizeResponse(candidates=[], model_version=mv, conformal_method=cm)
 
     # Pre-compute conflict pairs.
     conflict_pairs: list[tuple[int, int]] = []
@@ -178,13 +195,40 @@ def optimize(
         "availability": prefs.weight_availability,
     }
 
+    required_active = {
+        c
+        for c in req.required_courses
+        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
+    }
+    optional_active = {
+        c
+        for c in (req.optional_courses or [])
+        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
+    }
+
+    def _elective_prefix_bonus(course_norm: str) -> float:
+        b = prefs.elective_subject_bonus or 0.0
+        pfxs = prefs.preferred_elective_prefixes or []
+        if b <= 0 or not pfxs:
+            return 0.0
+        if course_norm in required_active:
+            return 0.0
+        if course_norm not in optional_active:
+            return 0.0
+        cu = course_norm.upper().replace(" ", "_")
+        for p in pfxs:
+            if cu.startswith(p.upper().replace(" ", "_")):
+                return b
+        return 0.0
+
     # Score each section once.
     scores: list[float] = []
     breakdowns: list[dict[str, float]] = []
     for s in all_sections:
-        parts = s.score_components()
+        parts = s.score_components(req.preferences)
         breakdowns.append(parts)
-        scores.append(sum(weights[k] * parts[k] for k in weights))
+        base = sum(weights[k] * parts[k] for k in weights)
+        scores.append(base + _elective_prefix_bonus(s.course_norm))
 
     candidates: list[ScheduleCandidate] = []
     banned_sets: list[set[int]] = []
@@ -280,6 +324,9 @@ def optimize(
                     predicted_gpa=s.predicted_gpa,
                     predicted_gpa_std=s.predicted_gpa_std,
                     regime=s.regime,
+                    gpa_lo=s.gpa_lo,
+                    gpa_hi=s.gpa_hi,
+                    interval_half_width=s.interval_half_width,
                     rmp_rating=s.rmp_rating,
                     reason=breakdowns[i],
                 )
@@ -294,12 +341,15 @@ def optimize(
                 explanation={
                     "weights": weights,
                     "diversity_lambda": prefs.diversity_lambda,
+                    "risk_lambda": prefs.risk_lambda,
                     "n_sections": len(picks),
                 },
             )
         )
 
-    return OptimizeResponse(candidates=candidates)
+    mv = predict_response.model_version if predict_response else "unknown"
+    cm = predict_response.conformal_method if predict_response else "unknown"
+    return OptimizeResponse(candidates=candidates, model_version=mv, conformal_method=cm)
 
 
 def _min_to_time(m: int | None) -> str | None:

@@ -48,12 +48,14 @@ REQUIRED_ARTIFACTS=(
   "data_pipeline/processed/pitch/04_feature_importance.svg"
   "data_pipeline/processed/pitch/05_optimizer_latency.svg"
   "data_pipeline/processed/pitch/06_data_coverage.svg"
+  "data_pipeline/processed/pitch/08_rmse_ladder_improvement.svg"
+  "data_pipeline/processed/pitch/showcase_improvement_metrics.json"
   "data_pipeline/processed/pitch/metrics_table.md"
   "data_pipeline/processed/pitch/metrics_table.json"
 )
 
 for f in "${REQUIRED_ARTIFACTS[@]}"; do
-  if [[ -f "$f" ]]; then pass "$f"; else fail "$f missing (run 20_ablation_plots.py)"; fi
+  if [[ -f "$f" ]]; then pass "$f"; else fail "$f missing (run make ds-plots)"; fi
 done
 
 section "3. Backend model artifacts"

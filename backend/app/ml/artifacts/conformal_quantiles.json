@@ -1,0 +1,13 @@
+{
+  "coverage_target": 0.9,
+  "alpha": 0.1,
+  "quantile_level": 0.95,
+  "split": "val",
+  "method": "split_abs_residual_per_regime",
+  "quantile_abs_by_regime": {
+    "cold_both": 0.5894582480372802,
+    "cold_pair": 0.5782394061265161,
+    "warm": 0.5055060749338504
+  },
+  "n_val": 2965
+}

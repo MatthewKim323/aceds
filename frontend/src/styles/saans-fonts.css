@@ -1,0 +1,105 @@
+/* ─── Saans Type System — copied from philip-chen6/vima frontend/app/globals.css ─── */
+/* Displaay TRIAL fonts; files live in /public/fonts (same filenames as upstream). */
+
+@font-face {
+  font-family: "Saans";
+  src: url("/fonts/SaansCollectionVF-TRIAL.woff2") format("woff2-variations"),
+    url("/fonts/SaansCollectionVF-TRIAL.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Saans Static";
+  src: url("/fonts/Saans-TRIAL-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Static";
+  src: url("/fonts/Saans-TRIAL-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Static";
+  src: url("/fonts/Saans-TRIAL-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Static";
+  src: url("/fonts/Saans-TRIAL-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Static";
+  src: url("/fonts/Saans-TRIAL-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Saans Mono";
+  src: url("/fonts/SaansMono-TRIAL-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Mono";
+  src: url("/fonts/SaansMono-TRIAL-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Mono";
+  src: url("/fonts/SaansMono-TRIAL-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Mono";
+  src: url("/fonts/SaansMono-TRIAL-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans Mono";
+  src: url("/fonts/SaansMono-TRIAL-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Saans SemiMono";
+  src: url("/fonts/SaansSemiMono-TRIAL-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans SemiMono";
+  src: url("/fonts/SaansSemiMono-TRIAL-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Saans SemiMono";
+  src: url("/fonts/SaansSemiMono-TRIAL-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}

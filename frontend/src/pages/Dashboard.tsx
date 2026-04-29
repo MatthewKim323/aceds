@@ -2,9 +2,14 @@ import { useEffect, useState, useRef } from 'react'
 import { Navigate, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
-import { getProfile } from '../lib/profile'
+import { getProfile, logStudentIngestionEvent } from '../lib/profile'
 import { getMajorById } from '../data/majors'
 import { parsePDF, toCourseNorm, courseNormIssues, buildSatisfiedCourseSet } from '../lib/pdf-parser'
+import {
+  aggregateMajorRequirementUnits,
+  tierDoneUnits,
+  tierTotalUnits,
+} from '../lib/courseUnits'
 import { supabase } from '../lib/supabase'
 
 // ── Types ──
@@ -89,18 +94,10 @@ export function Dashboard() {
   }
 
   const satisfiedSet = buildSatisfiedCourseSet(profile.completed_courses, profile.ap_credits)
-  let majorCompleted = 0
-  let majorTotal = 0
-  for (const major of selectedMajors) {
-    for (const g of major.groups) {
-      majorTotal += g.courses.length
-      for (const c of g.courses) {
-        const idN = toCourseNorm(c.id)
-        const altN = c.alt ? toCourseNorm(c.alt) : null
-        if (satisfiedSet.has(idN) || (altN && satisfiedSet.has(altN))) majorCompleted++
-      }
-    }
-  }
+  const { doneUnits: majorCompleted, totalUnits: majorTotal } = aggregateMajorRequirementUnits(
+    selectedMajors,
+    satisfiedSet,
+  )
 
   const gradePoints: Record<string, number> = {
     'A+': 4.0, 'A': 4.0, 'A-': 3.7, 'B+': 3.3, 'B': 3.0, 'B-': 2.7,
@@ -164,6 +161,10 @@ export function Dashboard() {
             <Link to="/explorer" className="dash-nav-btn dash-nav-link">
               <span className="dash-nav-icon">{'\u25C7'}</span>
               Course Explorer
+            </Link>
+            <Link to="/showcase-lab" className="dash-nav-btn dash-nav-link">
+              <span className="dash-nav-icon">{'\u25A3'}</span>
+              Data lab (showcase)
             </Link>
             <Link to="/schedule" className="dash-nav-btn dash-nav-link">
               <span className="dash-nav-icon">{'\u2630'}</span>
@@ -343,7 +344,7 @@ function OverviewTab({
         <div className="dash-hero-divider" />
         <div className="dash-hero-stat">
           <span className="dash-hero-value">{majorCompleted}/{majorTotal}</span>
-          <span className="dash-hero-label">Major courses</span>
+          <span className="dash-hero-label">Major req. units (est.)</span>
         </div>
       </div>
 
@@ -423,9 +424,12 @@ function OverviewTab({
             <div className="dash-progress-fill major" style={{ width: `${Math.min(majorPct, 100)}%` }} />
           </div>
           <div className="dash-progress-labels">
-            <span>{majorCompleted} completed</span>
-            <span>{majorTotal - majorCompleted} remaining</span>
+            <span>{majorCompleted} units done</span>
+            <span>{Math.max(0, majorTotal - majorCompleted)} units left</span>
           </div>
+          <p className="dash-card-note">
+            Catalog-style estimates (often 4/unit course; labs lower). Matches Graduation Path logic.
+          </p>
           {estGradQuarters > 0 && (
             <div className="dash-estimate">
               ~{estGradQuarters} quarter{estGradQuarters !== 1 ? 's' : ''} to graduate (at 16 units/qtr)
@@ -567,6 +571,13 @@ function CoursesTab({
 
       await supabase.from('student_profiles').update(payload).eq('user_id', userId)
 
+      void logStudentIngestionEvent(userId, 'transcript', {
+        kind: 'dashboard_reupload',
+        completed_count: doc.completed_courses.length,
+        in_progress_count: doc.in_progress_courses.length,
+        gpa_present: doc.cumulative_gpa != null,
+      })
+
       const { profile } = await getProfile(userId)
       if (profile) onUpdate(profile)
       setUploadMsg('Updated successfully.')
@@ -675,16 +686,13 @@ function CoursesTab({
             <span className="dash-card-title">{m.name} {m.degree}</span>
           </div>
           {m.groups.map((group) => {
-            const done = group.courses.filter((c) => {
-              const idN = toCourseNorm(c.id)
-              const altN = c.alt ? toCourseNorm(c.alt) : null
-              return satisfiedSet.has(idN) || (altN != null && satisfiedSet.has(altN))
-            }).length
+            const doneU = tierDoneUnits(group, satisfiedSet)
+            const totalU = tierTotalUnits(group)
             return (
               <div key={group.label} className="dash-req-group">
                 <div className="dash-req-group-header">
                   <span className="dash-req-group-label">{group.label}</span>
-                  <span className="dash-req-group-count">{done}/{group.courses.length}</span>
+                  <span className="dash-req-group-count">{doneU}/{totalU} units</span>
                 </div>
                 <div className="dash-course-grid">
                   {group.courses.map((c) => {
@@ -840,21 +848,19 @@ function RequirementsTab({
                 {m.name} {m.degree}
               </div>
               {m.groups.map((group) => {
-                const done = group.courses.filter((c) => {
-                  const idN = toCourseNorm(c.id)
-                  const altN = c.alt ? toCourseNorm(c.alt) : null
-                  return satisfiedSet.has(idN) || (altN != null && satisfiedSet.has(altN))
-                }).length
+                const doneU = tierDoneUnits(group, satisfiedSet)
+                const totalU = tierTotalUnits(group)
+                const pct = totalU > 0 ? (doneU / totalU) * 100 : 0
                 return (
                   <div key={group.label} className="dash-req-group">
                     <div className="dash-req-group-header">
                       <span className="dash-req-group-label">{group.label}</span>
-                      <span className="dash-req-group-count">{done}/{group.courses.length}</span>
+                      <span className="dash-req-group-count">{doneU}/{totalU} units</span>
                     </div>
                     <div className="dash-progress-bar sm">
                       <div
                         className="dash-progress-fill"
-                        style={{ width: `${(done / group.courses.length) * 100}%` }}
+                        style={{ width: `${Math.min(pct, 100)}%` }}
                       />
                     </div>
                   </div>

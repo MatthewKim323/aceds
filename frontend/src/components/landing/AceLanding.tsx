@@ -7,6 +7,7 @@ import { getProfile } from '../../lib/profile'
 import { HeroIntroMark } from './HeroIntroMark'
 import VimaLoader from './VimaLoader'
 import { YozakuraBackdrop } from './YozakuraBackdrop'
+import { PipelineFlowVisual } from './PipelineFlowVisual'
 
 function userAvatarLabel(user: User): string {
   const name = user.user_metadata?.full_name
@@ -317,6 +318,7 @@ export function AceLanding() {
             Multiple signals fuse before the optimizer touches your calendar — same spirit as
             a serious recommender system, but all numbers are inspectable.
           </p>
+          <PipelineFlowVisual />
           <div className="ace-pipeline-grid">
             <div className="ace-pipe-card">
               <span className="ace-pipe-name">UCSB catalog</span>
