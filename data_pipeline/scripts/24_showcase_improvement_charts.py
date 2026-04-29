@@ -48,6 +48,9 @@ SAND_DARK = "#8b6f3c"
 GREY = "#9b9b9b"
 MUTED = "#4a4a4a"
 TEAL = "#2d6a6a"
+# Visible “improvement” accent (darker green reads on bone background)
+IMPROVE = "#1e5c40"
+IMPROVE_SOFT = "#c5e0d0"
 
 rcParams.update({
     "font.family": "DejaVu Serif",
@@ -176,39 +179,76 @@ def main() -> None:
         "mean_abs_error_heuristic": mean_abs_h,
         "mean_abs_error_xgboost": mean_abs_x,
         "interpretation": (
-            "RMSE aggregates squared errors across all 1,132 held-out sections. "
-            "Row win rate is strict |e_XGB| < |e_heur|; ties were 0 on this split. "
-            "Slightly >50% row wins can coexist with ~14% RMSE drop because a few "
-            "large heuristic misses are reduced disproportionately by XGBoost."
+            "ACE XGBoost vs the in-app dept fallback on 1,132 held-out UCSB sections (Winter 2026). "
+            "RMSE aggregates squared errors across all sections. "
+            "Row win rate is strict |e_XGB| < |e_fallback|; ties were 0 on this split. "
+            "~53% row wins can coexist with ~14% RMSE drop because a few large fallback misses "
+            "are reduced disproportionately — that matters for Schedule Builder ranking."
         ),
     }
     (OUT / "showcase_improvement_metrics.json").write_text(json.dumps(metrics, indent=2))
     print(json.dumps(metrics, indent=2))
 
     # ---- 08: RMSE ladder ----------------------------------------------------
-    labels = ["Global mean\n(baseline)", "Heuristic\ncascade", "ElasticNet", "XGBoost"]
+    labels = [
+        "Campus-wide\navg only",
+        "ACE dept\nfallback",
+        "ACE linear\nbaseline",
+        "ACE\nXGBoost",
+    ]
     vals = [rmse_global, rmse_heur, rmse_lin, rmse_xgb]
     colors = [MUTED, GREY, "#6b6b6b", SAND]
 
-    fig, ax = plt.subplots(figsize=(8.5, 5.2))
+    fig, ax = plt.subplots(figsize=(9.0, 5.8))
+    fig.text(
+        0.5,
+        0.94,
+        f"ACE ML vs dept fallback: −{pct_vs_heur:.0f}% RMSE   •   vs campus-wide average for every section: −{pct_vs_global:.0f}% RMSE",
+        transform=fig.transFigure,
+        ha="center",
+        fontsize=11,
+        color=IMPROVE,
+        fontweight="bold",
+    )
     bars = ax.bar(labels, vals, color=colors, edgecolor=INK, linewidth=0.6, width=0.65)
+    # Highlight shipped model
+    bars[-1].set_edgecolor(IMPROVE)
+    bars[-1].set_linewidth(2.2)
     for b, v in zip(bars, vals):
         ax.text(b.get_x() + b.get_width() / 2, v + 0.008, f"{v:.3f}", ha="center", va="bottom", fontsize=10)
-    ax.set_ylabel("RMSE (section mean GPA)")
+    ax.set_ylabel("RMSE on section mean GPA (0–4) — lower = better for students")
     ax.set_title(
-        f"Prediction error on held-out test (n={n}) — lower is better",
+        "Measurable gains from the models inside ACE (Explorer + Schedule Builder)\n"
+        f"Real UCSB sections only — Winter 2026 hold-out (n={n})",
         loc="left",
-        pad=14,
+        pad=12,
+        fontsize=11,
     )
-    ax.axhline(rmse_heur, color=SAND_DARK, linestyle=":", linewidth=0.9, alpha=0.7)
-    ax.set_ylim(0, max(vals) * 1.18)
+    ax.set_ylim(0, max(vals) * 1.28)
     ax.grid(axis="y", linestyle=":", color="#d4c9b2", linewidth=0.8)
-    note = (
-        f"XGBoost vs heuristic: −{pct_vs_heur:.1f}% RMSE  ·  "
-        f"vs always predicting train mean: −{pct_vs_global:.1f}% RMSE"
+
+    ax.annotate(
+        "",
+        xy=(3, rmse_xgb + 0.012),
+        xytext=(1, rmse_heur + 0.012),
+        arrowprops=dict(arrowstyle="->", color=IMPROVE, lw=2.4, shrinkA=8, shrinkB=8),
     )
-    fig.text(0.12, 0.02, note, fontsize=9.5, color=MUTED)
-    fig.subplots_adjust(bottom=0.18)
+    ax.text(
+        2.0,
+        max(rmse_heur, rmse_lin, rmse_xgb) + 0.04,
+        "Shipped ACE XGBoost beats\nin-app dept fallback",
+        ha="center",
+        va="bottom",
+        fontsize=10,
+        color=IMPROVE,
+        fontweight="bold",
+    )
+
+    note = (
+        "Lower error here = better grade hints when students compare sections and when ACE ranks schedules."
+    )
+    fig.text(0.10, 0.02, note, fontsize=9.5, color=MUTED)
+    fig.subplots_adjust(bottom=0.14, top=0.78)
     fig.savefig(OUT / "08_rmse_ladder_improvement.svg")
     plt.close(fig)
     print("[08] ->", OUT / "08_rmse_ladder_improvement.svg")
@@ -218,13 +258,35 @@ def main() -> None:
     xh = np.quantile(abs_h, qs)
     xx = np.quantile(abs_x, qs)
 
-    fig, ax = plt.subplots(figsize=(7.2, 5.4))
-    ax.plot(xh, qs, color=MUTED, linewidth=2.0, label="Heuristic |error|")
-    ax.plot(xx, qs, color=SAND, linewidth=2.2, label="XGBoost |error|")
-    ax.set_xlabel("Absolute error (GPA points)")
-    ax.set_ylabel("Fraction of test sections ≤ error")
-    ax.set_title("Row-level error distribution — same 1,132 held-out sections", loc="left", pad=14)
-    ax.legend(frameon=False, loc="lower right")
+    fig, ax = plt.subplots(figsize=(7.6, 5.6))
+    # Gold curve left of grey = ACE ML errors are smaller at the same quantile
+    ax.fill_betweenx(qs, xh, xx, where=(xx <= xh), interpolate=True, alpha=0.45, color=IMPROVE_SOFT,
+                     label="ACE ML better here (lower error)")
+    ax.plot(xh, qs, color=MUTED, linewidth=2.0, label="Without ACE ML (dept fallback)")
+    ax.plot(xx, qs, color=SAND, linewidth=2.8, label="With ACE XGBoost (shipped in app)")
+    ax.set_xlabel("|predicted − actual| section mean GPA (points on 0–4 scale)")
+    ax.set_ylabel("Share of UCSB test sections with error ≤ x")
+    ax.set_title(
+        "Visible win: ACE XGBoost curve sits left = fewer large misses for students\n"
+        "(Winter 2026 hold-out; same sections as Explorer / Schedule Builder scoring)",
+        loc="left",
+        pad=14,
+        fontsize=11,
+    )
+    mae_drop = (1 - mean_abs_x / mean_abs_h) * 100
+    ax.text(
+        0.98,
+        0.12,
+        f"Mean |error|\n↓ {mae_drop:.1f}%\nwith ACE",
+        transform=ax.transAxes,
+        fontsize=11,
+        color=IMPROVE,
+        fontweight="bold",
+        va="bottom",
+        ha="right",
+        bbox=dict(boxstyle="round,pad=0.35", facecolor=BONE, edgecolor=IMPROVE, linewidth=1.2),
+    )
+    ax.legend(frameon=False, loc="lower left")
     ax.set_xlim(0, min(1.2, float(max(xh.max(), xx.max()) * 1.05)))
     ax.grid(linestyle=":", color="#d4c9b2", linewidth=0.8)
     fig.savefig(OUT / "09_abs_error_cdf_test.svg")
@@ -235,7 +297,11 @@ def main() -> None:
     fig, axes = plt.subplots(1, 2, figsize=(9.5, 4.8), gridspec_kw={"width_ratios": [1.15, 1.0]})
 
     sizes = [strict_wins, strict_losses, ties]
-    labels_pie = [f"XGB tighter\n(n={strict_wins})", f"Heuristic tighter\n(n={strict_losses})", f"Tie\n(n={ties})"]
+    labels_pie = [
+        f"ACE XGB\ncloser (n={strict_wins})",
+        f"Dept fallback\ncloser (n={strict_losses})",
+        f"Tie\n(n={ties})",
+    ]
     colors_pie = [SAND, MUTED, GREY]
     explode = (0.02, 0, 0)
     axes[0].pie(
@@ -248,47 +314,70 @@ def main() -> None:
         wedgeprops={"edgecolor": INK, "linewidth": 0.5},
         textprops={"fontsize": 9},
     )
-    axes[0].set_title("Per-section: who has lower |error|?", loc="left", pad=10)
+    axes[0].set_title("Where ACE’s model is tighter per section", loc="left", pad=10)
 
-    mae_labels = ["Heuristic", "XGBoost"]
+    mae_labels = ["ACE dept fallback", "ACE XGBoost"]
     mae_vals = [mean_abs_h, mean_abs_x]
     bx = axes[1].bar(mae_labels, mae_vals, color=[MUTED, SAND], edgecolor=INK, linewidth=0.6, width=0.55)
     for b, v in zip(bx, mae_vals):
         axes[1].text(b.get_x() + b.get_width() / 2, v + 0.004, f"{v:.3f}", ha="center", va="bottom", fontsize=11)
-    axes[1].set_ylabel("Mean absolute error (test)")
-    axes[1].set_title("Aggregate MAE on same rows", loc="left", pad=10)
-    axes[1].set_ylim(0, max(mae_vals) * 1.2)
+    axes[1].set_ylabel("Mean absolute error on section mean GPA")
+    axes[1].set_title("Average mistake ↓ with ACE ML", loc="left", pad=10)
+    mae_drop = (1 - mean_abs_x / mean_abs_h) * 100
+    axes[1].set_ylim(0, max(mae_vals) * 1.35)
     axes[1].grid(axis="y", linestyle=":", color="#d4c9b2", linewidth=0.8)
+    axes[1].annotate(
+        f"−{mae_drop:.1f}%\nMAE",
+        xy=(1, mean_abs_x),
+        xytext=(0.5, mean_abs_x + 0.045),
+        fontsize=12,
+        color=IMPROVE,
+        fontweight="bold",
+        ha="center",
+        arrowprops=dict(arrowstyle="->", color=IMPROVE, lw=1.8),
+    )
 
     fig.suptitle(
-        f"Head-to-head on held-out test — XGB wins {100 * win_rate:.1f}% of rows (strict)",
-        fontsize=12,
-        y=1.02,
-        x=0.08,
+        f"ACE improvement on real UCSB rows: {100 * win_rate:.1f}% of sections tighter with XGBoost, "
+        f"MAE −{mae_drop:.1f}%\n(what powers grade ranking when you build a schedule in ACE)",
+        fontsize=11.5,
+        y=1.05,
+        x=0.05,
         ha="left",
+        color=INK,
     )
-    fig.subplots_adjust(wspace=0.35, top=0.82)
+    fig.subplots_adjust(wspace=0.35, top=0.70)
     fig.savefig(OUT / "10_row_level_win_rate.svg")
     plt.close(fig)
     print("[10] ->", OUT / "10_row_level_win_rate.svg")
 
     # ---- 11: Regime RMSE from cold_start_report -----------------------------
     cold = json.loads((PROC / "cold_start_report.json").read_text())
+    overall_rmse = next(s["rmse"] for s in cold["slices"] if s["regime"] == "overall")
     slices = [s for s in cold["slices"] if s["regime"] != "overall"]
     regimes = [s["regime"].replace("_", " ") for s in slices]
     rmses = [s["rmse"] for s in slices]
     counts = [s["n"] for s in slices]
 
-    fig, ax = plt.subplots(figsize=(7.5, 5.0))
+    fig, ax = plt.subplots(figsize=(7.5, 5.2))
     xpos = np.arange(len(regimes))
     bars = ax.bar(xpos, rmses, color=[TEAL if "warm" in r.lower() else SAND_DARK for r in regimes],
                   edgecolor=INK, linewidth=0.5)
     for i, (b, r, c) in enumerate(zip(bars, rmses, counts)):
         ax.text(b.get_x() + b.get_width() / 2, r + 0.008, f"n={c}", ha="center", va="bottom", fontsize=9)
+    ax.axhline(overall_rmse, color=IMPROVE, linestyle="--", linewidth=1.2, alpha=0.85,
+               label=f"ACE overall test RMSE ({overall_rmse:.3f})")
     ax.set_xticks(xpos)
     ax.set_xticklabels([r.title() for r in regimes], rotation=15, ha="right")
-    ax.set_ylabel("Test RMSE")
-    ax.set_title("Cold-start regimes — uncertainty matches harder slices", loc="left", pad=14)
+    ax.set_ylabel("RMSE on section mean GPA (test)")
+    ax.set_title(
+        "Students see tighter forecasts when ACE “knows” the prof+course\n"
+        "Cold slices = honest wider error — same logic as confidence in the app",
+        loc="left",
+        pad=14,
+        fontsize=11,
+    )
+    ax.legend(frameon=False, loc="upper right", fontsize=9)
     ax.grid(axis="y", linestyle=":", color="#d4c9b2", linewidth=0.8)
     fig.savefig(OUT / "11_regime_rmse_test.svg")
     plt.close(fig)
@@ -301,23 +390,34 @@ def main() -> None:
         s0 = de["mean_only"]["total_score"]
         s1 = de["risk_aware"]["total_score"]
         fig, ax = plt.subplots(figsize=(5.5, 4.8))
-        ax.bar(["Mean-only\nobjective", "Risk-aware\n(λ=0.75)"], [s0, s1], color=[GREY, SAND],
-               edgecolor=INK, linewidth=0.6, width=0.5)
-        ax.set_ylabel("PuLP total score (toy instance)")
+        pct_vs_mean = (1 - s1 / s0) * 100 if s0 else 0.0
+        ax.bar(
+            ["Grades only\n(no risk penalty)", "ACE risk-aware\n(λ = 0.75)"],
+            [s0, s1],
+            color=[GREY, SAND],
+            edgecolor=INK,
+            linewidth=0.6,
+            width=0.5,
+        )
+        ax.set_ylabel("Schedule optimizer score (toy 2-course demo)")
         ax.set_title(
-            "Decision layer: risk-aware term changes objective\n"
-            "(synthetic 2-course MILP — see DECISION_EVAL.md)",
+            "ACE adds a student-facing control: down-weight uncertain grade forecasts in the builder\n"
+            "(synthetic MILP — same stack as POST /optimize; see DECISION_EVAL.md)",
             loc="left",
             pad=12,
+            fontsize=10.5,
         )
         ax.grid(axis="y", linestyle=":", color="#d4c9b2", linewidth=0.8)
         delta = de.get("total_score_delta", s1 - s0)
-        ax.annotate(
-            f"Δ = {delta:+.4f}",
-            xy=(1, s1),
-            xytext=(0.55, min(s0, s1) - 0.08),
-            fontsize=10,
-            arrowprops=dict(arrowstyle="->", color=INK, lw=0.8),
+        ax.text(
+            0.5,
+            max(s0, s1) + 0.06,
+            f"Risk-aware score shift: {delta:+.3f}  (~{pct_vs_mean:.1f}% vs mean-only in this toy)\n"
+            "Shows ACE can trade raw GPA optimism for pessimistic intervals in the builder.",
+            ha="center",
+            fontsize=9.5,
+            color=IMPROVE,
+            fontweight="bold",
         )
         fig.savefig(OUT / "12_decision_risk_toy_scores.svg")
         plt.close(fig)

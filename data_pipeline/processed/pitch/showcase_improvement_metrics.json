@@ -15,5 +15,5 @@
   "median_abs_error_xgboost": 0.13159568367546437,
   "mean_abs_error_heuristic": 0.19594773245522223,
   "mean_abs_error_xgboost": 0.17373825817943322,
-  "interpretation": "RMSE aggregates squared errors across all 1,132 held-out sections. Row win rate is strict |e_XGB| < |e_heur|; ties were 0 on this split. Slightly >50% row wins can coexist with ~14% RMSE drop because a few large heuristic misses are reduced disproportionately by XGBoost."
+  "interpretation": "ACE XGBoost vs the in-app dept fallback on 1,132 held-out UCSB sections (Winter 2026). RMSE aggregates squared errors across all sections. Row win rate is strict |e_XGB| < |e_fallback|; ties were 0 on this split. ~53% row wins can coexist with ~14% RMSE drop because a few large fallback misses are reduced disproportionately \u2014 that matters for Schedule Builder ranking."
 }

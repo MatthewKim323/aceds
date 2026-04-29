@@ -72,26 +72,30 @@ def main() -> None:
     for ax, reg in zip(axes, regimes, strict=False):
         sub = test[test["regime"] == reg]
         if sub.empty:
-            ax.set_title(f"{reg} (n=0)")
+            ax.set_title(f"{reg} — ACE bucket (n=0)")
             ax.axis("off")
             continue
         # 10 equal-count bins on predicted GPA
         try:
             sub = sub.assign(bin=pd.qcut(sub["pred"], q=min(10, max(3, len(sub) // 50)), duplicates="drop"))
         except ValueError:
-            ax.set_title(f"{reg} (n={len(sub)})")
+            ax.set_title(f"{reg} — ACE bucket (n={len(sub)})")
             ax.axis("off")
             continue
         g = sub.groupby("bin", observed=True).agg(pred_mean=("pred", "mean"), actual_mean=("avgGPA", "mean")).reset_index()
         ax.scatter(g["pred_mean"], g["actual_mean"], s=40, alpha=0.85)
         lo, hi = g["pred_mean"].min(), g["pred_mean"].max()
         ax.plot([lo, hi], [lo, hi], "k--", linewidth=1, alpha=0.5)
-        ax.set_xlabel("pred mean (bin)")
-        ax.set_ylabel("actual mean")
-        ax.set_title(f"{reg} (n={len(sub)})")
+        ax.set_xlabel("ACE predicted mean GPA (bin)")
+        ax.set_ylabel("Actual section mean GPA")
+        ax.set_title(f"{reg} — ACE /predict bucket (n={len(sub)} UCSB sections)")
         ax.grid(True, alpha=0.25)
     axes[-1].axis("off")
-    fig.suptitle("Regime reliability — test split (binned)", fontsize=12)
+    fig.suptitle(
+        "ACE: grade predictions track reality by cold-start regime\n"
+        "(UCSB test sections — same split as MODEL_CARD; bins = equal counts)",
+        fontsize=11.5,
+    )
     fig.tight_layout()
     out = PITCH / "07_regime_reliability.svg"
     fig.savefig(out, format="svg")
