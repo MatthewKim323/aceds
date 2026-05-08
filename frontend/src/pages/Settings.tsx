@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
+import {
+  Link,
+  Navigate,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import {
@@ -8,6 +13,13 @@ import {
   updateProfilePartial,
   type SyntheticStudent,
 } from '../lib/profile'
+import {
+  DEFAULT_OPTIMIZE_PREFS,
+  optimizerPreferencesToProfilePatch,
+  profileRowToOptimizePreferences,
+} from '../lib/optimizer-preferences'
+import type { OptimizePreferences } from '../lib/api'
+import { OptimizerPreferencesEditor } from '../components/OptimizerPreferencesEditor'
 import { majors } from '../data/majors'
 import { supabase } from '../lib/supabase'
 
@@ -23,12 +35,23 @@ interface LoadedProfile {
   preferred_days: string | null
   onboarding_complete: boolean | null
   demo_student_id: string | null
+  optimizer_preferences?: unknown | null
 }
 
 export function Settings() {
   const { user, loading: authLoading, signOut } = useAuth()
   const navigate = useNavigate()
-  const [tab, setTab] = useState<Tab>('profile')
+  const [searchParams, setSearchParams] = useSearchParams()
+  const tabFromUrl = searchParams.get('tab')
+  const initialTab: Tab =
+    tabFromUrl === 'profile' ||
+    tabFromUrl === 'preferences' ||
+    tabFromUrl === 'demo' ||
+    tabFromUrl === 'account'
+      ? tabFromUrl
+      : 'profile'
+
+  const [tab, setTab] = useState<Tab>(initialTab)
   const [profile, setProfile] = useState<LoadedProfile | null>(null)
   const [students, setStudents] = useState<SyntheticStudent[] | null>(null)
   const [status, setStatus] = useState<string | null>(null)
@@ -39,6 +62,23 @@ export function Settings() {
       setProfile((profile as unknown as LoadedProfile) || null)
     })
   }, [user])
+
+  useEffect(() => {
+    const t = searchParams.get('tab')
+    if (
+      t === 'profile' ||
+      t === 'preferences' ||
+      t === 'demo' ||
+      t === 'account'
+    ) {
+      setTab(t)
+    }
+  }, [searchParams])
+
+  function selectTab(next: Tab) {
+    setTab(next)
+    setSearchParams({ tab: next }, { replace: true })
+  }
 
   useEffect(() => {
     if (tab !== 'demo' || students !== null) return
@@ -59,14 +99,19 @@ export function Settings() {
     }
   }
 
-  async function handleSavePrefs(nextWeights: Record<string, number>, nextUnits: number) {
+  async function reloadProfile() {
+    if (!user) return
+    const { profile: next } = await getProfile(user.id)
+    setProfile((next as unknown as LoadedProfile) || null)
+  }
+
+  async function handleSaveOptimizerPrefs(prefs: OptimizePreferences) {
     if (!user) return
     setStatus('saving…')
-    const { error } = await updateProfilePartial(user.id, {
-      priority_weights: nextWeights,
-      target_units: nextUnits,
-    })
+    const patch = optimizerPreferencesToProfilePatch(prefs)
+    const { error } = await updateProfilePartial(user.id, patch)
     setStatus(error ? `error: ${error}` : 'saved ✓')
+    if (!error) await reloadProfile()
   }
 
   async function handleSignOut() {
@@ -93,7 +138,7 @@ export function Settings() {
             <button
               key={t}
               className={`set-nav-item ${tab === t ? 'on' : ''}`}
-              onClick={() => setTab(t)}
+              onClick={() => selectTab(t)}
             >
               <span className="set-nav-num">
                 0{(['profile', 'preferences', 'demo', 'account'] as const).indexOf(t) + 1}
@@ -112,7 +157,7 @@ export function Settings() {
               <PreferencesPane
                 key="pr"
                 profile={profile}
-                onSave={handleSavePrefs}
+                onSave={handleSaveOptimizerPrefs}
               />
             )}
             {tab === 'demo' && (
@@ -184,25 +229,23 @@ function PreferencesPane({
   onSave,
 }: {
   profile: LoadedProfile | null
-  onSave: (weights: Record<string, number>, units: number) => Promise<void>
+  onSave: (prefs: OptimizePreferences) => Promise<void>
 }) {
-  const initial = profile?.priority_weights ?? {
-    grades: 0.3,
-    professor: 0.25,
-    convenience: 0.25,
-    availability: 0.2,
-  }
-  const [weights, setWeights] = useState<Record<string, number>>(initial)
-  const [units, setUnits] = useState<number>(profile?.target_units ?? 15)
+  const [prefs, setPrefs] = useState<OptimizePreferences>(() => ({
+    ...DEFAULT_OPTIMIZE_PREFS,
+  }))
 
   useEffect(() => {
-    if (profile?.priority_weights) setWeights(profile.priority_weights)
-    if (profile?.target_units != null) setUnits(profile.target_units)
+    setPrefs(profileRowToOptimizePreferences(profile as unknown as Record<string, unknown>))
   }, [profile])
 
   const total = useMemo(
-    () => Object.values(weights).reduce((a, b) => a + b, 0),
-    [weights],
+    () =>
+      prefs.weight_grades +
+      prefs.weight_professor +
+      prefs.weight_convenience +
+      prefs.weight_availability,
+    [prefs],
   )
 
   return (
@@ -210,39 +253,23 @@ function PreferencesPane({
       initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
-      className="set-pane"
+      className="set-pane set-pane-optimizer-prefs"
     >
-      <h2 className="set-pane-title">Optimizer preferences</h2>
+      <h2 className="set-pane-title">Schedule optimizer</h2>
       <p className="set-pane-note">
-        These weights control how schedules are ranked. They should sum to 1.0 — current total{' '}
+        Used by <strong>Schedule Builder</strong> (<code>POST /optimize</code>). Objective weights should sum to
+        about 1.0 — current total{' '}
         <span className={total > 1.05 || total < 0.95 ? 'warn-text' : 'ok-text'}>
           {total.toFixed(2)}
         </span>
         .
       </p>
-      <div className="set-weights">
-        {(['grades', 'professor', 'convenience', 'availability'] as const).map((k) => (
-          <WeightSlider
-            key={k}
-            label={k}
-            value={weights[k] ?? 0}
-            onChange={(v) => setWeights({ ...weights, [k]: v })}
-          />
-        ))}
+      <div className="set-optimizer-shell">
+        <OptimizerPreferencesEditor prefs={prefs} onChange={setPrefs} />
       </div>
-      <div className="set-row">
-        <label className="set-field">
-          <span>Target units</span>
-          <input
-            type="number"
-            min={4}
-            max={22}
-            value={units}
-            onChange={(e) => setUnits(Number(e.target.value))}
-          />
-        </label>
-        <button className="set-cta" onClick={() => onSave(weights, units)}>
-          save →
+      <div className="set-row set-row-actions">
+        <button className="set-cta" type="button" onClick={() => onSave(prefs)}>
+          save preferences →
         </button>
       </div>
     </motion.div>
@@ -316,33 +343,6 @@ function AccountPane({
         sign out
       </button>
     </motion.div>
-  )
-}
-
-function WeightSlider({
-  label,
-  value,
-  onChange,
-}: {
-  label: string
-  value: number
-  onChange: (v: number) => void
-}) {
-  return (
-    <label className="set-weight">
-      <div className="set-weight-head">
-        <span>{label}</span>
-        <span className="set-weight-val">{(value * 100).toFixed(0)}%</span>
-      </div>
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.05}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-      />
-    </label>
   )
 }
 

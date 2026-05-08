@@ -17,6 +17,8 @@ export type Course = {
   units_fixed: number | null
   ge_areas: string[]
   level: 'lower' | 'upper' | 'grad'
+  /** Present when row came from UCSB catalog cache instead of Supabase `courses`. */
+  detail_source?: 'ucsb_catalog_cache'
 }
 
 export type Professor = {
@@ -60,6 +62,8 @@ export type Prediction = {
 export type SectionPick = {
   enroll_code: string
   course_norm: string
+  /** GOLD section id when the optimizer joined it (e.g. 0100). */
+  section_label?: string | null
   instructor_norm: string | null
   days: string | null
   begin_time: string | null
@@ -91,6 +95,8 @@ export type OptimizeResponsePayload = {
   candidates: ScheduleCandidate[]
   model_version?: string
   conformal_method?: string
+  /** Backend hints when candidates is empty (units band, missing sections, conflicts). */
+  optimize_notes?: string[]
 }
 
 export type OptimizePreferences = {
@@ -122,6 +128,13 @@ export type OptimizeRequest = {
   top_k?: number
   /** For optimization_runs audit log (RLS). */
   user_id?: string | null
+}
+
+/** One SSE JSON payload from POST /optimize/stream (excluding terminal `complete` / `error`). */
+export type OptimizeStreamPhaseEvent = {
+  phase: string
+  label?: string
+  [key: string]: unknown
 }
 
 class ApiError extends Error {
@@ -173,6 +186,23 @@ export type ProfessorHistoryRow = {
   n_letter: number
 }
 
+/** One historical offering row from `grade_distributions` (Nexus / GOLD). */
+export type GradeTrendPoint = {
+  year: number
+  quarter: string
+  instructor_norm: string
+  avg_gpa: number | null
+  n_letter: number
+  a_count?: number | null
+  b_count?: number | null
+  c_count?: number | null
+  d_count?: number | null
+  f_count?: number | null
+  p_count?: number | null
+  np_count?: number | null
+  grade_breakdown_json?: Record<string, unknown> | null
+}
+
 function toQuery(params: Record<string, unknown>): string {
   const usp = new URLSearchParams()
   for (const [k, v] of Object.entries(params)) {
@@ -180,6 +210,72 @@ function toQuery(params: Record<string, unknown>): string {
   }
   const s = usp.toString()
   return s ? `?${s}` : ''
+}
+
+/**
+ * POST /optimize/stream — SSE `data:` lines are JSON. Phases yield `{ phase, label?, ... }`;
+ * terminal `complete` includes `result` (same shape as POST /optimize).
+ */
+export async function runOptimizeStream(
+  body: OptimizeRequest,
+  opts: { onPhase: (e: OptimizeStreamPhaseEvent) => void; signal?: AbortSignal },
+): Promise<OptimizeResponsePayload> {
+  const r = await fetch(`${API_BASE}/optimize/stream`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'text/event-stream',
+    },
+    body: JSON.stringify(body),
+    signal: opts.signal,
+  })
+  if (!r.ok) {
+    const text = await r.text().catch(() => '')
+    throw new ApiError(`${r.status} ${r.statusText} ${text}`.trim(), r.status)
+  }
+  if (!r.body) throw new ApiError('No response body', 500)
+
+  const reader = r.body.getReader()
+  const decoder = new TextDecoder()
+  let buffer = ''
+  let result: OptimizeResponsePayload | null = null
+
+  const consumeLine = (line: string) => {
+    if (!line.startsWith('data:')) return
+    const raw = line.startsWith('data: ') ? line.slice(6).trim() : line.slice(5).trim()
+    if (!raw) return
+    let json: Record<string, unknown>
+    try {
+      json = JSON.parse(raw) as Record<string, unknown>
+    } catch {
+      return
+    }
+    const ph = json.phase
+    if (ph === 'complete' && json.result != null) {
+      result = json.result as OptimizeResponsePayload
+      return
+    }
+    if (ph === 'error') {
+      throw new ApiError(String(json.detail ?? 'optimize stream error'), Number(json.status_code) || 500)
+    }
+    opts.onPhase(json as OptimizeStreamPhaseEvent)
+  }
+
+  while (true) {
+    const { done, value } = await reader.read()
+    if (value) buffer += decoder.decode(value, { stream: !done })
+    const lines = buffer.split('\n')
+    buffer = lines.pop() ?? ''
+    for (const line of lines) consumeLine(line)
+    if (done) break
+  }
+
+  if (buffer.trim()) {
+    for (const line of buffer.split('\n')) consumeLine(line)
+  }
+
+  if (!result) throw new ApiError('Stream ended without complete result', 500)
+  return result
 }
 
 export type StatusPayload = {
@@ -237,8 +333,10 @@ export const api = {
     offset?: number
   } = {}) => req<CatalogCoursesPage>(`/catalog/courses${toQuery(params)}`),
 
-  getCourse: (courseNorm: string) =>
-    req<Course>(`/courses/${encodeURIComponent(courseNorm)}`),
+  getCourse: (courseNorm: string, quarter?: string | null) =>
+    req<Course>(
+      `/courses/${encodeURIComponent(courseNorm)}${toQuery(quarter ? { quarter } : {})}`,
+    ),
 
   listSections: (params: {
     quarter: string
@@ -248,6 +346,12 @@ export const api = {
     limit?: number
     offset?: number
   }) => req<Page<Section>>(`/sections${toQuery(params)}`),
+
+  /** Distinct course_norm values with sections loaded for this quarter (optimizer scope). */
+  listDistinctCourseNorms: (quarter: string) =>
+    req<{ quarter_code: string; course_norms: string[]; n: number }>(
+      `/sections/distinct-course-norms${toQuery({ quarter })}`,
+    ),
 
   getProfessor: (instructorNorm: string) =>
     req<{ professor: Professor; history: ProfessorHistoryRow[] }>(
@@ -273,10 +377,16 @@ export const api = {
       body: JSON.stringify(body),
     }),
 
-  // trends
-  getTrend: (courseNorm: string) =>
-    req<Array<{ quarter: string; year: number; avg_gpa: number | null; n_letter: number; instructor_norm: string }>>(
-      `/trends/${encodeURIComponent(courseNorm)}`,
+  /**
+   * Streamed optimize: POST /optimize/stream (SSE). Yields JSON per phase, then `complete` with full result.
+   * On network/parse error, fall back to `api.optimize()`.
+   */
+  optimizeStream: runOptimizeStream,
+
+  // trends (historical grade rows per offering — powers course explorer charts)
+  getGradeTrend: (courseNorm: string) =>
+    req<{ course_norm: string; points: GradeTrendPoint[] }>(
+      `/trends/grades${toQuery({ course_norm: courseNorm })}`,
     ),
 }
 

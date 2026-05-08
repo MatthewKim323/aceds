@@ -42,7 +42,8 @@ curl -X POST http://localhost:8000/predict \
 | `GET /ge` | GE area lookup | `app/routers/ge.py` |
 | `GET /trends` | historical grade trends | `app/routers/trends.py` |
 | `POST /predict` | section GPA prediction | `app/routers/predict.py` |
-| `POST /optimize` | IP scheduler | `app/routers/optimize.py` |
+| `POST /optimize` | IP scheduler (sync JSON) | `app/routers/optimize.py` |
+| `POST /optimize/stream` | Same optimizer as **Server-Sent Events** — `data:` lines are JSON with `phase` (and optional `label`, counts); final event has `phase: "complete"` and `result` = `OptimizeResponse` body. **Deploy note:** some reverse proxies buffer SSE; set `X-Accel-Buffering: no` (nginx) and avoid response buffering. | `app/routers/optimize.py` |
 | `GET/POST /schedules` | saved schedule CRUD | `app/routers/schedules.py` |
 
 Pydantic schemas in `app/models/schemas.py` are the single source of truth and are imported by the data pipeline's ablation scripts.

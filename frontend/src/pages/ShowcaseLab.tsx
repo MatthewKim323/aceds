@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
+import { motion } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
 import { supabase } from '../lib/supabase'
 import { buildStudentBundle, type StudentBundle } from '../lib/student-bundle'
+import { EASE_OUT, prefersReducedMotion } from '../lib/motion'
 
 type IngestionRow = {
   id: string
@@ -26,11 +28,17 @@ type OptimizationRunRow = {
 
 function BarRow({ label, value, max }: { label: string; value: number; max: number }) {
   const pct = max > 0 ? Math.min(100, Math.round((value / max) * 100)) : 0
+  const reduced = prefersReducedMotion()
   return (
     <div className="sl-bar-row">
       <span className="sl-bar-label">{label}</span>
       <div className="sl-bar-track" role="presentation">
-        <div className="sl-bar-fill" style={{ width: `${pct}%` }} />
+        <motion.div
+          className="sl-bar-fill"
+          initial={{ width: 0 }}
+          animate={{ width: `${pct}%` }}
+          transition={{ duration: reduced ? 0 : 0.55, ease: EASE_OUT }}
+        />
       </div>
       <span className="sl-bar-val">{value}</span>
     </div>
@@ -156,8 +164,15 @@ export function ShowcaseLab() {
   if (authLoading) return null
   if (!user) return <Navigate to="/auth" replace />
 
+  const reduced = prefersReducedMotion()
+
   return (
-    <div className="sl">
+    <motion.div
+      className="sl"
+      initial={reduced ? false : { opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: reduced ? 0 : 0.42, ease: EASE_OUT }}
+    >
       <header className="sl-top">
         <div className="sl-top-inner">
           <Link to="/dashboard" className="sl-back">
@@ -275,6 +290,6 @@ export function ShowcaseLab() {
           </>
         ) : null}
       </div>
-    </div>
+    </motion.div>
   )
 }

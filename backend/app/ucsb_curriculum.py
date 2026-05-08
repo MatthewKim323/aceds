@@ -191,7 +191,8 @@ def _parse_ge(raw: str | None) -> list[str]:
     codes: list[str] = []
     for p in parts:
         p = p.strip().upper()
-        if re.match(r"^[A-Z]\d?$", p):
+        # UCSB API emits single letters (B), numbered areas (A1), and buckets (ETH, WRT, QNT, …).
+        if re.match(r"^[A-Z]{1,6}\d?$", p):
             codes.append(p)
     return sorted(set(codes))
 
@@ -206,29 +207,61 @@ def _ge_areas_from_api(ge_field: Any) -> list[str]:
         for item in ge_field:
             if isinstance(item, dict):
                 code = item.get("code") or item.get("area") or item.get("geCode")
-                if isinstance(code, str) and re.match(r"^[A-Z]\d?$", code.strip().upper()):
-                    codes.append(code.strip().upper())
+                if isinstance(code, str):
+                    cu = code.strip().upper()
+                    if re.match(r"^[A-Z]{1,6}\d?$", cu):
+                        codes.append(cu)
             elif isinstance(item, str):
                 codes.extend(_parse_ge(item))
         return sorted(set(codes))
     return []
 
 
-def _rows_from_class_payload(c: dict[str, Any]) -> list[dict[str, Any]]:
+def _split_course_subject(
+    course_id_raw: str,
+    dept_prefixes_desc: list[str],
+) -> tuple[str, str, str]:
+    """Return (dept, course_number, course_norm) from UCSB `courseId`.
+
+    UCSB sometimes sets `deptCode` to an umbrella code (e.g. STATS) while `courseId`
+    uses the catalog subject (PSTAT). Dept filters must follow `courseId`, not `deptCode`.
+    """
+    cid = re.sub(r"\s+", " ", str(course_id_raw or "").strip()).strip()
+    if not cid:
+        return "", "", ""
+    for code in dept_prefixes_desc:
+        m = re.match(re.escape(code) + r"\s+(.*)$", cid, re.IGNORECASE)
+        if m:
+            dept_canon = " ".join(code.upper().split())
+            rest = m.group(1).strip()
+            course_norm = f"{dept_canon} {rest}" if rest else dept_canon
+            return dept_canon, rest, course_norm
+    parts = cid.split(None, 1)
+    dept_guess = parts[0].upper()
+    tail = parts[1].strip() if len(parts) > 1 else ""
+    course_norm = f"{dept_guess} {tail}".strip() if tail else dept_guess
+    return dept_guess, tail, course_norm
+
+
+def _rows_from_class_payload(
+    c: dict[str, Any],
+    dept_prefixes_desc: list[str],
+) -> list[dict[str, Any]]:
     """One synthetic row per class (section-level fields ignored for course catalog dedupe)."""
     ge_raw = json.dumps(c.get("generalEducation") or [])
     ge_areas = _ge_areas_from_api(c.get("generalEducation"))
-    cid = str(c.get("courseId") or "").strip()
-    if not cid:
+    dept, course_id, course_norm = _split_course_subject(
+        str(c.get("courseId") or ""),
+        dept_prefixes_desc,
+    )
+    if not course_norm:
         return []
-    dept = str(c.get("deptCode") or "").strip().upper() or (cid.split()[0] if " " in cid else "")
-    course_id = cid.split(" ", 1)[-1] if " " in cid else cid
     units = c.get("unitsFixed")
     if isinstance(units, float) and math.isnan(units):
         units = None
     return [
         {
-            "course_norm": cid,
+            "course_norm": course_norm,
             "dept": dept,
             "course_id": course_id,
             "title": c.get("title"),
@@ -340,6 +373,7 @@ async def fetch_quarter_catalog(quarter: str) -> list[dict[str, Any]]:
         "accept": "application/json",
     }
     depts = dept_codes_for_fetch()
+    dept_prefixes_desc = sorted(depts, key=len, reverse=True)
     by_course: dict[str, dict[str, Any]] = {}
 
     sem = asyncio.Semaphore(8)
@@ -350,7 +384,7 @@ async def fetch_quarter_catalog(quarter: str) -> list[dict[str, Any]]:
             classes = await _fetch_all_classes_global(shared, headers, quarter)
             rows: list[dict[str, Any]] = []
             for c in classes:
-                rows.extend(_rows_from_class_payload(c))
+                rows.extend(_rows_from_class_payload(c, dept_prefixes_desc))
             return rows
 
         async def one_dept(d: str) -> list[dict[str, Any]]:
@@ -358,7 +392,7 @@ async def fetch_quarter_catalog(quarter: str) -> list[dict[str, Any]]:
                 classes = await _fetch_all_classes_for_dept(shared, headers, quarter, d)
                 rows: list[dict[str, Any]] = []
                 for c in classes:
-                    rows.extend(_rows_from_class_payload(c))
+                    rows.extend(_rows_from_class_payload(c, dept_prefixes_desc))
                 return rows
 
         g_rows, *dept_batches = await asyncio.gather(global_rows(), *(one_dept(d) for d in depts))
@@ -409,7 +443,11 @@ def filter_catalog_rows(
     out = rows
     if dept:
         du = dept.upper().strip()
-        out = [r for r in out if str(r.get("dept") or "").upper() == du]
+        out = [
+            r
+            for r in out
+            if str(r.get("dept") or "").strip().upper() == du
+        ]
     if level and level in ("lower", "upper", "grad"):
         out = [r for r in out if r.get("level") == level]
     if ge:

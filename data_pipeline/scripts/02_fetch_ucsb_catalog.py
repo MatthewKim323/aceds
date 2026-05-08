@@ -7,6 +7,8 @@ Scope:  ACADEMICS - CLASS SCHEDULES + ACADEMICS - CURRICULUMS
 Quarter code format: YYYYQ where Q = 1(W) 2(S) 3(Su) 4(F).
 Example: 20262 = Spring 2026.
 
+Statistics / Data Science: use API dept **STATS** (not PSTAT); courseId values remain PSTAT ##…
+
 Usage:
     python 02_fetch_ucsb_catalog.py                    # default quarter+dept list
     python 02_fetch_ucsb_catalog.py --quarter 20262    # custom quarter
@@ -49,7 +51,8 @@ DEFAULT_DEPTS = [
     "HIST", "INT", "ITAL", "JAPAN", "KOR", "LATIN", "LAIS", "LING",
     "MARSC", "MATRL", "MATH", "ME", "MCDB", "MES", "MS", "MUS", "MUS A",
     "PHIL", "PHYS", "POL S", "PORT", "PSY", "RG ST", "RUSS", "SLAV", "SOC",
-    "SPAN", "PSTAT", "TMP", "THTR", "W&L", "WRIT", "BIOE", "DYNS", "ENV",
+    # Statistics / Data Science: API deptCode is STATS (PSTAT returns 0 rows). courseId stays PSTAT ##…
+    "SPAN", "STATS", "TMP", "THTR", "W&L", "WRIT", "BIOE", "DYNS", "ENV",
     "FAMST", "GOV", "EPS", "GEOL", "IQB", "MTLE",
 ]
 
@@ -89,6 +92,25 @@ def fetch_classes(quarter: str, dept: str, page_size: int = 100) -> list[dict]:
     return results
 
 
+def _pick_time_row(times: list[dict]) -> dict | None:
+    """First timeLocations entry is often TBA/empty while a later row has the real meeting."""
+    if not times:
+        return None
+    for t in times:
+        if not isinstance(t, dict):
+            continue
+        bt = str(t.get("beginTime") or "").strip()
+        et = str(t.get("endTime") or "").strip()
+        dy = str(t.get("days") or "").strip()
+        if not bt or not et or not dy:
+            continue
+        if bt.upper() == "TBA" or et.upper() == "TBA" or dy.upper() == "TBA":
+            continue
+        return t
+    first = times[0]
+    return first if isinstance(first, dict) else None
+
+
 def flatten(classes: list[dict]) -> pd.DataFrame:
     """Flatten the nested class/section response into row-per-section."""
     rows = []
@@ -110,6 +132,7 @@ def flatten(classes: list[dict]) -> pd.DataFrame:
         for s in c.get("classSections", []) or []:
             instructors = s.get("instructors") or []
             times = s.get("timeLocations") or []
+            tl = _pick_time_row(times) if times else None
             rows.append({
                 **base,
                 "section": s.get("section"),
@@ -126,11 +149,11 @@ def flatten(classes: list[dict]) -> pd.DataFrame:
                     instructors[0].get("instructor") if instructors else None,
                 ),
                 "instructors_all": "; ".join(i.get("instructor", "") for i in instructors),
-                "days": times[0].get("days") if times else None,
-                "beginTime": times[0].get("beginTime") if times else None,
-                "endTime": times[0].get("endTime") if times else None,
-                "building": times[0].get("building") if times else None,
-                "room": times[0].get("room") if times else None,
+                "days": tl.get("days") if tl else None,
+                "beginTime": tl.get("beginTime") if tl else None,
+                "endTime": tl.get("endTime") if tl else None,
+                "building": tl.get("building") if tl else None,
+                "room": tl.get("room") if tl else None,
                 "timeLocations_raw": json.dumps(times),
             })
     return pd.DataFrame(rows)

@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
+from math import isclose
 
 import pulp
 
@@ -52,6 +53,7 @@ class SectionCandidate:
 
     enroll_code: str
     course_norm: str
+    section_label: str | None
     instructor_norm: str | None
     days: str  # subset of "MTWRF" possibly empty -> TBA
     begin_min: int | None  # minutes since midnight; None for async
@@ -166,6 +168,79 @@ def optimize(
             keep = [s for s in secs if s.time_ok(earliest, latest)]
         filtered[course] = keep
 
+    required_active = {
+        c
+        for c in req.required_courses
+        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
+    }
+    optional_active = {
+        c
+        for c in (req.optional_courses or [])
+        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
+    }
+
+    mv = predict_response.model_version if predict_response else "unknown"
+    cm = predict_response.conformal_method if predict_response else "unknown"
+
+    feasibility_notes: list[str] = []
+    for rc in sorted(required_active):
+        raw = candidates_by_course.get(rc) or []
+        fin = filtered.get(rc) or []
+        if not raw:
+            feasibility_notes.append(
+                f"Required '{rc}': no rows in `sections` for this quarter — "
+                "confirm course_norm matches your Gold import (same spelling/subject as `sections.course_norm`)."
+            )
+        elif not fin:
+            feasibility_notes.append(
+                f"Required '{rc}': sections exist in the DB but none pass your schedule filters "
+                "(Settings → Schedule optimizer: earliest/latest time, preferred weekdays, skip Fri afternoons)."
+            )
+
+    if feasibility_notes:
+        return OptimizeResponse(
+            candidates=[], model_version=mv, conformal_method=cm, optimize_notes=feasibility_notes
+        )
+
+    def min_units_required() -> float:
+        return sum(min(s.units for s in filtered[c]) for c in sorted(required_active))
+
+    def max_units_pool() -> float:
+        total = sum(max(s.units for s in filtered[c]) for c in sorted(required_active))
+        for oc in sorted(optional_active):
+            secs = filtered.get(oc) or []
+            if secs:
+                total += max(s.units for s in secs)
+        return total
+
+    max_u = max_units_pool()
+    min_u = min_units_required()
+    min_goal = float(prefs.target_units_min)
+    max_goal = float(prefs.target_units_max)
+    # Inclusive band: max achievable units must be >= min goal (12 vs goal 12 counts).
+    # Use isclose so float sums like 5+4+3 don't false-negative against integer goals.
+    if max_u < min_goal and not isclose(max_u, min_goal, rel_tol=0.0, abs_tol=1e-2):
+        return OptimizeResponse(
+            candidates=[],
+            model_version=mv,
+            conformal_method=cm,
+            optimize_notes=[
+                f"Your minimum unit target is {prefs.target_units_min} (at least that many units); "
+                f"this pool tops out around ~{max_u:.1f} units with the largest sections. "
+                "Lower “target units (min)” in Settings or add electives / courses."
+            ],
+        )
+    if min_u > max_goal and not isclose(min_u, max_goal, rel_tol=0.0, abs_tol=1e-2):
+        return OptimizeResponse(
+            candidates=[],
+            model_version=mv,
+            conformal_method=cm,
+            optimize_notes=[
+                f"Your required courses need at least ~{min_u:.1f} units together, above your "
+                f"maximum target ({prefs.target_units_max}). Raise the max or swap out a heavy course."
+            ],
+        )
+
     # Flatten and index.
     all_sections: list[SectionCandidate] = []
     sec_to_idx: dict[str, int] = {}
@@ -177,9 +252,11 @@ def optimize(
             all_sections.append(s)
 
     if not all_sections:
-        mv = predict_response.model_version if predict_response else "unknown"
-        cm = predict_response.conformal_method if predict_response else "unknown"
-        return OptimizeResponse(candidates=[], model_version=mv, conformal_method=cm)
+        notes: list[str] = [
+            "Every section was filtered out by your time window, preferred days, or "
+            "'skip Fri afternoons'. Try widening earliest/latest times or enabling more weekdays in Settings."
+        ]
+        return OptimizeResponse(candidates=[], model_version=mv, conformal_method=cm, optimize_notes=notes)
 
     # Pre-compute conflict pairs.
     conflict_pairs: list[tuple[int, int]] = []
@@ -193,17 +270,6 @@ def optimize(
         "professor": prefs.weight_professor,
         "convenience": prefs.weight_convenience,
         "availability": prefs.weight_availability,
-    }
-
-    required_active = {
-        c
-        for c in req.required_courses
-        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
-    }
-    optional_active = {
-        c
-        for c in (req.optional_courses or [])
-        if c not in (req.completed_courses or []) and c not in (req.excluded_courses or [])
     }
 
     def _elective_prefix_bonus(course_norm: str) -> float:
@@ -261,14 +327,11 @@ def optimize(
             objective -= prefs.diversity_lambda * pulp.lpSum(diversity_terms)
         prob += objective
 
-        # Required courses: exactly one.
+        # Required courses: exactly one (validated above).
         for rc in req.required_courses:
             if rc in req.completed_courses or rc in req.excluded_courses:
                 continue
-            idxs = [sec_to_idx[s.enroll_code] for s in filtered.get(rc, [])]
-            if not idxs:
-                log.warning("no sections available for required course %s", rc)
-                continue  # soft-fail so we still return a partial schedule
+            idxs = [sec_to_idx[s.enroll_code] for s in filtered[rc]]
             prob += pulp.lpSum(x[i] for i in idxs) == 1, f"req_{rc}"
 
         # Optional courses: at most one per course.
@@ -303,6 +366,17 @@ def optimize(
         status = prob.solve(solver)
         if pulp.LpStatus[status] != "Optimal":
             log.info("no more feasible schedules after %d solutions", len(candidates))
+            if len(candidates) == 0:
+                return OptimizeResponse(
+                    candidates=[],
+                    model_version=mv,
+                    conformal_method=cm,
+                    optimize_notes=[
+                        "The MILP found no feasible schedule: usually overlapping meeting times between "
+                        "these courses for this quarter, or constraints that cannot all hold together. "
+                        "Try relaxing time/day filters, adjusting the unit band, or choosing different sections/courses."
+                    ],
+                )
             break
 
         chosen = {i for i in range(len(all_sections)) if pulp.value(x[i]) > 0.5}
@@ -317,6 +391,7 @@ def optimize(
                 SectionPick(
                     enroll_code=s.enroll_code,
                     course_norm=s.course_norm,
+                    section_label=s.section_label,
                     instructor_norm=s.instructor_norm,
                     days=s.days or None,
                     begin_time=_min_to_time(s.begin_min),
@@ -347,9 +422,12 @@ def optimize(
             )
         )
 
-    mv = predict_response.model_version if predict_response else "unknown"
-    cm = predict_response.conformal_method if predict_response else "unknown"
-    return OptimizeResponse(candidates=candidates, model_version=mv, conformal_method=cm)
+    return OptimizeResponse(
+        candidates=candidates,
+        model_version=mv,
+        conformal_method=cm,
+        optimize_notes=[],
+    )
 
 
 def _min_to_time(m: int | None) -> str | None:

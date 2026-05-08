@@ -2,9 +2,11 @@ import { useEffect, useState, useRef } from 'react'
 import { Navigate, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
+import { EASE_OUT, prefersReducedMotion } from '../lib/motion'
 import { getProfile, logStudentIngestionEvent } from '../lib/profile'
 import { getMajorById } from '../data/majors'
-import { parsePDF, toCourseNorm, courseNormIssues, buildSatisfiedCourseSet } from '../lib/pdf-parser'
+import { parsePDF, toCourseNorm, courseNormIssues } from '../lib/pdf-parser'
+import { buildSatisfiedCourseSet } from '../lib/satisfied-courses'
 import {
   aggregateMajorRequirementUnits,
   tierDoneUnits,
@@ -74,10 +76,15 @@ export function Dashboard() {
   if (loadingProfile) {
     return (
       <div className="dash">
-        <div className="dash-loading">
+        <motion.div
+          className="dash-loading"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.45, ease: EASE_OUT }}
+        >
           <div className="dash-loading-spinner" />
           <span>Loading your profile...</span>
-        </div>
+        </motion.div>
       </div>
     )
   }
@@ -135,15 +142,28 @@ export function Dashboard() {
     { id: 'settings', label: 'Settings', icon: '\u2699' },
   ]
 
+  const reduced = prefersReducedMotion()
+  const tabTransition = reduced ? { duration: 0.12 } : { duration: 0.34, ease: EASE_OUT }
+
   return (
-    <div className="dash">
+    <motion.div
+      className="dash"
+      initial={reduced ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: reduced ? 0 : 0.35, ease: EASE_OUT }}
+    >
       {/* Mobile menu toggle */}
       <button className="dash-menu-toggle" onClick={() => setSidebarOpen(!sidebarOpen)}>
         {sidebarOpen ? '\u2715' : '\u2630'}
       </button>
 
       {/* Sidebar */}
-      <aside className={`dash-sidebar ${sidebarOpen ? 'open' : ''}`}>
+      <motion.aside
+        className={`dash-sidebar ${sidebarOpen ? 'open' : ''}`}
+        initial={reduced ? false : { opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: reduced ? 0 : 0.45, ease: EASE_OUT, delay: reduced ? 0 : 0.04 }}
+      >
         <div className="dash-sidebar-top">
           <a href="/" className="dash-logo">ACE</a>
           <nav className="dash-nav">
@@ -195,7 +215,7 @@ export function Dashboard() {
             </div>
           </div>
         </div>
-      </aside>
+      </motion.aside>
 
       {/* Main content */}
       <main className="dash-main">
@@ -206,7 +226,7 @@ export function Dashboard() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
+              transition={tabTransition}
               className="dash-content"
             >
               <OverviewTab
@@ -231,7 +251,7 @@ export function Dashboard() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
+              transition={tabTransition}
               className="dash-content"
             >
               <CoursesTab
@@ -252,7 +272,7 @@ export function Dashboard() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
+              transition={tabTransition}
               className="dash-content"
             >
               <RequirementsTab
@@ -270,7 +290,7 @@ export function Dashboard() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
+              transition={tabTransition}
               className="dash-content"
             >
               <SettingsTab
@@ -281,7 +301,7 @@ export function Dashboard() {
           )}
         </AnimatePresence>
       </main>
-    </div>
+    </motion.div>
   )
 }
 
@@ -345,40 +365,6 @@ function OverviewTab({
         <div className="dash-hero-stat">
           <span className="dash-hero-value">{majorCompleted}/{majorTotal}</span>
           <span className="dash-hero-label">Major req. units (est.)</span>
-        </div>
-      </div>
-
-      {/* Next steps command center */}
-      <div className="dash-nextsteps">
-        <div className="dash-nextsteps-head">
-          <span className="dash-nextsteps-eyebrow">Next up</span>
-          <h2 className="dash-nextsteps-title">What do you want to plan?</h2>
-        </div>
-        <div className="dash-nextsteps-grid">
-          <Link to="/schedule" className="dash-nextstep-card primary">
-            <span className="dash-nextstep-num">01</span>
-            <span className="dash-nextstep-title">Build Spring 2026</span>
-            <span className="dash-nextstep-sub">ML-scored sections &middot; optimized for your preferences</span>
-            <span className="dash-nextstep-cta">open builder &rarr;</span>
-          </Link>
-          <Link to="/grad-path" className="dash-nextstep-card">
-            <span className="dash-nextstep-num">02</span>
-            <span className="dash-nextstep-title">Graduation path</span>
-            <span className="dash-nextstep-sub">{majorPct}% toward {majorName.split(' ').slice(0, 2).join(' ') || 'major'} complete</span>
-            <span className="dash-nextstep-cta">review progression &rarr;</span>
-          </Link>
-          <Link to="/explorer" className="dash-nextstep-card">
-            <span className="dash-nextstep-num">03</span>
-            <span className="dash-nextstep-title">Browse courses</span>
-            <span className="dash-nextstep-sub">Search by dept, GE, or level &middot; see grade trends</span>
-            <span className="dash-nextstep-cta">explore catalog &rarr;</span>
-          </Link>
-          <Link to="/status" className="dash-nextstep-card muted">
-            <span className="dash-nextstep-num">04</span>
-            <span className="dash-nextstep-title">System status</span>
-            <span className="dash-nextstep-sub">Model health, data freshness, pipeline log</span>
-            <span className="dash-nextstep-cta">view dashboard &rarr;</span>
-          </Link>
         </div>
       </div>
 

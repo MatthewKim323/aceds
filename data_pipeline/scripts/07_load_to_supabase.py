@@ -15,6 +15,10 @@ All writes use ON CONFLICT upsert semantics. Safe to re-run.
 Usage:
     python scripts/07_load_to_supabase.py --quarter 20262
     python scripts/07_load_to_supabase.py --quarter 20262 --only sections
+
+Refresh schedule rows for a new quarter (after UCSB publishes):
+    python scripts/02_fetch_ucsb_catalog.py --quarter 20263
+    python scripts/07_load_to_supabase.py --quarter 20263 --only sections
 """
 
 from __future__ import annotations
@@ -260,20 +264,54 @@ def load_professors(sb: Client, unified: pd.DataFrame, cache: dict) -> None:
     upsert_batches(sb, "professors", rows, on_conflict="instructor_norm")
 
 
+def _instr_norm_from_catalog_cell(raw) -> str | None:
+    """Match 04_merge.catalog_instructor_to_nexus_style — aligns section instructors with unified.csv keys."""
+    if raw is None or (isinstance(raw, float) and pd.isna(raw)):
+        return None
+    s = str(raw).strip()
+    if not s:
+        return None
+    s = s.upper().replace(",", "")
+    parts = s.split()
+    if len(parts) == 0:
+        return None
+    last = parts[0]
+    initials = [p[0] for p in parts[1:] if p]
+    return " ".join([last, *initials])
+
+
+def _section_open_seats(r: pd.Series) -> int | None:
+    for key in ("openSeats", "availableSeats"):
+        v = r.get(key)
+        if v is not None and not (isinstance(v, float) and pd.isna(v)):
+            try:
+                return int(v)
+            except (TypeError, ValueError):
+                pass
+    return None
+
+
 def load_sections(sb: Client, catalog: pd.DataFrame, quarter_code: str) -> None:
+    # API flatten occasionally emits duplicate rows for the same enroll code (batch upsert fails).
+    cat = catalog.dropna(subset=["enrollCode"]).copy()
+    cat = cat.drop_duplicates(subset=["enrollCode"], keep="first")
     rows = []
-    for _, r in catalog.iterrows():
+    for _, r in cat.iterrows():
         if pd.isna(r.get("enrollCode")) or pd.isna(r.get("courseId")):
             continue
         cn = _norm_course(r["courseId"])
         if not cn:
             continue
+        instr_raw = r.get("instructor_norm")
+        if instr_raw is None or (isinstance(instr_raw, float) and pd.isna(instr_raw)):
+            instr_raw = r.get("instructor_primary")
+        instr_norm = _instr_norm_from_catalog_cell(instr_raw)
         rows.append(
             {
                 "enroll_code": str(r["enrollCode"]),
                 "quarter_code": quarter_code,
                 "course_norm": cn,
-                "instructor_norm": r.get("instructor_norm") if not pd.isna(r.get("instructor_norm", float("nan"))) else None,
+                "instructor_norm": instr_norm,
                 "section_label": r.get("section"),
                 "days": r.get("days"),
                 "begin_time": r.get("beginTime"),
@@ -282,7 +320,7 @@ def load_sections(sb: Client, catalog: pd.DataFrame, quarter_code: str) -> None:
                 "room": r.get("room"),
                 "max_enroll": int(r["maxEnroll"]) if not pd.isna(r.get("maxEnroll", float("nan"))) else None,
                 "enrolled": int(r["enrolledTotal"]) if not pd.isna(r.get("enrolledTotal", float("nan"))) else None,
-                "open_seats": int(r["openSeats"]) if not pd.isna(r.get("openSeats", float("nan"))) else None,
+                "open_seats": _section_open_seats(r),
                 "class_closed": r.get("classClosed"),
                 "restriction_level": r.get("restrictionLevel"),
                 "restriction_major": r.get("restrictionMajor"),

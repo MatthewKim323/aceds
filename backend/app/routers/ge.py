@@ -17,7 +17,7 @@ async def list_ge_courses(
     res = (
         sb.table("courses")
         .select("course_norm,title,dept,level,units_fixed,ge_areas")
-        .contains("ge_areas", [area.upper()])
+        .overlaps("ge_areas", [area.upper()])
         .order("course_norm")
         .limit(limit)
         .execute()

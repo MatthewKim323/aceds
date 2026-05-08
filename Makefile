@@ -8,6 +8,7 @@ ds-conformal:
 	cd data_pipeline && python scripts/21_conformal_calibration.py
 
 ds-plots:
+	# Requires matplotlib + pyarrow (parquet) in the active Python env.
 	python data_pipeline/scripts/20_ablation_plots.py
 	python data_pipeline/scripts/22_regime_reliability.py
 	python data_pipeline/scripts/24_showcase_improvement_charts.py

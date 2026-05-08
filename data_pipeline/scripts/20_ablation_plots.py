@@ -395,6 +395,7 @@ def make_prob(n_required: int, n_cands_per_course: int, seed: int) -> tuple[Opti
             secs.append(SectionCandidate(
                 enroll_code=f"{course}-{k:02d}",
                 course_norm=course,
+                section_label=None,
                 instructor_norm=f"PROF {c}-{k}",
                 days=days,
                 begin_min=begin,

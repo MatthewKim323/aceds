@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
+import { EASE_OUT, prefersReducedMotion } from '../lib/motion'
 
 export function Auth() {
   const { user, loading, signInWithGoogle, signInWithEmail, signUpWithEmail } =
@@ -69,31 +70,45 @@ export function Auth() {
   if (checkEmail) {
     return (
       <div className="auth-page">
-        <div className="auth-card">
-          <h1 className="auth-title">Check your email</h1>
-          <p className="auth-desc">
-            We sent a confirmation link to <strong>{email}</strong>. Click it to
-            finish signing up.
-          </p>
-          <button
-            className="auth-text-btn"
-            onClick={() => setCheckEmail(false)}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key="check-email"
+            className="auth-card"
+            initial={{ opacity: 0, y: 14, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: prefersReducedMotion() ? 0.12 : 0.38, ease: EASE_OUT }}
           >
-            Back to login
-          </button>
-        </div>
+            <h1 className="auth-title">Check your email</h1>
+            <p className="auth-desc">
+              We sent a confirmation link to <strong>{email}</strong>. Click it to
+              finish signing up.
+            </p>
+            <button
+              className="auth-text-btn"
+              onClick={() => setCheckEmail(false)}
+            >
+              Back to login
+            </button>
+          </motion.div>
+        </AnimatePresence>
       </div>
     )
   }
 
+  const reduced = prefersReducedMotion()
+
   return (
     <div className="auth-page">
-      <motion.div
-        className="auth-card"
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={mode}
+          className="auth-card"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: reduced ? 0.12 : 0.4, ease: EASE_OUT }}
+        >
         <a href="/" className="auth-logo">ACE</a>
         <h1 className="auth-title">
           {mode === 'login' ? 'Welcome back' : 'Create your account'}
@@ -176,6 +191,7 @@ export function Auth() {
           )}
         </p>
       </motion.div>
+      </AnimatePresence>
     </div>
   )
 }

@@ -39,6 +39,7 @@ def _sec(
     return SectionCandidate(
         enroll_code=enroll,
         course_norm=course,
+        section_label=None,
         instructor_norm="T",
         days=days,
         begin_min=10 * 60,

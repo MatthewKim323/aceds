@@ -17,6 +17,7 @@ def _sec(
     return SectionCandidate(
         enroll_code=enroll,
         course_norm=course,
+        section_label=None,
         instructor_norm="TEST PROF",
         days=days,
         begin_min=begin_min,

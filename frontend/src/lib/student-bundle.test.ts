@@ -30,4 +30,26 @@ describe('buildStudentBundle', () => {
       true,
     )
   })
+
+  it('counts AP calculus toward MATH 2A/2B-style requirements via placement expansion', () => {
+    const b = buildStudentBundle({
+      major: 'stats_ds_bs',
+      completed_courses: [],
+      in_progress_courses: [],
+      course_grades: {},
+      cumulative_gpa: null,
+      transfer_units: 0,
+      ap_credits: [
+        {
+          exam: 'Calculus BC',
+          ucsb_equivalent: ['MATH 3A', 'MATH 3B'],
+          units: 8,
+          score: 5,
+        },
+      ],
+    })
+    expect(b.derived.overlapCompletedWithMajorRequirements).toBeGreaterThanOrEqual(2)
+    expect(b.graphEdges.some((e) => e.type === 'completed' && e.to === 'MATH 2A')).toBe(true)
+    expect(b.graphEdges.some((e) => e.type === 'completed' && e.to === 'MATH 2B')).toBe(true)
+  })
 })

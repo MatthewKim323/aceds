@@ -59,7 +59,10 @@ python scripts/15_embeddings.py                 # → processed/course_embedding
 # Phase 3: pitch-deck artifacts (~1 min)
 python scripts/20_ablation_plots.py             # → processed/pitch/*.svg + metrics_table.{json,md}
 python scripts/22_regime_reliability.py         # → processed/pitch/07_regime_reliability.svg
+python scripts/23_decision_eval_synthetic.py  # → processed/decision_eval_synthetic.json
 python scripts/24_showcase_improvement_charts.py # → 08–12 + showcase_improvement_metrics.json (improvement story)
+# Optional: G1/G2 export from Supabase optimization_runs (requires service role in env)
+# PYTHONPATH=../backend python scripts/25_competition_metrics_export.py
 ```
 
 The embeddings script uses `sentence-transformers/all-MiniLM-L6-v2` by default — runs locally on CPU, no API key. Pass `--model BAAI/bge-small-en-v1.5` for a quality bump at the same dim.

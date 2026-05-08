@@ -250,7 +250,12 @@ export function Onboarding() {
             </div>
           ))}
         </div>
-        <div className="ob-step-count">{step + 1}/4</div>
+        <div className="ob-header-actions">
+          <span className="ob-step-count">{step + 1}/4</span>
+          <button type="button" className="ob-next ob-header-continue" onClick={next} disabled={!canAdvance() || saving}>
+            {saving ? 'Saving...' : step === 3 ? "Let's Go" : 'Continue'}
+          </button>
+        </div>
       </div>
 
       <div className="ob-body">
@@ -320,12 +325,27 @@ export function Onboarding() {
         </p>
       )}
 
+      <AnimatePresence>
+        {saving && step === 3 ? (
+          <motion.div
+            className="ob-ingest-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="ob-ingest-card">
+              <span className="ob-upload-spinner ob-ingest-spinner" />
+              <p className="ob-ingest-title">Saving your profile</p>
+              <p className="ob-ingest-hint">Syncing courses and preferences to your account.</p>
+            </div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
       <div className="ob-footer">
-        <button className="ob-back" onClick={back} disabled={step === 0}>
+        <button type="button" className="ob-back" onClick={back} disabled={step === 0}>
           Back
-        </button>
-        <button className="ob-next" onClick={next} disabled={!canAdvance() || saving}>
-          {saving ? 'Saving...' : step === 3 ? "Let's Go" : 'Continue'}
         </button>
       </div>
     </div>
@@ -419,6 +439,23 @@ function StepYear({ value, onChange }: { value: string; onChange: (y: string) =>
 
 /* ── Step 3: Courses ── */
 
+/** Minimum dwell per stage so PDF ingest feels substantial (client-side only; labels are theatrical). */
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+const PDF_INGEST_PRE_STAGES = 4
+const PDF_INGEST_STAGES: { label: string; dwellMs: number }[] = [
+  { label: 'Loading PDF into secure browser memory…', dwellMs: 520 },
+  { label: 'Walking page graph & text extraction regions…', dwellMs: 620 },
+  { label: 'Indexing transcript rows for the course subgraph…', dwellMs: 680 },
+  { label: 'Aligning entities with the SKP catalog layer…', dwellMs: 720 },
+  { label: 'Parsing Academic History into structured nodes…', dwellMs: 0 },
+  { label: 'Projecting grades onto the knowledge graph projection…', dwellMs: 640 },
+  { label: 'Resolving UCSB course_norm identities & edges…', dwellMs: 600 },
+  { label: 'Materializing evidence bundle for your degree path…', dwellMs: 580 },
+]
+
 function StepCourses({
   majors: selectedMajors,
   method,
@@ -442,6 +479,8 @@ function StepCourses({
 }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [parsing, setParsing] = useState(false)
+  /** Primary status line during PDF theater (empty = idle). */
+  const [ingestLabel, setIngestLabel] = useState('')
   const [parseError, setParseError] = useState<string | null>(null)
   const [dragOver, setDragOver] = useState(false)
 
@@ -452,13 +491,31 @@ function StepCourses({
     }
     setParsing(true)
     setParseError(null)
+    const parsePromise = parsePDF(file)
+
     try {
-      const doc = await parsePDF(file)
+      for (let i = 0; i < PDF_INGEST_PRE_STAGES; i++) {
+        const s = PDF_INGEST_STAGES[i]
+        setIngestLabel(s.label)
+        await sleep(s.dwellMs)
+      }
+
+      const parsingBeat = PDF_INGEST_STAGES[PDF_INGEST_PRE_STAGES]
+      setIngestLabel(parsingBeat.label)
+      const doc = await parsePromise
+
+      for (let i = PDF_INGEST_PRE_STAGES + 1; i < PDF_INGEST_STAGES.length; i++) {
+        const s = PDF_INGEST_STAGES[i]
+        setIngestLabel(s.label)
+        await sleep(s.dwellMs)
+      }
+
       onParsed(doc)
     } catch (err) {
       console.error('PDF parse error:', err)
       setParseError('Could not parse this PDF. Try a different file or use manual entry.')
     } finally {
+      setIngestLabel('')
       setParsing(false)
     }
   }
@@ -523,7 +580,7 @@ function StepCourses({
             {parsing ? (
               <>
                 <span className="ob-upload-spinner" />
-                <span className="ob-upload-text">Parsing your document...</span>
+                <span className="ob-upload-text">{ingestLabel || 'Preparing ingest pipeline…'}</span>
               </>
             ) : (
               <>

@@ -1,50 +1,34 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { Link, Navigate } from 'react-router-dom'
+import { Link, Navigate, useLocation, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { useAuth } from '../lib/auth'
 import { getProfile } from '../lib/profile'
+import {
+  DEFAULT_OPTIMIZE_PREFS,
+  profileRowToOptimizePreferences,
+} from '../lib/optimizer-preferences'
 import { getMajorById, type Major } from '../data/majors'
 import {
   api,
+  type CatalogMeta,
+  type Course,
   type OptimizePreferences,
+  type OptimizeResponsePayload,
   type ScheduleCandidate,
-  type SectionPick,
 } from '../lib/api'
+import { quarterLabelFromCode, quarterSelectOptions } from '../lib/quarters'
 import { toCourseNorm } from '../lib/pdf-parser'
-
-const DEFAULT_PREFS: OptimizePreferences = {
-  weight_grades: 0.3,
-  weight_professor: 0.25,
-  weight_convenience: 0.25,
-  weight_availability: 0.2,
-  target_units_min: 12,
-  target_units_max: 17,
-  earliest_start: '09:00',
-  latest_end: '18:00',
-  preferred_days: ['M', 'T', 'W', 'R', 'F'],
-  avoid_friday_afternoon: false,
-  diversity_lambda: 0.15,
-  risk_lambda: 0,
-  elective_subject_bonus: 0,
-  preferred_elective_prefixes: [],
-}
-
-const QUARTER_CODE = '20262' // Spring 2026
-const QUARTER_LABEL = 'Spring 2026'
-
-const CAL_DAY_ORDER = ['M', 'T', 'W', 'R', 'F'] as const
-const CAL_START_MIN = 8 * 60
-const CAL_END_MIN = 22 * 60
-const CAL_TOTAL_MIN = CAL_END_MIN - CAL_START_MIN
-
-const SECTION_PALETTES = [
-  'linear-gradient(135deg, rgba(242,167,184,0.45), rgba(242,167,184,0.12))',
-  'linear-gradient(135deg, rgba(94,228,184,0.35), rgba(94,228,184,0.1))',
-  'linear-gradient(135deg, rgba(147,197,253,0.4), rgba(147,197,253,0.1))',
-  'linear-gradient(135deg, rgba(253,224,71,0.35), rgba(253,224,71,0.1))',
-  'linear-gradient(135deg, rgba(196,181,253,0.45), rgba(196,181,253,0.12))',
-  'linear-gradient(135deg, rgba(251,146,60,0.35), rgba(251,146,60,0.12))',
-]
+import { buildSatisfiedCourseSet } from '../lib/satisfied-courses'
+import { ScheduleOptimizeResults } from '../components/ScheduleOptimizeResults'
+import {
+  OptimizePipelineOverlay,
+  type PipelineLogLine,
+} from '../components/OptimizePipelineOverlay'
+import {
+  deleteSavedSchedule,
+  listSavedSchedules,
+  type SavedScheduleRow,
+} from '../lib/saved-schedules'
 
 /** Merge requirement pools from every declared major (profile.major is comma-separated). */
 function mergedMajorPool(
@@ -97,6 +81,56 @@ function mergedMajorPool(
   }
 }
 
+function normKey(c: string): string {
+  return toCourseNorm(c)
+}
+
+/** Undergrad-style numbering: course number ≥ 100 reads as upper-division (aligned with majors.ts). */
+function isUpperDivisionCourseId(rawId: string): boolean {
+  const u = rawId.trim().toUpperCase()
+  const matches = u.match(/\b(\d{1,3})(?:[A-Z]{1,3})?\b/g)
+  if (!matches?.length) return false
+  const last = matches[matches.length - 1]
+  const n = parseInt(/\d+/.exec(last)?.[0] ?? '', 10)
+  return Number.isFinite(n) && n >= 100
+}
+
+function mergedMajorUdPools(
+  majorIds: string[],
+  completedSet: Set<string>,
+): {
+  requiredUd: string[]
+  electiveUd: string[]
+  label: string
+  invalidIds: string[]
+} | null {
+  const base = mergedMajorPool(majorIds, completedSet)
+  if (!base) return null
+  return {
+    requiredUd: base.required.filter(isUpperDivisionCourseId),
+    electiveUd: base.optional.filter(isUpperDivisionCourseId),
+    label: base.label,
+    invalidIds: base.invalidIds,
+  }
+}
+
+const GE_AREAS: { code: string; label: string }[] = [
+  { code: 'A', label: 'Area A' },
+  { code: 'B', label: 'Area B' },
+  { code: 'C', label: 'Area C' },
+  { code: 'D', label: 'Area D' },
+  { code: 'E', label: 'Area E' },
+  { code: 'F', label: 'Area F' },
+  { code: 'G', label: 'Area G' },
+  { code: 'ETH', label: 'Ethnicity' },
+  { code: 'EUR', label: 'European traditions' },
+  { code: 'NWC', label: 'World cultures' },
+  { code: 'WRT', label: 'Writing' },
+  { code: 'QNT', label: 'Quantitative' },
+]
+
+type PoolSector = 'ge' | 'ud_req' | 'ud_elec'
+
 function isStatsDataMajor(majorIds: string[]): boolean {
   return majorIds.some((id) =>
     /statistics|data_science|stats_ds|pstat/i.test(id),
@@ -138,120 +172,118 @@ function effectiveOptimizePrefs(
   }
 }
 
-function parseTimeToMin(t: string | null): number | null {
-  if (!t) return null
-  const parts = String(t).split(':')
-  const h = Number(parts[0])
-  const m = Number(parts[1] ?? 0)
-  if (!Number.isFinite(h)) return null
-  return h * 60 + (Number.isFinite(m) ? m : 0)
-}
-
-function parseDayLetters(days: string | null): string[] {
-  if (!days) return []
-  const allow = new Set(['M', 'T', 'W', 'R', 'F', 'S', 'U'])
-  return [...days.toUpperCase()].filter((c) => allow.has(c))
-}
-
-function colorIndexForSection(s: SectionPick, i: number): number {
-  let h = 0
-  for (let k = 0; k < s.enroll_code.length; k++) h = (h + s.enroll_code.charCodeAt(k) * (k + 1)) % 997
-  return (h + i) % SECTION_PALETTES.length
-}
-
-function CalendarWeekGrid({ sections }: { sections: SectionPick[] }) {
-  const hasTimes = sections.some(
-    (s) => parseTimeToMin(s.begin_time) != null && parseTimeToMin(s.end_time) != null,
-  )
-  if (!hasTimes) {
-    return (
-      <p className="sb-cal-fallback">
-        No timed meetings parsed for this quarter — calendar preview unavailable.
-      </p>
-    )
-  }
-
-  return (
-    <div className="sb-cal" aria-hidden>
-      <div className="sb-cal-inner">
-        <div className="sb-cal-time-rail" />
-        <div className="sb-cal-board">
-          <div className="sb-cal-head">
-            {CAL_DAY_ORDER.map((d) => (
-              <div key={d} className="sb-cal-dh">
-                {d}
-              </div>
-            ))}
-          </div>
-          <div className="sb-cal-body">
-            {CAL_DAY_ORDER.map((day) => (
-              <div key={day} className="sb-cal-col">
-                <div className="sb-cal-grid-lines">
-                  {Array.from({ length: 14 }, (_, h) => (
-                    <div key={h} className="sb-cal-hour-line" />
-                  ))}
-                </div>
-                <div className="sb-cal-blocks">
-                  {sections.flatMap((s, si) => {
-                    const begin = parseTimeToMin(s.begin_time)
-                    const end = parseTimeToMin(s.end_time)
-                    if (begin == null || end == null || end <= begin) return []
-                    if (!parseDayLetters(s.days).includes(day)) return []
-                    const top = ((begin - CAL_START_MIN) / CAL_TOTAL_MIN) * 100
-                    const hPct = Math.max(((end - begin) / CAL_TOTAL_MIN) * 100, 3)
-                    const clippedTop = Math.max(0, Math.min(100 - hPct, top))
-                    const clippedH = Math.min(hPct, 100 - clippedTop)
-                    const bg = SECTION_PALETTES[colorIndexForSection(s, si)]
-                    return (
-                      <div
-                        key={`${s.enroll_code}-${day}`}
-                        className="sb-cal-block"
-                        style={{
-                          top: `${clippedTop}%`,
-                          height: `${clippedH}%`,
-                          background: bg,
-                        }}
-                        title={`${s.course_norm} · ${s.begin_time ?? ''}–${s.end_time ?? ''}`}
-                      >
-                        <span className="sb-cal-block-code">{s.course_norm}</span>
-                        <span className="sb-cal-block-time">
-                          {s.begin_time?.slice(0, 5)}–{s.end_time?.slice(0, 5)}
-                        </span>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <div className="sb-cal-axis-labels">
-        <span>8:00</span>
-        <span>12:00</span>
-        <span>18:00</span>
-        <span>22:00</span>
-      </div>
-    </div>
-  )
-}
-
 export function Schedule() {
   const { user, loading: authLoading } = useAuth()
+  const location = useLocation()
+  const [params, setParams] = useSearchParams()
+
+  const quarterParam = (params.get('quarter') || '').trim()
+  const [meta, setMeta] = useState<CatalogMeta | null>(null)
+
+  const setQuarterParam = useCallback(
+    (code: string) => {
+      setParams(
+        (prev) => {
+          const n = new URLSearchParams(prev)
+          if (code) n.set('quarter', code)
+          else n.delete('quarter')
+          return n
+        },
+        { replace: true },
+      )
+    },
+    [setParams],
+  )
+
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const m = await api.catalogMeta(quarterParam ? { quarter: quarterParam } : {})
+        if (cancelled) return
+        setMeta(m)
+        if (!quarterParam && m.quarter) {
+          setParams(
+            (prev) => {
+              const n = new URLSearchParams(prev)
+              n.set('quarter', m.quarter)
+              return n
+            },
+            { replace: true },
+          )
+        }
+      } catch {
+        if (!cancelled) setMeta(null)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [quarterParam, setParams])
+
+  const scheduleQuarter = quarterParam || meta?.quarter || ''
+  const quarterOptions = useMemo(() => quarterSelectOptions(meta), [meta])
+  const quarterLabel = useMemo(() => {
+    const hit = quarterOptions.find((o) => o.code === scheduleQuarter)
+    return hit?.label ?? quarterLabelFromCode(scheduleQuarter)
+  }, [quarterOptions, scheduleQuarter])
+
   const [majorIds, setMajorIds] = useState<string[]>([])
   const [completedSet, setCompletedSet] = useState<Set<string>>(new Set())
 
   const [requiredCourses, setRequiredCourses] = useState<string[]>([])
   const [optionalCourses, setOptionalCourses] = useState<string[]>([])
   const [excludedCourses, setExcludedCourses] = useState<Set<string>>(new Set())
-  const [prefs, setPrefs] = useState<OptimizePreferences>(DEFAULT_PREFS)
+  const [prefs, setPrefs] = useState<OptimizePreferences>(() => ({
+    ...DEFAULT_OPTIMIZE_PREFS,
+  }))
   const [running, setRunning] = useState(false)
+  const [pipelineLines, setPipelineLines] = useState<PipelineLogLine[]>([])
   const [candidates, setCandidates] = useState<ScheduleCandidate[]>([])
   const [error, setError] = useState<string | null>(null)
   const [optimizeReturnedEmpty, setOptimizeReturnedEmpty] = useState(false)
+  const [optimizeNotes, setOptimizeNotes] = useState<string[]>([])
   const [resultsModalOpen, setResultsModalOpen] = useState(false)
+  const [resultsModalCandidates, setResultsModalCandidates] = useState<ScheduleCandidate[]>([])
+  const [resultsQuarterCode, setResultsQuarterCode] = useState('')
+  const [resultsQuarterLabel, setResultsQuarterLabel] = useState('')
+  const [courseGrades, setCourseGrades] = useState<Record<string, string>>({})
+  const [cumulativeGpa, setCumulativeGpa] = useState<number | null>(null)
+  const [savedRows, setSavedRows] = useState<SavedScheduleRow[]>([])
+  const [savedLoading, setSavedLoading] = useState(false)
+  const [savedErr, setSavedErr] = useState<string | null>(null)
+
+  const [offeringsLoading, setOfferingsLoading] = useState(true)
+  const [offeringsErr, setOfferingsErr] = useState<string | null>(null)
+  const [offeredNorms, setOfferedNorms] = useState<Set<string> | null>(null)
+
+  const [geArea, setGeArea] = useState('B')
+  const [poolSector, setPoolSector] = useState<PoolSector>('ge')
+  const [poolQuery, setPoolQuery] = useState('')
+  const [poolDebounced, setPoolDebounced] = useState('')
+  const [poolHits, setPoolHits] = useState<Course[]>([])
+  const [poolLoading, setPoolLoading] = useState(false)
 
   const closeResultsModal = useCallback(() => setResultsModalOpen(false), [])
+
+  const refreshSavedSchedules = useCallback(async () => {
+    if (!user) return
+    setSavedLoading(true)
+    setSavedErr(null)
+    try {
+      const rows = await listSavedSchedules(user.id)
+      setSavedRows(rows)
+    } catch (e) {
+      setSavedErr(String((e as Error).message || e))
+      setSavedRows([])
+    } finally {
+      setSavedLoading(false)
+    }
+  }, [user])
+
+  useEffect(() => {
+    void refreshSavedSchedules()
+  }, [refreshSavedSchedules])
 
   useEffect(() => {
     if (!user) return
@@ -260,6 +292,9 @@ export function Schedule() {
       const p = profile as unknown as {
         major: string
         completed_courses: string[]
+        course_grades?: Record<string, string>
+        cumulative_gpa?: number | null
+        ap_credits?: { exam: string; ucsb_equivalent: string[]; units: number; score: number | null }[]
       }
       const ids =
         p.major
@@ -268,72 +303,368 @@ export function Schedule() {
           .filter(Boolean) ?? []
       setMajorIds(ids)
       setCompletedSet(
-        new Set((p.completed_courses || []).map((c) => toCourseNorm(String(c)))),
+        buildSatisfiedCourseSet(p.completed_courses || [], p.ap_credits ?? []),
       )
+      setPrefs(profileRowToOptimizePreferences(profile as Record<string, unknown>))
+      setCourseGrades({ ...(p.course_grades ?? {}) })
+      setCumulativeGpa(p.cumulative_gpa ?? null)
     })
-  }, [user])
+  }, [user, location.pathname, location.key])
 
   const majorDerived = useMemo(
     () => mergedMajorPool(majorIds, completedSet),
     [majorIds, completedSet],
   )
 
+  const majorUdDerived = useMemo(
+    () => mergedMajorUdPools(majorIds, completedSet),
+    [majorIds, completedSet],
+  )
+
+  const majorRequiredUdNormSet = useMemo(() => {
+    if (!majorUdDerived?.requiredUd.length) return null as Set<string> | null
+    return new Set(majorUdDerived.requiredUd.map((c) => normKey(c)))
+  }, [majorUdDerived])
+
+  const majorElectiveUdNormSet = useMemo(() => {
+    if (!majorUdDerived?.electiveUd.length) return null as Set<string> | null
+    return new Set(majorUdDerived.electiveUd.map((c) => normKey(c)))
+  }, [majorUdDerived])
+
   useEffect(() => {
-    if (!majorDerived) return
-    setRequiredCourses(majorDerived.required.slice(0, 4))
-    setOptionalCourses(prioritizeOptionalForPool(majorIds, majorDerived.optional))
-  }, [majorDerived, majorIds])
+    if (!scheduleQuarter) {
+      setOfferingsLoading(false)
+      setOfferedNorms(null)
+      return
+    }
+    let cancelled = false
+    setOfferingsLoading(true)
+    setOfferingsErr(null)
+    api
+      .listDistinctCourseNorms(scheduleQuarter)
+      .then((r) => {
+        if (!cancelled) setOfferedNorms(new Set(r.course_norms))
+      })
+      .catch((e) => {
+        if (!cancelled) {
+          setOfferingsErr(String((e as Error).message || e))
+          setOfferedNorms(null)
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setOfferingsLoading(false)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [scheduleQuarter])
+
+  useEffect(() => {
+    const t = window.setTimeout(() => setPoolDebounced(poolQuery.trim()), 350)
+    return () => window.clearTimeout(t)
+  }, [poolQuery])
+
+  useEffect(() => {
+    let cancelled = false
+    setPoolLoading(true)
+
+    const runGe = () => {
+      api
+        .listCourses({ ge: geArea, search: poolDebounced || undefined, limit: 80 })
+        .then((page) => {
+          if (!cancelled) setPoolHits(page.items)
+        })
+        .catch(() => {
+          if (!cancelled) setPoolHits([])
+        })
+        .finally(() => {
+          if (!cancelled) setPoolLoading(false)
+        })
+    }
+
+    const runUdReq = () => {
+      if (!majorRequiredUdNormSet?.size) {
+        setPoolHits([])
+        setPoolLoading(false)
+        return
+      }
+      const q = poolDebounced.trim()
+      if (!q) {
+        setPoolHits([])
+        setPoolLoading(false)
+        return
+      }
+      api
+        .listCourses({ search: q, limit: 150 })
+        .then((page) => {
+          const filtered = page.items.filter((row) =>
+            majorRequiredUdNormSet!.has(normKey(row.course_norm)),
+          )
+          if (!cancelled) setPoolHits(filtered.slice(0, 50))
+        })
+        .catch(() => {
+          if (!cancelled) setPoolHits([])
+        })
+        .finally(() => {
+          if (!cancelled) setPoolLoading(false)
+        })
+    }
+
+    const runUdElec = () => {
+      if (!majorElectiveUdNormSet?.size) {
+        setPoolHits([])
+        setPoolLoading(false)
+        return
+      }
+      const q = poolDebounced.trim()
+      if (!q) {
+        setPoolHits([])
+        setPoolLoading(false)
+        return
+      }
+      api
+        .listCourses({ search: q, limit: 150 })
+        .then((page) => {
+          const filtered = page.items.filter((row) =>
+            majorElectiveUdNormSet!.has(normKey(row.course_norm)),
+          )
+          if (!cancelled) setPoolHits(filtered.slice(0, 50))
+        })
+        .catch(() => {
+          if (!cancelled) setPoolHits([])
+        })
+        .finally(() => {
+          if (!cancelled) setPoolLoading(false)
+        })
+    }
+
+    if (poolSector === 'ge') runGe()
+    else if (poolSector === 'ud_req') runUdReq()
+    else runUdElec()
+
+    return () => {
+      cancelled = true
+    }
+  }, [poolSector, poolDebounced, geArea, majorRequiredUdNormSet, majorElectiveUdNormSet])
 
   async function runOptimizer() {
-    if (!majorIds.length || !user) return
+    if (!user || !scheduleQuarter) return
     setRunning(true)
     setError(null)
     setOptimizeReturnedEmpty(false)
-    try {
-      const mergedPrefs = effectiveOptimizePrefs(majorIds, {
-        ...prefs,
-        risk_lambda: prefs.risk_lambda ?? 0,
-      })
-      const resp = await api.optimize({
-        quarter_code: QUARTER_CODE,
-        major_id: majorIds[0] ?? '',
-        required_courses: requiredCourses,
-        optional_courses: optionalCourses,
-        excluded_courses: Array.from(excludedCourses),
-        completed_courses: Array.from(completedSet),
-        preferences: mergedPrefs,
-        top_k: 3,
-        user_id: user.id,
-      })
+    setOptimizeNotes([])
+    setPipelineLines([])
+    const mergedPrefs = effectiveOptimizePrefs(majorIds, {
+      ...prefs,
+      risk_lambda: prefs.risk_lambda ?? 0,
+    })
+    const body = {
+      quarter_code: scheduleQuarter,
+      major_id: majorIds[0] ?? 'custom_pool',
+      required_courses: requiredCourses,
+      optional_courses: optionalCourses,
+      excluded_courses: Array.from(excludedCourses),
+      completed_courses: Array.from(completedSet),
+      preferences: mergedPrefs,
+      top_k: 3,
+      user_id: user.id,
+    }
+
+    const applyResp = (resp: OptimizeResponsePayload) => {
       setCandidates(resp.candidates)
       setOptimizeReturnedEmpty(resp.candidates.length === 0)
-      if (resp.candidates.length > 0) setResultsModalOpen(true)
+      setOptimizeNotes(resp.optimize_notes ?? [])
+      if (resp.candidates.length > 0) {
+        setResultsModalCandidates(resp.candidates)
+        setResultsQuarterCode(scheduleQuarter)
+        setResultsQuarterLabel(quarterLabel)
+        setResultsModalOpen(true)
+      }
+    }
+
+    try {
+      try {
+        const resp = await api.optimizeStream(body, {
+          onPhase: (e) => {
+            const label = typeof e.label === 'string' ? e.label : e.phase
+            const rest: Record<string, unknown> = { ...e }
+            delete rest.phase
+            delete rest.label
+            const keys = Object.keys(rest)
+            let meta: string | undefined
+            if (keys.length) {
+              try {
+                meta = JSON.stringify(rest)
+                if (meta.length > 160) meta = `${meta.slice(0, 157)}…`
+              } catch {
+                meta = undefined
+              }
+            }
+            setPipelineLines((prev) => [
+              ...prev,
+              {
+                id: `${performance.now()}-${prev.length}`,
+                phase: e.phase,
+                label,
+                meta,
+              },
+            ])
+          },
+        })
+        applyResp(resp)
+      } catch (streamErr) {
+        const msg = String((streamErr as Error).message ?? streamErr)
+        setPipelineLines((prev) => [
+          ...prev,
+          {
+            id: `fallback-${performance.now()}`,
+            phase: 'fallback',
+            label: 'Stream unavailable — using sync optimize',
+            meta: msg.slice(0, 180),
+          },
+        ])
+        const resp = await api.optimize(body)
+        applyResp(resp)
+      }
     } catch (e) {
       setError(String((e as Error).message || e))
       setCandidates([])
       setOptimizeReturnedEmpty(false)
+      setOptimizeNotes([])
     } finally {
       setRunning(false)
     }
   }
 
+  const electiveActiveCount = optionalCourses.filter((c) => !excludedCourses.has(c)).length
+
   const canOptimize =
-    Boolean(majorIds.length) &&
-    (requiredCourses.length > 0 || optionalCourses.length > 0)
+    Boolean(user) &&
+    Boolean(scheduleQuarter) &&
+    (requiredCourses.length > 0 || electiveActiveCount > 0)
+
+  const poolSearchPlaceholder = useMemo(() => {
+    if (poolSector === 'ge') return 'Title or code (e.g. PHIL, ethics)'
+    if (poolSector === 'ud_req') return 'e.g. PSTAT 122, core'
+    return 'e.g. PSTAT 130, MATH 108A'
+  }, [poolSector])
+
+  const udReqLaneOpen = Boolean(majorUdDerived?.requiredUd.length)
+  const udElecLaneOpen = Boolean(majorUdDerived?.electiveUd.length)
+
+  function addOptionalFromCatalog(cid: string) {
+    const k = normKey(cid)
+    setExcludedCourses((ex) => {
+      const n = new Set<string>()
+      for (const x of ex) {
+        if (normKey(x) !== k) n.add(x)
+      }
+      return n
+    })
+    setOptionalCourses((o) => (o.some((x) => normKey(x) === k) ? o : [...o, cid]))
+  }
+
+  function addRequiredFromCatalog(cid: string) {
+    const k = normKey(cid)
+    setOptionalCourses((o) => o.filter((x) => normKey(x) !== k))
+    setExcludedCourses((ex) => {
+      const n = new Set<string>()
+      for (const x of ex) {
+        if (normKey(x) !== k) n.add(x)
+      }
+      return n
+    })
+    setRequiredCourses((r) => (r.some((x) => normKey(x) === k) ? r : [...r, cid]))
+  }
+
+  function removeFromPool(cid: string) {
+    const k = normKey(cid)
+    setRequiredCourses((r) => r.filter((x) => normKey(x) !== k))
+    setOptionalCourses((o) => o.filter((x) => normKey(x) !== k))
+    setExcludedCourses((ex) => {
+      const n = new Set<string>()
+      for (const x of ex) {
+        if (normKey(x) !== k) n.add(x)
+      }
+      return n
+    })
+  }
+
+  function demoteToElective(cid: string) {
+    const k = normKey(cid)
+    setRequiredCourses((r) => r.filter((x) => normKey(x) !== k))
+    setOptionalCourses((o) => (o.some((x) => normKey(x) === k) ? o : [...o, cid]))
+  }
+
+  function promoteFromElectiveToRequired(cid: string) {
+    const k = normKey(cid)
+    setOptionalCourses((o) => o.filter((x) => normKey(x) !== k))
+    setExcludedCourses((ex) => {
+      const n = new Set<string>()
+      for (const x of ex) {
+        if (normKey(x) !== k) n.add(x)
+      }
+      return n
+    })
+    setRequiredCourses((r) => (r.some((x) => normKey(x) === k) ? r : [...r, cid]))
+  }
+
+  function toggleExcludeElective(cid: string) {
+    setExcludedCourses((ex) => {
+      const n = new Set(ex)
+      if (n.has(cid)) n.delete(cid)
+      else n.add(cid)
+      return n
+    })
+  }
+
+  const fillSuggestedFromMajor = useCallback(() => {
+    if (!majorDerived) return
+    setRequiredCourses(majorDerived.required.slice(0, 4))
+    setOptionalCourses(prioritizeOptionalForPool(majorIds, majorDerived.optional))
+    setExcludedCourses(new Set())
+  }, [majorDerived, majorIds])
 
   if (authLoading) return null
   if (!user) return <Navigate to="/auth" replace />
 
   return (
     <div className="sb">
+      <OptimizePipelineOverlay open={running} lines={pipelineLines} />
       <header className="sb-header">
         <div>
           <Link to="/dashboard" className="sb-back">&larr; dashboard</Link>
           <h1 className="sb-title">Schedule Builder</h1>
           <p className="sb-sub">
-            {majorDerived ? `${majorDerived.label} · ${QUARTER_LABEL}` : QUARTER_LABEL}
-            {' · optimizing across '}<span className="sb-accent">
-              {requiredCourses.length} required + {optionalCourses.length} electives
+            <span className="sb-quarter-inline">
+              <label htmlFor="sb-schedule-quarter" className="sb-quarter-inline-label">
+                Quarter
+              </label>
+              <select
+                id="sb-schedule-quarter"
+                className="sb-quarter-select"
+                value={
+                  scheduleQuarter && quarterOptions.some((o) => o.code === scheduleQuarter)
+                    ? scheduleQuarter
+                    : (quarterOptions[0]?.code ?? '')
+                }
+                onChange={(e) => setQuarterParam(e.target.value)}
+                aria-label="Quarter to build schedule for"
+              >
+                {quarterOptions.map((opt) => (
+                  <option key={opt.code} value={opt.code}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </span>
+            {majorDerived ? `${majorDerived.label} · ${quarterLabel}` : quarterLabel}
+            {' · pool: '}
+            <span className="sb-accent">
+              {requiredCourses.length} must · {electiveActiveCount} elective active
+              {optionalCourses.length > electiveActiveCount
+                ? ` · ${optionalCourses.length - electiveActiveCount} elective skipped`
+                : ''}
             </span>
           </p>
           {majorDerived && majorDerived.invalidIds.length > 0 && (
@@ -346,38 +677,43 @@ export function Schedule() {
             Predicted GPA is a <strong>section mean</strong> from historical data, not your personal
             expected grade. Each section shows <strong>μ</strong>, a <strong>[lo, hi]</strong> symmetric
             interval (split conformal on val when calibrated; else Gaussian fallback), and a cold-start{' '}
-            <strong>regime</strong>. σ is the test RMSE bucket from the model card. Major
-            pools here are a <strong>simplified demo</strong> (e.g. “pick N of M” groups become electives;
-            at most four auto-required courses) — not a degree audit.
+            <strong>regime</strong>. σ is the test RMSE bucket from the model card. Your{' '}
+            <strong>pool</strong> is whatever you add below — not a degree audit.
           </p>
           {!canOptimize && (
             <p className="sb-run-hint">
-              {majorIds.length === 0 ? (
+              Add courses from <strong>Discover</strong> into <strong>Your pool</strong>, then optimize.
+              {majorDerived ? (
                 <>
-                  Add a major in <Link to="/settings">Settings</Link> or finish onboarding — the optimizer needs a
-                  curriculum bundle.
+                  {' '}
+                  Optional shortcut:{' '}
+                  <button
+                    type="button"
+                    className="sb-inline-link"
+                    onClick={fillSuggestedFromMajor}
+                  >
+                    Prefill from major sheet
+                  </button>
+                  .
                 </>
-              ) : !majorDerived ? (
-                <>
-                  None of your declared ids matched bundled majors:{' '}
-                  <code className="sb-code">{majorIds.join(', ')}</code> — check spelling against{' '}
-                  <code className="sb-code">majors.ts</code> (e.g. <code className="sb-code">econ_ba</code>).
-                </>
-              ) : (
-                <>
-                  Every auto-tracked requirement group looks satisfied for this demo, so there are no candidate
-                  courses. Adjust completed courses in Settings or choose another major to try Schedule Builder.
-                </>
-              )}
+              ) : null}
             </p>
           )}
         </div>
         <div className="sb-header-actions">
+          <Link to="/settings?tab=preferences" className="sb-view-results">
+            Preferences
+          </Link>
           {candidates.length > 0 && (
             <button
               type="button"
               className="sb-view-results"
-              onClick={() => setResultsModalOpen(true)}
+              onClick={() => {
+                setResultsModalCandidates(candidates)
+                setResultsQuarterCode(scheduleQuarter)
+                setResultsQuarterLabel(quarterLabel)
+                setResultsModalOpen(true)
+              }}
             >
               View schedules
             </button>
@@ -392,148 +728,332 @@ export function Schedule() {
         </div>
       </header>
 
-      <section className="sb-pane sb-prefs">
-        <h2 className="sb-pane-title">Preferences</h2>
-
-        <div className="sb-prefs-grid">
-          <Weight
-            label="Grades"
-            value={prefs.weight_grades}
-            onChange={(v) => setPrefs({ ...prefs, weight_grades: v })}
-          />
-          <Weight
-            label="Professor"
-            value={prefs.weight_professor}
-            onChange={(v) => setPrefs({ ...prefs, weight_professor: v })}
-          />
-          <Weight
-            label="Convenience"
-            value={prefs.weight_convenience}
-            onChange={(v) => setPrefs({ ...prefs, weight_convenience: v })}
-          />
-          <Weight
-            label="Availability"
-            value={prefs.weight_availability}
-            onChange={(v) => setPrefs({ ...prefs, weight_availability: v })}
-          />
+      <section className="sb-pane sb-discovery-pane">
+        <div className="sb-discovery-head">
+          <h2 className="sb-pane-title">Discover courses</h2>
+          <p className="sb-discovery-sub">
+            One search bar · choose GE, UD required, or UD electives · results from{' '}
+            <code className="sb-code">courses</code> ({quarterLabel} import overlay when available).
+          </p>
         </div>
 
-        <div className="sb-row">
-          <label className="sb-field">
-            <span>Target units</span>
-            <div className="sb-range-pair">
-              <input
-                type="number"
-                min={4}
-                max={22}
-                value={prefs.target_units_min}
-                onChange={(e) => setPrefs({ ...prefs, target_units_min: Number(e.target.value) })}
-              />
-              <span className="sb-dash">—</span>
-              <input
-                type="number"
-                min={4}
-                max={22}
-                value={prefs.target_units_max}
-                onChange={(e) => setPrefs({ ...prefs, target_units_max: Number(e.target.value) })}
-              />
-            </div>
-          </label>
-          <label className="sb-field">
-            <span>Earliest start</span>
-            <input
-              type="time"
-              value={prefs.earliest_start}
-              onChange={(e) => setPrefs({ ...prefs, earliest_start: e.target.value })}
-            />
-          </label>
-          <label className="sb-field">
-            <span>Latest end</span>
-            <input
-              type="time"
-              value={prefs.latest_end}
-              onChange={(e) => setPrefs({ ...prefs, latest_end: e.target.value })}
-            />
-          </label>
-          <label className="sb-field sb-field-check">
-            <input
-              type="checkbox"
-              checked={prefs.avoid_friday_afternoon}
-              onChange={(e) => setPrefs({ ...prefs, avoid_friday_afternoon: e.target.checked })}
-            />
-            <span>Skip Fri afternoons</span>
-          </label>
-        </div>
+        {offeringsLoading && (
+          <p className="sb-discovery-meta">Loading schedule import index…</p>
+        )}
+        {offeringsErr && (
+          <p className="sb-discovery-meta sb-discovery-meta-warn" role="status">
+            Could not load import index: {offeringsErr}
+          </p>
+        )}
+        {!offeringsLoading && offeredNorms && (
+          <p className="sb-discovery-meta">
+            <strong>{offeredNorms.size}</strong> courses with sections in import for{' '}
+            <code className="sb-code">{scheduleQuarter || '…'}</code>
+          </p>
+        )}
 
-        <div className="sb-row">
-          <label className="sb-field sb-field-wide">
-            <span>Risk aversion λ (grade term)</span>
-            <div className="sb-risk-row">
-              <input
-                type="range"
-                min={0}
-                max={1.5}
-                step={0.05}
-                value={prefs.risk_lambda ?? 0}
-                onChange={(e) =>
-                  setPrefs({ ...prefs, risk_lambda: Number(e.target.value) })
-                }
-              />
-              <span className="sb-risk-val">{(prefs.risk_lambda ?? 0).toFixed(2)}</span>
-            </div>
-            <small className="sb-hint-inline">
-              Optimizer uses effective GPA ≈ μ − λ·half-width on the grade axis (PuLP objective only).
-            </small>
-          </label>
-        </div>
-
-        <div className="sb-row">
-          <span className="sb-field-label">Days</span>
-          {(['M', 'T', 'W', 'R', 'F', 'S'] as const).map((d) => {
-            const active = prefs.preferred_days.includes(d)
-            return (
-              <button
-                key={d}
-                className={`sb-day ${active ? 'on' : ''}`}
-                onClick={() => {
-                  const set = new Set(prefs.preferred_days)
-                  if (active) set.delete(d)
-                  else set.add(d)
-                  setPrefs({ ...prefs, preferred_days: Array.from(set) })
-                }}
+        <div className="sb-glass-search-shell">
+          <motion.div
+            layout
+            className="sb-glass-search"
+            transition={{ duration: 0.32, ease: [0.25, 0.1, 0.25, 1] }}
+          >
+            <div className="sb-search-sector-wrap">
+              <select
+                className="sb-search-sector"
+                value={poolSector}
+                onChange={(e) => setPoolSector(e.target.value as PoolSector)}
+                aria-label="Search scope"
               >
-                {d}
-              </button>
-            )
-          })}
+                <option value="ge">General education</option>
+                <option value="ud_req">Major · UD required</option>
+                <option value="ud_elec">Major · UD electives</option>
+              </select>
+            </div>
+            <input
+              type="search"
+              className="sb-search-input-glass"
+              value={poolQuery}
+              onChange={(e) => setPoolQuery(e.target.value)}
+              placeholder={poolSearchPlaceholder}
+              autoComplete="off"
+              aria-label="Search courses"
+            />
+          </motion.div>
+
+          <AnimatePresence mode="wait">
+            {poolSector === 'ge' && (
+              <motion.div
+                key="ge-strip"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.26, ease: [0.25, 0.1, 0.25, 1] }}
+                className="sb-ge-strip"
+              >
+                <span className="sb-ge-strip-label">GE area</span>
+                <div className="ce-pills sb-ge-pills-wrap">
+                  {GE_AREAS.map((g) => (
+                    <button
+                      key={g.code}
+                      type="button"
+                      className={`ce-pill ${geArea === g.code ? 'on' : ''}`}
+                      title={g.label}
+                      onClick={() => setGeArea(g.code)}
+                    >
+                      {g.code}
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="sb-catalog-panel sb-catalog-panel-unified">
+          {poolSector === 'ud_req' && !udReqLaneOpen && (
+            <p className="sb-pool-ghost">
+              {majorDerived ? (
+                <>No UD singleton requirements left in your sheet — try GE or UD electives.</>
+              ) : (
+                <>
+                  <Link to="/settings">Settings</Link> — add a bundled major for UD lanes (GE works without).
+                </>
+              )}
+            </p>
+          )}
+          {poolSector === 'ud_elec' && !udElecLaneOpen && (
+            <p className="sb-pool-ghost">
+              {majorDerived ? (
+                <>No UD elective lists left, or groups satisfied.</>
+              ) : (
+                <>
+                  <Link to="/settings">Settings</Link> — add a bundled major for UD lanes.
+                </>
+              )}
+            </p>
+          )}
+
+          {(poolSector === 'ge' ||
+            (poolSector === 'ud_req' && udReqLaneOpen) ||
+            (poolSector === 'ud_elec' && udElecLaneOpen)) &&
+            (poolLoading ? (
+              <p className="sb-pool-status">
+                {poolSector === 'ge' ? 'Loading catalog courses…' : 'Searching…'}
+              </p>
+            ) : (
+              <div className="sb-course-pool sb-course-pool-scroll sb-catalog-results sb-catalog-results-unified">
+                {poolHits.length === 0 ? (
+                  <span className="sb-pool-empty">
+                    {poolSector === 'ge'
+                      ? 'No courses match this filter.'
+                      : poolSector === 'ud_req'
+                        ? poolDebounced.trim()
+                          ? 'No matching UD required courses.'
+                          : 'Search UD requirements'
+                        : poolDebounced.trim()
+                          ? 'No matching UD elective courses.'
+                          : 'Search elective pools'}
+                  </span>
+                ) : (
+                  poolHits.map((row) => {
+                    const offered = offeredNorms?.has(normKey(row.course_norm)) ?? false
+                    return (
+                      <div key={row.course_norm} className="sb-pool-chip-row sb-ge-result-row">
+                        <div className="sb-ge-result-meta">
+                          <span className="sb-course-chip ghost">{row.course_norm}</span>
+                          <span className="sb-ge-result-title">{row.title || '—'}</span>
+                          <span className={`sb-ge-offered-tag ${offered ? 'yes' : 'no'}`}>
+                            {offered ? 'In import' : 'Not in import'}
+                          </span>
+                        </div>
+                        {poolSector === 'ge' && (
+                          <>
+                            <button
+                              type="button"
+                              className="sb-pool-mini"
+                              onClick={() => addOptionalFromCatalog(row.course_norm)}
+                            >
+                              + elective
+                            </button>
+                            <button
+                              type="button"
+                              className="sb-pool-mini"
+                              onClick={() => addRequiredFromCatalog(row.course_norm)}
+                            >
+                              + must take
+                            </button>
+                          </>
+                        )}
+                        {poolSector === 'ud_req' && (
+                          <>
+                            <button
+                              type="button"
+                              className="sb-pool-mini sb-pool-mini-primary"
+                              onClick={() => addRequiredFromCatalog(row.course_norm)}
+                            >
+                              + must take
+                            </button>
+                            <button
+                              type="button"
+                              className="sb-pool-mini"
+                              onClick={() => addOptionalFromCatalog(row.course_norm)}
+                            >
+                              + elective
+                            </button>
+                          </>
+                        )}
+                        {poolSector === 'ud_elec' && (
+                          <>
+                            <button
+                              type="button"
+                              className="sb-pool-mini sb-pool-mini-primary"
+                              onClick={() => addOptionalFromCatalog(row.course_norm)}
+                            >
+                              + elective
+                            </button>
+                            <button
+                              type="button"
+                              className="sb-pool-mini"
+                              onClick={() => addRequiredFromCatalog(row.course_norm)}
+                            >
+                              + must take
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    )
+                  })
+                )}
+              </div>
+            ))}
         </div>
       </section>
 
-      {majorDerived && (
-        <section className="sb-pane">
-          <h2 className="sb-pane-title">Courses in the pool</h2>
-          <div className="sb-course-pool">
+      <section className="sb-pane sb-your-pool-pane">
+        <div className="sb-pane-title-row">
+          <h2 className="sb-pane-title">Your pool</h2>
+          {majorDerived ? (
+            <button type="button" className="sb-pool-mini" onClick={fillSuggestedFromMajor}>
+              Prefill from major sheet
+            </button>
+          ) : null}
+        </div>
+        <p className="sb-discovery-sub">
+          Courses the optimizer may schedule — adjust must vs elective, skip electives for this run, or remove.
+        </p>
+        {requiredCourses.length === 0 && optionalCourses.length === 0 ? (
+          <p className="sb-discovery-meta">
+            Pool is empty. Use Discover above (<strong>+ must take</strong> / <strong>+ elective</strong>) to add courses.
+          </p>
+        ) : (
+          <div className="sb-your-pool-list">
             {requiredCourses.map((c) => (
-              <span key={c} className="sb-course-chip required">
-                {c} <small>required</small>
-              </span>
+              <div key={`req-${c}`} className="sb-pool-chip-row sb-ge-result-row">
+                <div className="sb-ge-result-meta">
+                  <span className="sb-course-chip required">{c}</span>
+                  <span className="sb-ge-result-title">Must schedule</span>
+                </div>
+                <button type="button" className="sb-pool-mini" onClick={() => demoteToElective(c)}>
+                  → elective
+                </button>
+                <button type="button" className="sb-pool-mini" onClick={() => removeFromPool(c)}>
+                  remove
+                </button>
+              </div>
             ))}
-            {optionalCourses.map((c) => (
-              <button
-                key={c}
-                className={`sb-course-chip ${excludedCourses.has(c) ? 'excluded' : 'optional'}`}
-                onClick={() => {
-                  const n = new Set(excludedCourses)
-                  if (n.has(c)) n.delete(c); else n.add(c)
-                  setExcludedCourses(n)
-                }}
-              >
-                {c} <small>{excludedCourses.has(c) ? 'skip' : 'elective'}</small>
-              </button>
-            ))}
+            {optionalCourses.map((c) => {
+              const skipped = excludedCourses.has(c)
+              return (
+                <div key={`opt-${c}`} className="sb-pool-chip-row sb-ge-result-row">
+                  <div className="sb-ge-result-meta">
+                    <span className={`sb-course-chip ${skipped ? 'excluded' : 'optional'}`}>{c}</span>
+                    <span className="sb-ge-result-title">
+                      {skipped ? 'Skipped for this optimization run' : 'Elective'}
+                    </span>
+                  </div>
+                  <button type="button" className="sb-pool-mini" onClick={() => toggleExcludeElective(c)}>
+                    {skipped ? 'include in run' : 'skip this run'}
+                  </button>
+                  <button
+                    type="button"
+                    className="sb-pool-mini"
+                    onClick={() => promoteFromElectiveToRequired(c)}
+                  >
+                    ↑ must take
+                  </button>
+                  <button type="button" className="sb-pool-mini" onClick={() => removeFromPool(c)}>
+                    remove
+                  </button>
+                </div>
+              )
+            })}
           </div>
-        </section>
-      )}
+        )}
+      </section>
+
+      <section className="sb-pane sb-saved-pane" aria-labelledby="sb-saved-heading">
+        <h2 id="sb-saved-heading" className="sb-pane-title">
+          Saved schedule history
+        </h2>
+        <p className="sb-discovery-sub">
+          Schedules you saved from optimize runs. Open one to preview the full calendar and details again.
+        </p>
+        {savedLoading ? (
+          <p className="sb-discovery-meta">Loading saved schedules…</p>
+        ) : null}
+        {savedErr ? (
+          <p className="sb-discovery-meta sb-discovery-meta-warn" role="status">
+            {savedErr}
+            {savedErr.includes('saved_schedules') || savedErr.includes('relation') ? (
+              <>
+                {' '}
+                Apply migration <code className="sb-code">backend/supabase/007_saved_schedules.sql</code> in the
+                Supabase SQL editor.
+              </>
+            ) : null}
+          </p>
+        ) : null}
+        {!savedLoading && !savedErr && savedRows.length === 0 ? (
+          <p className="sb-discovery-meta">Nothing saved yet — run Optimize and use “Save to history” in the results.</p>
+        ) : null}
+        {savedRows.length > 0 ? (
+          <ul className="sb-saved-list">
+            {savedRows.map((row) => (
+              <li key={row.id} className="sb-saved-row">
+                <button
+                  type="button"
+                  className="sb-saved-open"
+                  onClick={() => {
+                    setResultsModalCandidates([row.candidate])
+                    setResultsQuarterCode(row.quarter_code)
+                    setResultsQuarterLabel(row.label?.trim() || quarterLabelFromCode(row.quarter_code))
+                    setResultsModalOpen(true)
+                  }}
+                >
+                  <span className="sb-saved-label">{row.label ?? quarterLabelFromCode(row.quarter_code)}</span>
+                  <span className="sb-saved-meta">
+                    {row.score != null ? row.score.toFixed(3) : '—'} ·{' '}
+                    {row.total_units != null ? `${row.total_units}u` : '—'} ·{' '}
+                    {new Date(row.created_at).toLocaleDateString()}
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  className="sb-saved-remove"
+                  aria-label="Remove from history"
+                  onClick={() => {
+                    if (!user) return
+                    void deleteSavedSchedule(user.id, row.id).then(() => refreshSavedSchedules())
+                  }}
+                >
+                  ×
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </section>
 
       <AnimatePresence mode="wait">
         {error && (
@@ -561,205 +1081,38 @@ export function Schedule() {
             className="sb-empty-result"
           >
             <h2 className="sb-pane-title">No feasible schedules</h2>
-            <p>
-              The solver returned <strong>zero</strong> schedules. Typical causes: target units (min/max) can’t be met
-              with your pool; every section conflicts on the calendar; required courses have no rows in Supabase for{' '}
-              <code className="sb-code">{QUARTER_CODE}</code>; or you excluded every elective you needed for units.
-            </p>
+            {optimizeNotes.length > 0 ? (
+              <ul className="sb-empty-notes">
+                {optimizeNotes.map((n, i) => (
+                  <li key={i}>{n}</li>
+                ))}
+              </ul>
+            ) : (
+              <p>
+                The solver returned <strong>zero</strong> schedules. Typical causes: target units (min/max) can’t be met
+                with your pool; overlapping meetings between courses; missing rows in <code className="sb-code">sections</code>{' '}
+                for <code className="sb-code">{scheduleQuarter || 'this quarter'}</code>; or filters that remove every section (times/days).
+              </p>
+            )}
             <p className="sb-hint">
-              Try widening <strong>target units</strong>, relaxing times/days, un-excluding electives, or confirm{' '}
-              <code className="sb-code">07_load_to_supabase.py</code> loaded sections for these courses.
+              Adjust <Link to="/settings?tab=preferences">Schedule optimizer</Link> preferences (unit band, hours,
+              weekdays), add electives if you need more units, or verify imported sections match your course codes.
             </p>
           </motion.section>
         )}
       </AnimatePresence>
 
-      <OptimizeResultsModal
+      <ScheduleOptimizeResults
         open={resultsModalOpen}
         onClose={closeResultsModal}
-        candidates={candidates}
+        candidates={resultsModalCandidates}
+        quarterCode={resultsQuarterCode}
+        quarterLabel={resultsQuarterLabel}
+        courseGrades={courseGrades}
+        cumulativeGpa={cumulativeGpa}
+        userId={user?.id ?? ''}
+        onSaved={() => void refreshSavedSchedules()}
       />
     </div>
-  )
-}
-
-function OptimizeResultsModal({
-  open,
-  onClose,
-  candidates,
-}: {
-  open: boolean
-  onClose: () => void
-  candidates: ScheduleCandidate[]
-}) {
-  return (
-    <AnimatePresence>
-      {open && candidates.length > 0 && (
-        <motion.div
-          className="sb-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="sb-modal-title"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          onClick={onClose}
-        >
-          <motion.div
-            className="sb-modal"
-            initial={{ opacity: 0, y: 24, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.98 }}
-            transition={{ type: 'spring', damping: 26, stiffness: 320 }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <header className="sb-modal-head">
-              <div>
-                <h2 id="sb-modal-title" className="sb-modal-title">
-                  Top {candidates.length} schedules
-                </h2>
-                <p className="sb-modal-sub">
-                  Week view + predicted grades, Nexus historical GPA where available, and Rate My Professor fields.
-                </p>
-              </div>
-              <button type="button" className="sb-modal-close" onClick={onClose}>
-                Close
-              </button>
-            </header>
-            <div className="sb-modal-scroll">
-              <div className="sb-cand-grid">
-                {candidates.map((cand, i) => (
-                  <CandidateCard key={i} rank={i + 1} cand={cand} />
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  )
-}
-
-function Weight({
-  label,
-  value,
-  onChange,
-}: {
-  label: string
-  value: number
-  onChange: (n: number) => void
-}) {
-  return (
-    <label className="sb-weight">
-      <div className="sb-weight-head">
-        <span>{label}</span>
-        <span className="sb-weight-val">{(value * 100).toFixed(0)}%</span>
-      </div>
-      <input
-        type="range"
-        min={0}
-        max={1}
-        step={0.05}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-      />
-    </label>
-  )
-}
-
-function CandidateCard({ rank, cand }: { rank: number; cand: ScheduleCandidate }) {
-  const avgGpa =
-    cand.sections.filter((s) => s.predicted_gpa !== null).reduce(
-      (a, s) => a + (s.predicted_gpa ?? 0),
-      0,
-    ) / Math.max(1, cand.sections.filter((s) => s.predicted_gpa !== null).length)
-  return (
-    <motion.article
-      className="sb-cand"
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: rank * 0.05 }}
-    >
-      <header className="sb-cand-head">
-        <span className="sb-cand-rank">#{rank}</span>
-        <div>
-          <div className="sb-cand-score">{cand.score.toFixed(3)}</div>
-          <div className="sb-cand-sub">
-            {cand.total_units}u · predicted GPA ≈ {avgGpa.toFixed(2)}
-          </div>
-        </div>
-      </header>
-
-      <CalendarWeekGrid sections={cand.sections} />
-
-      <ul className="sb-cand-sections">
-        {cand.sections.map((s) => (
-          <SectionRow key={s.enroll_code} s={s} />
-        ))}
-      </ul>
-    </motion.article>
-  )
-}
-
-function SectionRow({ s }: { s: SectionPick }) {
-  const regime = s.regime ?? '—'
-  const sigma =
-    s.predicted_gpa_std != null && s.predicted_gpa_std !== undefined
-      ? s.predicted_gpa_std.toFixed(3)
-      : '—'
-  const band =
-    s.gpa_lo != null && s.gpa_hi != null
-      ? `[${s.gpa_lo.toFixed(2)}, ${s.gpa_hi.toFixed(2)}]`
-      : '—'
-  const tip = `Regime: ${regime}. Interval is symmetric around μ (conformal or Gaussian fallback). σ is test RMSE bucket — see MODEL_CARD.`
-
-  const courseHist =
-    s.course_hist_avg_gpa != null && s.course_hist_avg_gpa !== undefined
-      ? `Course avg ${s.course_hist_avg_gpa.toFixed(2)}${s.course_hist_n_letter != null ? ` · n=${s.course_hist_n_letter}` : ''}`
-      : null
-  const pairHist =
-    s.pair_hist_avg_gpa != null && s.pair_hist_avg_gpa !== undefined
-      ? `This instructor · course ${s.pair_hist_avg_gpa.toFixed(2)}${s.pair_hist_n_letter != null ? ` · n=${s.pair_hist_n_letter}` : ''}`
-      : null
-
-  const rmpExtra =
-    s.rmp_rating != null && s.rmp_rating !== undefined
-      ? [
-          `RMP ${s.rmp_rating.toFixed(1)}`,
-          s.rmp_num_ratings != null ? `${s.rmp_num_ratings} ratings` : null,
-          s.rmp_difficulty != null ? `diff ${s.rmp_difficulty.toFixed(1)}` : null,
-        ]
-          .filter(Boolean)
-          .join(' · ')
-      : null
-
-  return (
-    <li className="sb-sec">
-      <div className="sb-sec-main">
-        <span className="sb-sec-code">{s.course_norm}</span>
-        <span className="sb-sec-prof">{s.instructor_norm ?? 'TBA'}</span>
-      </div>
-      <div className="sb-sec-meta" title={tip}>
-        <span>{s.days ?? 'TBA'}</span>
-        <span>
-          {s.begin_time ?? '—'}–{s.end_time ?? '—'}
-        </span>
-        {s.predicted_gpa !== null && (
-          <span className="sb-sec-gpa">μ {s.predicted_gpa?.toFixed(2)}</span>
-        )}
-        <span className="sb-sec-band" title={tip}>
-          {band}
-        </span>
-        <span className="sb-sec-regime">{regime}</span>
-        <span className="sb-sec-sigma">σ {sigma}</span>
-        {rmpExtra && <span className="sb-sec-rmp">{rmpExtra}</span>}
-      </div>
-      {(courseHist || pairHist) && (
-        <div className="sb-sec-hist">
-          {courseHist && <span>{courseHist} (Nexus distributions)</span>}
-          {pairHist && <span>{pairHist}</span>}
-        </div>
-      )}
-    </li>
   )
 }

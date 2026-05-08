@@ -6,6 +6,7 @@
 import { getMajorById, type Major } from '../data/majors'
 import { toCourseNorm } from './course-norm'
 import { buildPersonalizationFromMajors } from './explorer-personalize'
+import { buildSatisfiedCourseSet } from './satisfied-courses'
 
 export const STUDENT_BUNDLE_SCHEMA_VERSION = 'v1' as const
 
@@ -128,9 +129,9 @@ export function buildStudentBundle(profile: ProfileRow | null | undefined): Stud
 
   const pers = buildPersonalizationFromMajors(majorIds)
   const needed = pers.neededCourseNorms
-  const completedSet = new Set(completedCourseNorms)
+  const satisfiedIncludingAp = buildSatisfiedCourseSet(completedCourseNorms, apCredits)
   let overlap = 0
-  for (const c of completedSet) {
+  for (const c of satisfiedIncludingAp) {
     if (needed.has(c)) overlap += 1
   }
 
@@ -149,7 +150,7 @@ export function buildStudentBundle(profile: ProfileRow | null | undefined): Stud
     graphEdges.push(e)
   }
 
-  for (const c of completedCourseNorms) {
+  for (const c of satisfiedIncludingAp) {
     push({ type: 'completed', from: 'student', to: c })
   }
   for (const c of inProgressCourseNorms) {

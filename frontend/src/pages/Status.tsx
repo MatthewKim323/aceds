@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { api, type StatusPayload, API_BASE } from '../lib/api'
+import { EASE_OUT, fadeUp, prefersReducedMotion } from '../lib/motion'
 
 export function Status() {
   const [data, setData] = useState<StatusPayload | null>(null)
@@ -25,9 +26,16 @@ export function Status() {
     return () => clearInterval(id)
   }, [])
 
+  const reduced = prefersReducedMotion()
+
   return (
-    <div className="st">
-      <header className="st-header">
+    <motion.div
+      className="st"
+      initial={reduced ? false : { opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: reduced ? 0 : 0.4, ease: EASE_OUT }}
+    >
+      <motion.header className="st-header" {...fadeUp(reduced)}>
         <div>
           <Link to="/dashboard" className="st-back">&larr; dashboard</Link>
           <h1 className="st-title">System Status</h1>
@@ -41,7 +49,7 @@ export function Status() {
             {error ? 'disconnected' : data ? 'operational' : 'connecting…'}
           </span>
         </div>
-      </header>
+      </motion.header>
 
       {error && (
         <div className="st-error">
@@ -78,9 +86,13 @@ export function Status() {
                   {data.refresh_log.map((r, i) => (
                     <motion.tr
                       key={`${r.ran_at}-${i}`}
-                      initial={{ opacity: 0, y: 4 }}
+                      initial={reduced ? false : { opacity: 0, y: 4 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: i * 0.03 }}
+                      transition={{
+                        delay: reduced ? 0 : Math.min(i, 20) * 0.03,
+                        duration: reduced ? 0 : 0.35,
+                        ease: EASE_OUT,
+                      }}
                     >
                       <td className="mono">{r.source}</td>
                       <td className="mono num">{r.rows.toLocaleString()}</td>
@@ -131,7 +143,7 @@ export function Status() {
           )}
         </>
       )}
-    </div>
+    </motion.div>
   )
 }
 

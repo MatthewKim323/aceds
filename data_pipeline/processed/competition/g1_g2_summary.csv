@@ -1,0 +1,4 @@
+metric,value,notes
+runs_in_sample,7,last_500_desc
+g2_pct_with_bundle_digest,0.00,runs where student_evidence_bundle_sha256 IS populated
+g1_pct_with_client_server_diff,0.00,runs where grounding.completed_merge_symmetric_diff_count > 0

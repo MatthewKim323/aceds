@@ -91,6 +91,7 @@ class OptimizeRequest(BaseModel):
 class SectionPick(BaseModel):
     enroll_code: str
     course_norm: str
+    section_label: str | None = None
     instructor_norm: str | None
     days: str | None
     begin_time: str | None
@@ -123,3 +124,7 @@ class OptimizeResponse(BaseModel):
     candidates: list[ScheduleCandidate]
     model_version: str = Field(default="unknown")
     conformal_method: str = Field(default="unknown")
+    optimize_notes: list[str] = Field(
+        default_factory=list,
+        description="Human hints when candidates are empty (units window, missing sections, etc.)",
+    )

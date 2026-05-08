@@ -29,6 +29,38 @@ async def list_sections(
     return {"items": res.data or [], "total": res.count or 0, "limit": limit, "offset": offset}
 
 
+@router.get("/distinct-course-norms")
+async def distinct_course_norms(
+    quarter: str = Query(..., description="Quarter code, e.g. 20262"),
+):
+    """Unique course_norm values that have at least one section row this quarter (schedule optimizer scope)."""
+    sb = get_supabase()
+    seen: set[str] = set()
+    offset = 0
+    page = 1000
+    while True:
+        res = (
+            sb.table("sections")
+            .select("course_norm")
+            .eq("quarter_code", quarter)
+            .order("course_norm")
+            .range(offset, offset + page - 1)
+            .execute()
+        )
+        rows = res.data or []
+        if not rows:
+            break
+        for r in rows:
+            cn = r.get("course_norm")
+            if cn:
+                seen.add(cn)
+        if len(rows) < page:
+            break
+        offset += page
+    norms = sorted(seen)
+    return {"quarter_code": quarter, "course_norms": norms, "n": len(norms)}
+
+
 @router.get("/{enroll_code}")
 async def get_section(enroll_code: str, quarter: str = Query(...)):
     sb = get_supabase()

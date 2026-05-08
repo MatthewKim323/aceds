@@ -12,7 +12,11 @@ async def grade_trend(course_norm: str = Query(...)):
     sb = get_supabase()
     res = (
         sb.table("grade_distributions")
-        .select("year,quarter,instructor_norm,avg_gpa,n_letter")
+        .select(
+            "year,quarter,instructor_norm,avg_gpa,n_letter,"
+            "a_count,b_count,c_count,d_count,f_count,p_count,np_count,"
+            "grade_breakdown_json"
+        )
         .eq("course_norm", course_norm)
         .order("year", desc=False)
         .order("quarter")
